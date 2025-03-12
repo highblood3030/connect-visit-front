@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Management System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+  <!-- Navbar with Interactions -->
+  <nav class="bg-blue-900 text-white shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <img src="images/logo.png" alt="School Logo" class="h-16 w-auto hover:scale-110 transition-transform duration-300">
+        <h1 class="font-bold text-lg">St. Christopher Montessori School</h1>
+      </div>
+      <div class="space-x-6 hidden md:flex">
+        <a href="#home" class="hover:underline hover:text-gray-300 transition">Home</a>
+        <a href="#courses" class="hover:underline hover:text-gray-300 transition">Courses</a>
+        <a href="#announcements" class="hover:underline hover:text-gray-300 transition">Announcements</a>
+        <a href="#contact" class="hover:underline hover:text-gray-300 transition">Contact</a>
+        <a href="login.html" class="hover:underline hover:text-gray-300 transition">Login</a> <!-- ✅ Link to login.html -->
+      </div>
+    </div>
+  </nav>
+  
+
+  <!-- Hero Section -->
+  <section id="home" class="h-[400px] flex items-center justify-center bg-gradient-to-r from-blue-200 to-gray-100 text-gray-900">
+    <div class="text-center space-y-6 animate-fade-in-up">
+      <h2 class="text-4xl font-bold">Welcome to SCMS</h2>
+      <p class="text-lg">Empowering students through excellence in education.</p>
+      <a href="#courses" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full transition-transform transform hover:scale-110 active:scale-90 shadow-lg">Get Started</a>
+    </div>
+  </section>
+
+  <!-- Courses Section -->
+  <section id="courses" class="py-16">
+    <h2 class="text-3xl font-bold text-center mb-10 animate-fade-in-up">Courses Offered</h2>
+    <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-4">
+      <!-- Course Card -->
+      <div class="bg-gray-100 rounded-lg shadow-lg p-6 text-center space-y-3 transform hover:scale-105 hover:shadow-2xl transition-all duration-300 animate-fade-in-up">
+        <h3 class="font-bold text-xl">ABM</h3>
+        <p>Accountancy, Business and Management</p>
+      </div>
+      <div class="bg-gray-100 rounded-lg shadow-lg p-6 text-center space-y-3 transform hover:scale-105 hover:shadow-2xl transition-all duration-300 animate-fade-in-up">
+        <h3 class="font-bold text-xl">HUMSS</h3>
+        <p>Humanities and Social Sciences</p>
+      </div>
+      <div class="bg-gray-100 rounded-lg shadow-lg p-6 text-center space-y-3 transform hover:scale-105 hover:shadow-2xl transition-all duration-300 animate-fade-in-up">
+        <h3 class="font-bold text-xl">STEM</h3>
+        <p>Science, Technology, Engineering, and Mathematics</p>
+      </div>
+      <div class="bg-gray-100 rounded-lg shadow-lg p-6 text-center space-y-3 transform hover:scale-105 hover:shadow-2xl transition-all duration-300 animate-fade-in-up">
+        <h3 class="font-bold text-xl">ICT</h3>
+        <p>Information and Communication Technology</p>
+      </div>
+      <div class="bg-gray-100 rounded-lg shadow-lg p-6 text-center space-y-3 transform hover:scale-105 hover:shadow-2xl transition-all duration-300 animate-fade-in-up">
+        <h3 class="font-bold text-xl">GAS</h3>
+        <p>General Academic Strand</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Announcements -->
+  <section id="announcements" class="py-16 bg-blue-100">
+    <h2 class="text-3xl font-bold text-center mb-8 animate-fade-in-up">Announcements</h2>
+    <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg animate-fade-in-up">
+      <h3 class="font-semibold text-2xl mb-4">Important Announcement</h3>
+      <p>SCMS SHS Department is offering TVL: Information and Communications Technology (Computer Systems Servicing NCII). More programs in 2025-2026. Please be guided.</p>
+    </div>
+  </section>
+
+  <!-- Contact Us -->
+  <section id="contact" class="py-16">
+    <h2 class="text-3xl font-bold text-center mb-8 animate-fade-in-up">Contact Us</h2>
+    <div class="max-w-xl mx-auto text-center space-y-4">
+      <p class="text-lg"><i class="fas fa-phone-alt text-red-500"></i> 09665394173 - Patrick Ian Faller</p>
+      <a href="#" class="inline-block bg-green-600 text-white px-8 py-3 rounded-full hover:bg-green-700 transition shadow-lg transform hover:scale-105">Message Us</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-blue-900 text-white py-6">
+    <div class="text-center space-y-2">
+      <p>&copy; 2024 ST. CHRISTOPHER MONTESSORI SCHOOL OF SANTA ROSA, INC. All rights reserved.</p>
+      <p>77 J.P Rizal St., Mabini, Santa Rosa, Nueva Ecija 3101</p>
+      <p>Fair Use and Disclaimer Notice</p>
+    </div>
+  </footer>
+
+  <!-- FontAwesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <!-- Custom Animations -->
+  <style>
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-up {
+      animation: fade-in-up 1s ease-out both;
+    }
+  </style>
+
+</body>
+</html>

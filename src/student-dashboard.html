@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard | School Management System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <!-- ✅ Navbar (Themed) -->
+  <nav class="bg-blue-900 text-white px-6 py-4 shadow-lg">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <!-- Logo and Title -->
+      <div class="flex items-center space-x-3">
+        <img src="images/logo.png" alt="School Logo" class="h-12 w-auto rounded">
+        <h1 class="text-xl font-bold">SCMS Student Dashboard</h1>
+      </div>
+      <!-- Logout Button -->
+      <a href="index.html"
+         class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition shadow">
+        Logout
+      </a>
+    </div>
+  </nav>
+
+  <!-- ✅ Hero Section (Welcome) -->
+  <header class="bg-gradient-to-r from-blue-200 to-blue-500 text-white text-center py-16 shadow-inner">
+    <h2 class="text-4xl font-bold mb-4">Welcome to Your Dashboard!</h2>
+    <p class="text-lg">Stay updated with announcements and manage your courses.</p>
+  </header>
+
+  <!-- ✅ Main Dashboard Content -->
+  <main class="flex-grow max-w-7xl mx-auto px-6 py-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Card Example 1 -->
+      <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition border border-gray-200">
+        <h3 class="font-bold text-xl mb-3 text-primary">📚 My Courses</h3>
+        <p class="text-gray-600">Access your enrolled courses and learning materials.</p>
+        <a href="#" class="mt-4 inline-block bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">View Courses</a>
+      </div>
+
+      <!-- Card Example 2 -->
+      <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition border border-gray-200">
+        <h3 class="font-bold text-xl mb-3 text-primary">📢 Announcements</h3>
+        <p class="text-gray-600">Check out the latest school announcements and updates.</p>
+        <a href="#" class="mt-4 inline-block bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">View Announcements</a>
+      </div>
+
+      <!-- Card Example 3 -->
+      <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition border border-gray-200">
+        <h3 class="font-bold text-xl mb-3 text-primary">📅 Calendar</h3>
+        <p class="text-gray-600">Stay on track with upcoming events and activities.</p>
+        <a href="#" class="mt-4 inline-block bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">View Calendar</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ✅ Footer (Themed) -->
+  <footer class="bg-blue-900 text-white text-center py-4">
+    <p>&copy; 2024 ST. CHRISTOPHER MONTESSORI SCHOOL OF SANTA ROSA, INC. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
