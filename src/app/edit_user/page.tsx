@@ -35,7 +35,7 @@ export default function EditUser() {
 
         {/* Main Content */}
         <main className="flex-1 p-8 overflow-y-auto">
-          <h1 className="text-4xl font-extrabold text-[#145C5B] mb-6">MY INFORMATION</h1>
+          <h1 className="text-4xl font-extrabold text-[#145C5B] mb-6">MY iNFORMATION</h1>
 
           {/* Tabs Section */}
           <div className="flex space-x-10 border-b-2 border-gray-300 mb-8">
