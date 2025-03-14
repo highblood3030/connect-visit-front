@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import { FiMenu, FiLogOut } from "react-icons/fi";
+import React from "react";
+import { FiMenu } from "react-icons/fi";
 import {
   AiOutlineAppstore,
   AiOutlineFileImage,
@@ -10,70 +10,34 @@ import {
 import { HiOutlineDocumentText } from "react-icons/hi";
 
 export default function EditUser() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className="min-h-screen bg-[#E8F1F2] flex flex-col relative">
+    <div className="min-h-screen bg-[#E8F1F2] flex flex-col">
       {/* Top Navbar */}
       <nav className="bg-[#91C8C4] text-white flex justify-between items-center h-16 px-6 shadow-lg">
         <div className="flex items-center space-x-3">
-          <button onClick={() => setSidebarOpen(true)} className="focus:outline-none">
-            <FiMenu className="text-3xl text-[#145C5B] hover:scale-110 transition-transform" />
-          </button>
-          <h1 className="text-xl font-bold text-[#145C5B]">ConneQ</h1>
+          <FiMenu className="text-2xl text-[#145C5B] hover:scale-110 transition-transform" />
+          <h1 className="text-xl font-bold text-[#145C5B]"></h1>
         </div>
         <div>
           <img src="/Q.png" alt="Q Logo" className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-md" />
         </div>
       </nav>
 
-      {/* Slide-out Sidebar */}
-      <div className={`fixed top-0 left-0 h-full w-72 bg-[#B7E0DA] p-6 shadow-lg transition-transform duration-500 z-50 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
-        {/* Profile Section */}
-        <div className="flex flex-col items-center space-y-2">
-          <img src="/dp.jpg" alt="Profile" className="w-24 h-24 rounded-full border-4 border-white shadow-md" />
-          <h2 className="text-lg font-bold text-gray-700">Erika Faller</h2>
-          <p className="text-sm text-gray-600">ojt_fallere@dnl.com.ph</p>
-        </div>
-
-        {/* Navigation Links */}
-        <div className="mt-8 space-y-4 text-gray-700">
-          {["DASHBOARD", "CONNEQ-Biz", "CONNEQ-Page", "CONNEQ-Tag", "CONNEQ-Visit"].map((item, idx) => (
-            <div key={idx} className="flex items-center space-x-3 cursor-pointer hover:text-[#145C5B] transition-all">
-              <AiOutlineAppstore className="text-xl" />
-              <span>{item}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Logout */}
-        <div className="absolute bottom-6 left-6 flex items-center space-x-3 cursor-pointer text-red-500">
-          <FiLogOut className="text-xl" />
-          <span>Logout</span>
-        </div>
-      </div>
-
-      {/* Overlay */}
-      {sidebarOpen && (
-        <div onClick={() => setSidebarOpen(false)} className="fixed inset-0 bg-black bg-opacity-30 z-40 transition-opacity duration-500"></div>
-      )}
-
-      {/* Main Content with Sidebar */}
       <div className="flex flex-1">
-        {/* Vertical Small Sidebar */}
+        {/* Sidebar */}
         <aside className="w-16 bg-[#D7F0ED] text-[#145C5B] flex flex-col items-center py-8 space-y-6 border-r border-gray-300 shadow-xl">
-          <SidebarIcon><AiOutlineAppstore className="text-lg" /></SidebarIcon>
-          <SidebarIcon><AiOutlineFileImage className="text-lg" /></SidebarIcon>
-          <SidebarIcon><HiOutlineDocumentText className="text-lg" /></SidebarIcon>
-          <SidebarIcon><AiOutlineFileText className="text-lg" /></SidebarIcon>
-          <SidebarIcon><AiOutlineUser className="text-lg" /></SidebarIcon>
+        <SidebarIcon><AiOutlineAppstore className="text-lg" /></SidebarIcon>
+        <SidebarIcon><AiOutlineFileImage className="text-lg" /></SidebarIcon>
+        <SidebarIcon><HiOutlineDocumentText className="text-lg" /></SidebarIcon>
+        <SidebarIcon><AiOutlineFileText className="text-lg" /></SidebarIcon>
+        <SidebarIcon><AiOutlineUser className="text-lg" /></SidebarIcon>
         </aside>
 
-        {/* Main Form Content */}
+        {/* Main Content */}
         <main className="flex-1 p-8 overflow-y-auto">
           <h1 className="text-4xl font-extrabold text-[#145C5B] mb-6">MY INFORMATION</h1>
 
-          {/* Tabs */}
+          {/* Tabs Section */}
           <div className="flex space-x-10 border-b-2 border-gray-300 mb-8">
             {["PERSONAL INFORMATION", "CONTACT INFORMATION", "OFFICE ADDRESS", "SOCIAL MEDIA ACCOUNTS", "OTHERS"].map((tab, idx) => (
               <span
@@ -89,7 +53,63 @@ export default function EditUser() {
             ))}
           </div>
 
-          {/* --- Your form and preview content goes here --- */}
+          <div className="flex space-x-8">
+            {/* Left Form Section */}
+            <div className="flex-1 bg-white rounded-xl shadow-2xl p-8 backdrop-blur-lg border border-gray-200">
+              {/* Upload Photo */}
+              <div className="flex items-center space-x-4 mb-6">
+                <img src="/dp.jpg" alt="Profile" className="w-28 h-28 rounded-full object-cover shadow-lg" />
+                <div>
+                  <label className="font-semibold block text-gray-700">Upload Photo</label>
+                  <button className="bg-green-600 text-white px-5 py-2 rounded-lg mt-3 text-sm hover:bg-green-700 transition-all">
+                    Choose a file
+                  </button>
+                </div>
+              </div>
+
+              {/* Form Fields */}
+              <form className="space-y-6">
+                <div className="grid grid-cols-3 gap-4">
+                  {["First Name *", "Middle Name", "Last Name *"].map((placeholder, idx) => (
+                    <input key={idx} type="text" className="input-field" placeholder={placeholder} />
+                  ))}
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  {["Honorific Prefix", "Honorific Suffix"].map((placeholder, idx) => (
+                    <input key={idx} type="text" className="input-field" placeholder={placeholder} />
+                  ))}
+                </div>
+
+                <input type="text" className="input-field" placeholder="Job Title *" />
+                <input type="text" className="input-field bg-gray-100" value="D&L Industries, Inc." readOnly />
+                <input type="text" className="input-field bg-gray-100" value="D&L" readOnly />
+                <input type="text" className="input-field" placeholder="website.com without http://" />
+
+                {/* Privacy */}
+                <div className="flex items-start space-x-2">
+                  <input type="checkbox" className="mt-1" />
+                  <p className="text-sm text-gray-600">
+                    I confirm that I have read, understood, and agree with the{" "}
+                    <a href="#" className="text-blue-600 underline">Privacy Notice</a>.
+                  </p>
+                </div>
+
+                <div className="text-red-500 text-sm">Kindly confirm to data privacy policy to enable saving.</div>
+
+                <button type="submit" className="bg-[#145C5B] text-white px-8 py-3 rounded-lg hover:bg-[#0e4b4a] transition-all">
+                  Save
+                </button>
+              </form>
+            </div>
+
+            {/* Right Preview Section */}
+            <div className="w-[400px]">
+              <h2 className="text-2xl font-bold text-[#145C5B] mb-4">PREVIEW</h2>
+              <PreviewCard title="Email Signature" />
+              <PreviewCard title="Business Card" />
+            </div>
+          </div>
         </main>
       </div>
     </div>
@@ -100,5 +120,17 @@ export default function EditUser() {
 const SidebarIcon = ({ children }: { children: React.ReactNode }) => (
   <div className="p-4 rounded-full hover:bg-[#145C5B] hover:text-white cursor-pointer transition-all duration-300 transform hover:scale-110 shadow-sm">
     {children}
+  </div>
+);
+
+// Preview Card Component
+const PreviewCard = ({ title }: { title: string }) => (
+  <div className="flex flex-col items-center mb-8">
+    <h3 className="text-lg font-semibold text-gray-700 mb-2">{title}</h3>
+    <div className="relative w-[350px] h-[200px] bg-white rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-105 duration-300">
+      <img src="/Background-ESign.png" alt={`${title} background`} className="absolute inset-0 w-full h-full object-cover" />
+      <img src="/qr.png" alt="QR Code" className="absolute top-4 left-4 w-16 h-16 object-contain" />
+      <img src="/DNL-BC.png" alt="D&L Logo" className="absolute bottom-4 right-4 w-16 h-8 object-contain" />
+    </div>
   </div>
 );
