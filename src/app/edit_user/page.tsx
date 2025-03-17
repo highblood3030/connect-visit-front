@@ -1,19 +1,20 @@
 "use client";
-import { useState } from "react";
+
 import { FiMenu, FiLogOut, FiTag } from "react-icons/fi";
 import { AiOutlineAppstore, AiOutlineFileImage, AiOutlineFileText, AiOutlineUser } from "react-icons/ai";
 import { HiOutlineDocumentText } from "react-icons/hi";
 import { BsBuildings } from "react-icons/bs";
+import { useState, useRef } from "react";
 
 import PersonalInformation from "./PersonalInformation";
 import PreviewCard from "./PreviewCard";
 
 export default function EditUser() {
+  // ✅ HOOKS DECLARED INSIDE COMPONENT BODY
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [profileImage, setProfileImage] = useState("/profile-placeholder.png");
 
-  // ✅ FORM DATA STATE FOR LIVE PREVIEW
   const [formData, setFormData] = useState({
     firstName: "",
     middleName: "",
@@ -24,8 +25,40 @@ export default function EditUser() {
     company: "D&L Industries, Inc.",
     logo: "D&L",
     website: "",
-    email: "",
   });
+
+  // ✅ FORM REF FOR VALIDATION
+  const formRef = useRef<HTMLFormElement>(null);
+
+  // ✅ REQUIRED FIELD VALIDATION
+  const validatePersonalInformation = () => {
+    const { firstName, lastName, jobTitle } = formData;
+    if (!firstName.trim() || !lastName.trim() || !jobTitle.trim()) {
+      alert("⚠️ Please fill in First Name, Last Name, and Job Title before proceeding.");
+      return false;
+    }
+    return true;
+  };
+
+  // ✅ NEXT BUTTON HANDLER
+  const handleNextClick = () => {
+    if (activeTab === 0) {
+      if (validatePersonalInformation()) {
+        setActiveTab((prev) => prev + 1);
+      }
+    } else {
+      setActiveTab((prev) => prev + 1);
+    }
+  };
+
+  // ✅ IMAGE HANDLER
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setProfileImage(imageUrl);
+    }
+  };
 
   const tabs = [
     "PERSONAL INFORMATION",
@@ -34,14 +67,6 @@ export default function EditUser() {
     "SOCIAL MEDIA ACCOUNTS",
     "OTHERS",
   ];
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setProfileImage(imageUrl);
-    }
-  };
 
   const sidebarItems = [
     { label: "DASHBOARD", icon: <AiOutlineAppstore className="text-xl" /> },
@@ -125,14 +150,32 @@ export default function EditUser() {
                   handleImageChange={handleImageChange}
                   formData={formData}
                   setFormData={setFormData}
+                  formRef={formRef} // ✅ Ref passed here
                 />
               )}
 
               {/* Buttons */}
               <div className="flex justify-center space-x-6 mt-8">
-                <button className="bg-gray-500 text-white px-8 py-2 rounded-lg shadow hover:bg-gray-600 transition">Back</button>
-                <button className="bg-gray-800 text-white px-8 py-2 rounded-lg shadow hover:bg-gray-900 transition">Next</button>
-                <button className="bg-[#145C5B] text-white px-8 py-2 rounded-lg shadow hover:bg-[#104746] transition">Save</button>
+                <button
+                  className="bg-gray-500 text-white px-8 py-2 rounded-lg shadow hover:bg-gray-600 transition"
+                  type="button"
+                  onClick={() => setActiveTab((prev) => Math.max(prev - 1, 0))}
+                >
+                  Back
+                </button>
+                <button
+                  className="bg-gray-800 text-white px-8 py-2 rounded-lg shadow hover:bg-gray-900 transition"
+                  type="button"
+                  onClick={handleNextClick}
+                >
+                  Next
+                </button>
+                <button
+                  className="bg-[#145C5B] text-white px-8 py-2 rounded-lg shadow hover:bg-[#104746] transition"
+                  type="submit"
+                >
+                  Save
+                </button>
               </div>
             </div>
 
