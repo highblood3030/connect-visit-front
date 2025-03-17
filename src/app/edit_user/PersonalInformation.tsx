@@ -4,9 +4,16 @@ import React from "react";
 type Props = {
   profileImage: string;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  formData: any;
+  setFormData: (data: any) => void;
 };
 
-export default function PersonalInformation({ profileImage, handleImageChange }: Props) {
+export default function PersonalInformation({
+  profileImage,
+  handleImageChange,
+  formData,
+  setFormData,
+}: Props) {
   return (
     <form className="space-y-4">
       {/* Upload Photo */}
@@ -33,25 +40,74 @@ export default function PersonalInformation({ profileImage, handleImageChange }:
 
       {/* Input Fields */}
       <div className="grid grid-cols-3 gap-4">
-        <input type="text" className="input-field" placeholder="First Name *" />
-        <input type="text" className="input-field" placeholder="Middle Name" />
-        <input type="text" className="input-field" placeholder="Last Name *" />
+        <input
+          type="text"
+          className="input-field"
+          placeholder="First Name *"
+          value={formData.firstName}
+          onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+        />
+        <input
+          type="text"
+          className="input-field"
+          placeholder="Middle Name"
+          value={formData.middleName}
+          onChange={(e) => setFormData({ ...formData, middleName: e.target.value })}
+        />
+        <input
+          type="text"
+          className="input-field"
+          placeholder="Last Name *"
+          value={formData.lastName}
+          onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+        />
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <input type="text" className="input-field" placeholder="Honorific Prefix" />
-        <input type="text" className="input-field" placeholder="Honorific Suffix" />
+        <input
+          type="text"
+          className="input-field"
+          placeholder="Honorific Prefix"
+          value={formData.honorificPrefix}
+          onChange={(e) => setFormData({ ...formData, honorificPrefix: e.target.value })}
+        />
+        <input
+          type="text"
+          className="input-field"
+          placeholder="Honorific Suffix"
+          value={formData.honorificSuffix}
+          onChange={(e) => setFormData({ ...formData, honorificSuffix: e.target.value })}
+        />
       </div>
 
-      <input type="text" className="input-field" placeholder="Job Title *" />
+      <input
+        type="text"
+        className="input-field"
+        placeholder="Job Title *"
+        value={formData.jobTitle}
+        onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
+      />
+
       <input
         type="text"
         className="input-field bg-gray-100"
-        value="D&L Industries, Inc."
+        value={formData.company}
         readOnly
       />
-      <input type="text" className="input-field bg-gray-100" value="D&L" readOnly />
-      <input type="text" className="input-field" placeholder="Website (without http://)" />
+      <input
+        type="text"
+        className="input-field bg-gray-100"
+        value={formData.logo}
+        readOnly
+      />
+
+      <input
+        type="text"
+        className="input-field"
+        placeholder="Website (without http://)"
+        value={formData.website}
+        onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+      />
 
       {/* Privacy Notice */}
       <div className="space-y-2 text-sm text-gray-600 leading-relaxed">
@@ -65,28 +121,6 @@ export default function PersonalInformation({ profileImage, handleImageChange }:
             </a>
           </p>
         </div>
-      </div>
-
-      {/* Buttons */}
-      <div className="flex justify-between space-x-4 pt-4">
-        <button
-          type="button"
-          className="bg-gray-400 text-white px-6 py-2 rounded-lg hover:bg-gray-500"
-        >
-          Back
-        </button>
-        <button
-          type="button"
-          className="bg-gray-700 text-white px-6 py-2 rounded-lg hover:bg-gray-800"
-        >
-          Next
-        </button>
-        <button
-          type="submit"
-          className="bg-[#145C5B] text-white px-8 py-2 rounded-lg hover:bg-[#0e4b4a]"
-        >
-          Save
-        </button>
       </div>
     </form>
   );

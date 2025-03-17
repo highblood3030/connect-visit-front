@@ -5,13 +5,27 @@ import { AiOutlineAppstore, AiOutlineFileImage, AiOutlineFileText, AiOutlineUser
 import { HiOutlineDocumentText } from "react-icons/hi";
 import { BsBuildings } from "react-icons/bs";
 
-// Correct relative import of PersonalInformation component
 import PersonalInformation from "./PersonalInformation";
+import PreviewCard from "./PreviewCard";
 
 export default function EditUser() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [profileImage, setProfileImage] = useState("/profile-placeholder.png");
+
+  // ✅ FORM DATA STATE FOR LIVE PREVIEW
+  const [formData, setFormData] = useState({
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    honorificPrefix: "",
+    honorificSuffix: "",
+    jobTitle: "",
+    company: "D&L Industries, Inc.",
+    logo: "D&L",
+    website: "",
+    email: "",
+  });
 
   const tabs = [
     "PERSONAL INFORMATION",
@@ -86,7 +100,7 @@ export default function EditUser() {
           <h1 className="text-3xl font-extrabold text-[#145C5B] mb-6">MY INFORMATION</h1>
           <div className="flex space-x-8 h-full">
             {/* Form Section */}
-            <div className="w-[950px] bg-white rounded-xl shadow-2xl p-8 overflow-y-auto h-full">
+            <div className="w-[950px] bg-white rounded-xl shadow-2xl p-8 overflow-y-auto max-h-[80vh] min-h-[70vh]">
               {/* Tabs */}
               <div className="flex space-x-10 border-b-2 border-gray-300 mb-8">
                 {tabs.map((tab, idx) => (
@@ -104,18 +118,30 @@ export default function EditUser() {
                 ))}
               </div>
 
-              {/* Conditional Tabs Content */}
-              {activeTab === 0 && <PersonalInformation profileImage={profileImage} handleImageChange={handleImageChange} />}
-              {/* You can add the same logic for other tabs */}
+              {/* Form content */}
+              {activeTab === 0 && (
+                <PersonalInformation
+                  profileImage={profileImage}
+                  handleImageChange={handleImageChange}
+                  formData={formData}
+                  setFormData={setFormData}
+                />
+              )}
 
+              {/* Buttons */}
+              <div className="flex justify-center space-x-6 mt-8">
+                <button className="bg-gray-500 text-white px-8 py-2 rounded-lg shadow hover:bg-gray-600 transition">Back</button>
+                <button className="bg-gray-800 text-white px-8 py-2 rounded-lg shadow hover:bg-gray-900 transition">Next</button>
+                <button className="bg-[#145C5B] text-white px-8 py-2 rounded-lg shadow hover:bg-[#104746] transition">Save</button>
+              </div>
             </div>
 
             {/* Preview Section */}
             <div className="w-[450px] flex flex-col">
               <h2 className="text-3xl font-bold text-[#145C5B] mb-4">PREVIEW</h2>
               <div className="flex flex-col items-center space-y-8 ml-20">
-                <PreviewCard title="Email Signature" profileImage={profileImage} />
-                <PreviewCard title="Business Card" profileImage={profileImage} />
+                <PreviewCard title="Email Signature" profileImage={profileImage} formData={formData} />
+                <PreviewCard title="Business Card" profileImage={profileImage} formData={formData} />
               </div>
             </div>
           </div>
@@ -124,32 +150,3 @@ export default function EditUser() {
     </div>
   );
 }
-
-// Preview Card Component
-const PreviewCard = ({ title, profileImage }: { title: string; profileImage: string }) => (
-  <div className="flex flex-col items-center mb-8">
-    <h3 className="text-lg font-semibold text-gray-700 mb-2">{title}</h3>
-    <div className="relative w-[450px] h-[250px] bg-white rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-105 duration-300">
-      <img src="/Background-ESign.png" alt={`${title} background`} className="absolute inset-0 w-full h-full object-cover" />
-      {title === "Email Signature" && (
-        <>
-          <img src="/qr.png" alt="QR Code" className="absolute top-4 left-4 w-16 h-16 object-contain" />
-          <img src="/DNL-BC.png" alt="D&L Logo" className="absolute bottom-4 right-4 w-16 h-8 object-contain" />
-        </>
-      )}
-      {title === "Business Card" && (
-        <div className="relative w-full h-full">
-          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-24 h-24 rounded-full overflow-hidden border-4 border-[#145C5B] shadow-md">
-            <img src={profileImage} alt="Profile" className="object-cover w-full h-full" />
-          </div>
-          <div className="absolute bottom-16 w-full flex justify-center">
-            <button className="bg-[#145C5B] text-white px-6 py-2 rounded-lg">Save Contact</button>
-          </div>
-          <div className="absolute bottom-4 w-full flex justify-center">
-            <img src="/DNL-BC.png" alt="D&L Logo" className="w-20 h-10 object-contain" />
-          </div>
-        </div>
-      )}
-    </div>
-  </div>
-);
