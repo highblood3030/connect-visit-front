@@ -35,7 +35,10 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
             <div className="absolute top-6 right-6 text-right leading-tight">
               <p className="font-bold text-sm md:text-base">{fullName}</p>
               <p className="font-bold text-green-700 text-xs md:text-sm capitalize">{jobTitleCapitalized}</p>
+              <p className="font-bold text-red-500 text-xs md:text-sm capitalize">{formData.email || ""}</p>
               <p className="italic text-xs text-gray-600 break-words">{formData.website}</p>
+              <p className="font-bold text-black break-words">{formData?.phone || ""}</p>
+              <p className="font-bold text-black break-words">{formData?.altphone || ""}</p>
             </div>
           </>
         )}
@@ -44,6 +47,7 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
         {title === "Business Card" && (
           <div className="relative w-full h-full flex flex-col items-center justify-start px-4 py-4 space-y-2">
             <div className="w-24 h-24 md:w-28 md:h-28 rounded-full border-4 border-[#145C5B] overflow-hidden">
+              
               <img
                 src={profileImage}
                 alt="Profile"
@@ -53,6 +57,10 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
 
             <p className="font-bold text-base md:text-lg text-center">{fullName}</p>
             <p className="text-xs md:text-sm capitalize text-center">{jobTitleCapitalized}</p>
+              <p className="font-bold text-red-500 text-xs md:text-sm capitalize">{formData.email || ""}</p>
+              <p className="italic text-xs text-gray-600 break-words">{formData.website}</p>
+              <p className="font-bold text-black break-words">{formData?.phone || ""}</p>
+              <p className="font-bold text-black break-words">{formData?.altphone || ""}</p>
 
             {/* Email/Website Section */}
             <div className="flex items-center space-x-2 w-full mt-2 justify-center md:justify-start md:pl-6">

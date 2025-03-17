@@ -1,18 +1,41 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { FiMenu, FiLogOut } from "react-icons/fi";
 import { AiOutlineAppstore, AiOutlineFileImage, AiOutlineFileText, AiOutlineUser } from "react-icons/ai";
 import { HiOutlineDocumentText } from "react-icons/hi";
 
 import PersonalInformation from "./PersonalInformation";
+import ContactInformation from "./ContactInformation";
 import PreviewCard from "./PreviewCard";
+
+interface UserFormData {
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  honorificPrefix: string;
+  honorificSuffix: string;
+  jobTitle: string;
+  company: string;
+  logo: string;
+  website: string;
+  email: string;
+  phone: string;
+  officeAddress: string;
+  socialMedia: string;
+  others: string;
+  altPhone: string;  // ✅ Added altPhone
+
+  
+}
 
 export default function EditUser() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [profileImage, setProfileImage] = useState("/profile-placeholder.png");
+  const router = useRouter();
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<UserFormData>({
     firstName: "",
     middleName: "",
     lastName: "",
@@ -23,6 +46,14 @@ export default function EditUser() {
     logo: "D&L",
     website: "",
     email: "",
+    phone: "",
+    officeAddress: "",
+    socialMedia: "",
+    others: "",
+    altPhone: "",  // ✅ Added altPhone
+  
+   
+    
   });
 
   const tabs = [
@@ -33,8 +64,12 @@ export default function EditUser() {
     "OTHERS",
   ];
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
@@ -44,7 +79,6 @@ export default function EditUser() {
 
   return (
     <div className="min-h-screen bg-[#E8F1F2] flex flex-col text-black">
-      {/* Navbar */}
       <nav className="bg-[#91C8C4] flex justify-between items-center h-16 px-6 shadow-lg">
         <button onClick={() => setSidebarOpen(true)} className="md:hidden">
           <FiMenu className="text-3xl text-[#145C5B]" />
@@ -52,12 +86,8 @@ export default function EditUser() {
         <img src="/Q.png" alt="Q Logo" className="w-16 h-12" />
       </nav>
 
- 
-
-      {/* Overlay */}
       {sidebarOpen && <div onClick={() => setSidebarOpen(false)} className="fixed inset-0 bg-black bg-opacity-30 md:hidden"></div>}
 
-      {/* Main Layout */}
       <div className="flex flex-col md:flex-row flex-1">
         <aside className="hidden md:flex md:w-16 bg-[#D7F0ED] flex-col items-center py-8 space-y-6 shadow-xl">
           {[AiOutlineAppstore, AiOutlineFileImage, HiOutlineDocumentText, AiOutlineFileText, AiOutlineUser].map((Icon, idx) => (
@@ -71,7 +101,6 @@ export default function EditUser() {
           <h1 className="text-3xl font-extrabold text-[#145C5B] mb-6">MY INFORMATION</h1>
           <div className="flex flex-col lg:flex-row space-y-8 lg:space-x-8">
             <div className="w-full lg:w-2/3 bg-white rounded-xl shadow-xl p-6">
-              {/* Tabs */}
               <div className="flex flex-wrap gap-4 border-b-2 border-gray-300 pb-3">
                 {tabs.map((tab, idx) => (
                   <span
@@ -94,6 +123,7 @@ export default function EditUser() {
                   setFormData={setFormData}
                 />
               )}
+              {activeTab === 1 && <ContactInformation formData={formData} handleInputChange={handleInputChange} />}
 
               <div className="flex justify-center space-x-6 mt-6">
                 <button className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600">Back</button>
