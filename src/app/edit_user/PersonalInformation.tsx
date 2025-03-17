@@ -15,9 +15,9 @@ export default function PersonalInformation({
   setFormData,
 }: Props) {
   return (
-    <form className="space-y-4">
+    <form className="space-y-4 text-black">
       {/* Upload Photo */}
-      <div className="flex items-center space-x-6">
+      <div className="flex flex-col md:flex-row items-center space-x-0 md:space-x-6 space-y-4 md:space-y-0">
         <div className="w-28 h-28 rounded-full border border-gray-300 overflow-hidden">
           <img src={profileImage} alt="Profile" className="object-cover w-full h-full" />
         </div>
@@ -39,7 +39,7 @@ export default function PersonalInformation({
       </div>
 
       {/* Input Fields */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <input
           type="text"
           className="input-field"
@@ -63,7 +63,7 @@ export default function PersonalInformation({
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input
           type="text"
           className="input-field"
@@ -110,7 +110,7 @@ export default function PersonalInformation({
       />
 
       {/* Privacy Notice */}
-      <div className="space-y-2 text-sm text-gray-600 leading-relaxed">
+      <div className="space-y-2 text-sm leading-relaxed">
         <div className="flex items-start space-x-2">
           <input type="checkbox" className="mt-1" checked readOnly />
           <p>
