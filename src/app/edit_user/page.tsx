@@ -1,11 +1,10 @@
 "use client";
 
-
-import { FiMenu, FiLogOut, FiTag } from "react-icons/fi";
+import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { FiMenu } from "react-icons/fi";
 import { AiOutlineAppstore, AiOutlineFileImage, AiOutlineFileText, AiOutlineUser } from "react-icons/ai";
 import { HiOutlineDocumentText } from "react-icons/hi";
-import { BsBuildings } from "react-icons/bs";
-import { useState, useRef } from "react";
 
 import PersonalInformation from "./PersonalInformation";
 import ContactInformation from "./ContactInformation";
@@ -14,22 +13,20 @@ import OfficeAddress from "./OfficeAddress";
 import SocialMediaAccount from "./SocialMediaAccounts";
 import Others from "./Others";
 
-interface UserFormData {
+export interface UserFormData {
   firstName: string;
-  middleName: string;
+  middleName?: string;
   lastName: string;
-  honorificPrefix: string;
-  honorificSuffix: string;
+  honorificPrefix?: string;
+  honorificSuffix?: string;
   jobTitle: string;
   company: string;
-  logo: string;
-  website: string;
+  logo?: string;
+  website?: string;
   email: string;
   phone: string;
+  altPhone?: string;
   officeAddress: string;
-  socialMedia: string;
-  others: string;
-  altPhone: string;
   country: string;
   cityState: string;
   postalCode: string;
@@ -39,14 +36,13 @@ interface UserFormData {
 }
 
 export default function EditUser() {
-  // ✅ HOOKS DECLARED INSIDE COMPONENT BODY
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [profileImage, setProfileImage] = useState("/profile-placeholder.png");
   const router = useRouter();
+  const formRef = useRef<HTMLFormElement>(null!);
 
-  const [formData, setFormData] = useState({
-
+  const [formData, setFormData] = useState<UserFormData>({
     firstName: "",
     middleName: "",
     lastName: "",
@@ -56,22 +52,30 @@ export default function EditUser() {
     company: "D&L Industries, Inc.",
     logo: "D&L",
     website: "",
-
+    email: "",
+    phone: "",
+    altPhone: "",
+    officeAddress: "",
+    country: "",
+    cityState: "",
+    postalCode: "",
+    facebook: "",
+    linkedin: "",
+    note: "",
   });
 
-  // ✅ FORM REF FOR VALIDATION
-  const formRef = useRef<HTMLFormElement>(null);
+  const tabs = [
+    "PERSONAL INFORMATION",
+    "CONTACT INFORMATION",
+    "OFFICE ADDRESS",
+    "SOCIAL MEDIA ACCOUNTS",
+    "OTHERS",
+  ];
 
-  // ✅ REQUIRED FIELD VALIDATION
-  const validatePersonalInformation = () => {
-    const { firstName, lastName, jobTitle } = formData;
-    if (!firstName.trim() || !lastName.trim() || !jobTitle.trim()) {
-      alert("⚠️ Please fill in First Name, Last Name, and Job Title before proceeding.");
-      return false;
-    }
-    return true;
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -80,7 +84,6 @@ export default function EditUser() {
       setProfileImage(imageUrl);
     }
   };
-
 
   return (
     <div className="min-h-screen bg-[#E8F1F2] flex flex-col text-black">
@@ -126,16 +129,13 @@ export default function EditUser() {
                   handleImageChange={handleImageChange}
                   formData={formData}
                   setFormData={setFormData}
-                  formRef={formRef} // ✅ Ref passed here
+                  formRef={formRef}
                 />
               )}
               {activeTab === 1 && <ContactInformation formData={formData} handleInputChange={handleInputChange} />}
               {activeTab === 2 && <OfficeAddress formData={formData} handleInputChange={handleInputChange} />} 
               {activeTab === 3 && <SocialMediaAccount formData={formData} handleInputChange={handleInputChange} />}
               {activeTab === 4 && <Others formData={formData} handleInputChange={handleInputChange} />}
-
-
-              </div>
             </div>
 
             <div className="w-full lg:w-1/3 flex flex-col">

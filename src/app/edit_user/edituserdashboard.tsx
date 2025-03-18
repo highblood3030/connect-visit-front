@@ -16,6 +16,11 @@ export interface UserFormData {
       country: string;
       cityState: string;
       postalCode: string;
+    }
+
+      export interface UserFormData {
+        facebook: string;
+        linkedin: string;
      
 
   
