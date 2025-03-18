@@ -13,9 +13,9 @@ export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [conneqBizOpen, setConneqBizOpen] = useState(false); // Dropdown state
 
+  // ✅ FIX: Ensure DASHBOARD appears only once in this array
   const sidebarItems = [
     { label: "DASHBOARD", icon: <AiOutlineAppstore className="text-2xl" />, path: "/dashboard" },
-    { label: "CONNEQ-Biz", icon: <BsBuildings className="text-2xl" />, isSidebarTrigger: true },
     { label: "CONNEQ-Page", icon: <AiOutlineUser className="text-2xl" />, path: "/conneq-page" },
     { label: "CONNEQ-Tag", icon: <FiTag className="text-2xl" />, path: "/conneq-tag" },
     { label: "CONNEQ-Visit", icon: <HiOutlineDocumentText className="text-2xl" />, path: "/conneq-visit" },
@@ -49,16 +49,19 @@ export default function Dashboard() {
 
         {/* Sidebar Items */}
         <div className="mt-4 space-y-1 text-gray-700">
-          {/* DASHBOARD (Only in Sidebar) */}
-          <div
-            onClick={() => router.push("/dashboard")}
-            className="flex items-center space-x-3 px-4 py-3 cursor-pointer hover:bg-[#A9DCD6] rounded-lg transition"
-          >
-            <AiOutlineAppstore className="text-2xl" />
-            <span>DASHBOARD</span>
-          </div>
+          {/* ✅ FIX: Ensure DASHBOARD appears only once */}
+          {sidebarItems.map((item, idx) => (
+            <div
+              key={idx}
+              onClick={() => router.push(item.path)}
+              className="flex items-center space-x-3 px-4 py-3 cursor-pointer hover:bg-[#A9DCD6] rounded-lg transition"
+            >
+              {item.icon}
+              <span>{item.label}</span>
+            </div>
+          ))}
 
-          {/* CONNEQ-BIZ with Dropdown */}
+          {/* CONNEQ-BIZ with Dropdown (Appears only once) */}
           <div>
             <div
               onClick={() => setConneqBizOpen(!conneqBizOpen)}
@@ -93,20 +96,6 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-
-          {/* Other Menu Items */}
-          {sidebarItems
-            .filter((item) => item.label !== "DASHBOARD") // 🔥 Exclude DASHBOARD from main cards but keep in sidebar
-            .map((item, idx) => (
-              <div
-                key={idx}
-                onClick={() => router.push(item.path)}
-                className="flex items-center space-x-3 px-4 py-3 cursor-pointer hover:bg-[#A9DCD6] rounded-lg transition"
-              >
-                {item.icon}
-                <span>{item.label}</span>
-              </div>
-            ))}
         </div>
 
         {/* Logout Button */}
@@ -122,34 +111,71 @@ export default function Dashboard() {
 
       {/* Main Content */}
       <div className="flex flex-1 overflow-hidden">
-        <aside className="w-16 bg-[#D7F0ED] text-[#145C5B] flex flex-col items-center py-8 space-y-6 border-r border-gray-300 shadow-xl">
-          {sidebarItems.map((item, idx) => (
-            <div
-              key={idx}
-              onClick={() => (item.isSidebarTrigger ? setSidebarOpen(true) : item.path && router.push(item.path))}
-              className="p-3 rounded-full hover:bg-[#145C5B] hover:text-white cursor-pointer transition-all duration-300 transform hover:scale-110 shadow-sm"
-            >
-              {item.icon}
-            </div>
-          ))}
-        </aside>
+      <aside className="w-16 bg-[#D7F0ED] text-[#145C5B] flex flex-col items-center py-8 space-y-6 border-r border-gray-300 shadow-xl">
+  {/* Dashboard Icon */}
+  <div
+    onClick={() => router.push("/dashboard")}
+    className="p-3 rounded-full hover:bg-[#145C5B] hover:text-white cursor-pointer transition-all duration-300 transform hover:scale-110 shadow-sm"
+  >
+    <AiOutlineAppstore className="text-2xl" />
+  </div>
+
+  {/* ✅ Added CONNEQ-Biz Icon */}
+  <div
+    onClick={() => router.push("/my_cards")} // Redirects to my_cards.tsx
+    className="p-3 rounded-full hover:bg-[#145C5B] hover:text-white cursor-pointer transition-all duration-300 transform hover:scale-110 shadow-sm"
+  >
+    <BsBuildings className="text-2xl" />
+  </div>
+
+  {/* CONNEQ-Page Icon */}
+  <div
+    onClick={() => router.push("/conneq-page")}
+    className="p-3 rounded-full hover:bg-[#145C5B] hover:text-white cursor-pointer transition-all duration-300 transform hover:scale-110 shadow-sm"
+  >
+    <AiOutlineUser className="text-2xl" />
+  </div>
+
+  {/* CONNEQ-Tag Icon */}
+  <div
+    onClick={() => router.push("/conneq-tag")}
+    className="p-3 rounded-full hover:bg-[#145C5B] hover:text-white cursor-pointer transition-all duration-300 transform hover:scale-110 shadow-sm"
+  >
+    <FiTag className="text-2xl" />
+  </div>
+
+  {/* CONNEQ-Visit Icon */}
+  <div
+    onClick={() => router.push("/conneq-visit")}
+    className="p-3 rounded-full hover:bg-[#145C5B] hover:text-white cursor-pointer transition-all duration-300 transform hover:scale-110 shadow-sm"
+  >
+    <HiOutlineDocumentText className="text-2xl" />
+  </div>
+</aside>
 
         {/* Main Content */}
         <main className="flex-1 p-8">
-          <h1 className="text-3xl font-extrabold text-[#145C5B] mb-6">
+        <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-[#145C5B] mb-6">
             Welcome back, Erika Faller 👋
           </h1>
 
           {/* Dashboard Menu Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Ensure "DASHBOARD" is removed, but "CONNEQ-Biz" remains */}
+            <div
+              onClick={() => router.push("/my_cards")}
+              className="bg-[#D7F0ED] hover:bg-[#B7E0DA] text-[#145C5B] flex flex-col items-center justify-center p-8 rounded-2xl shadow-lg transition-all duration-300 cursor-pointer hover:scale-105"
+            >
+              <BsBuildings className="text-2xl" />
+              <h2 className="text-lg font-semibold mt-4">CONNEQ-Biz</h2>
+            </div>
+
             {sidebarItems
               .filter((card) => card.label !== "DASHBOARD") // 🔥 Ensure DASHBOARD is removed from main section
               .map((card, idx) => (
                 <div
                   key={idx}
-                  onClick={() =>
-                    card.label === "CONNEQ-Biz" ? router.push("/my_cards") : card.path && router.push(card.path)
-                  }
+                  onClick={() => router.push(card.path)}
                   className="bg-[#D7F0ED] hover:bg-[#B7E0DA] text-[#145C5B] flex flex-col items-center justify-center p-8 rounded-2xl shadow-lg transition-all duration-300 cursor-pointer hover:scale-105"
                 >
                   {card.icon}
