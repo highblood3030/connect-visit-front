@@ -1,14 +1,23 @@
-"use client";
 import React from "react";
 
-export default function Others() {
-  return (
-    <form className="space-y-4">
-      <textarea
-        className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#145C5B] focus:outline-none resize-none"
-        rows={5}
-        placeholder="Note"
-      />
-    </form>
-  );
+interface OthersProps {
+  formData: { note?: string };
+  handleInputChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
+
+const Others: React.FC<OthersProps> = ({ formData, handleInputChange }) => {
+  return (
+    <div className="w-full max-w-lg mx-auto p-4">
+      <label className="block text-gray-700 font-semibold mb-2">Note</label>
+      <textarea
+        name="note"
+        placeholder="Write your note here..."
+        value={formData.note || ""}
+        onChange={handleInputChange}
+        className="w-full h-32 border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+      />
+    </div>
+  );
+};
+
+export default Others;

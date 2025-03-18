@@ -14,51 +14,52 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({ formData, handleInputChan
 
   return (
     <div className="space-y-4">
-            <input
+      {/* Country */}
+      <input
         type="text"
         placeholder="Country*"
         name="country"
-        value={formData?.phone || ""}
+        value={formData.country || ""}
         onChange={handleInputChange}
         className="w-full border px-3 py-2 rounded-md"
       />
 
-
-<input
+      {/* City State ✅ FIXED */}
+      <input
         type="text"
         placeholder="City State*"
-        name="city State"
-        value={formData?.phone || ""}
+        name="cityState" // ✅ Corrected name
+        value={formData.cityState || ""}
         onChange={handleInputChange}
         className="w-full border px-3 py-2 rounded-md"
       />
 
-
-<input
+      {/* Postal Code ✅ FIXED */}
+      <input
         type="text"
-        placeholder="Postal code*"
-        name="Postal Code"
-        value={formData?.phone || ""}
+        placeholder="Postal Code*"
+        name="postalCode" // ✅ Corrected name
+        value={formData.postalCode || ""}
         onChange={handleInputChange}
         className="w-full border px-3 py-2 rounded-md"
       />
 
-
-<input
+      {/* Website ✅ FIXED */}
+      <input
         type="text"
         placeholder="Website*"
-        name="Website"
-        value={formData?.phone || ""}
+        name="website" // ✅ Corrected name
+        value={formData.website || ""}
         onChange={handleInputChange}
         className="w-full border px-3 py-2 rounded-md"
       />
 
-
-<input
+      {/* Name or Phone ✅ FIXED */}
+      <input
         type="text"
         placeholder="Name*"
-        name="Name"
-        value={formData?.phone || ""}
+        name="phone" // ✅ Ensure it's correctly linked
+        value={formData.phone || ""}
         onChange={handleInputChange}
         className="w-full border px-3 py-2 rounded-md"
       />

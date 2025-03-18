@@ -39,9 +39,11 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
               <p className="italic text-xs text-gray-600 break-words">{formData.website}</p>
               <p className="font-bold text-black break-words">{formData?.phone || ""}</p>
               <p className="font-bold text-black break-words">{formData?.altphone || ""}</p>
-              <p className="font-bold text-black break-words">{formData?.country || ""}</p>
-              <p className="font-bold text-black break-words">{formData?.citystate || ""}</p>
-              <p className="font-bold text-black break-words">{formData?.postalcode || ""}</p>
+              <p className="font-bold text-black break-words">{formData.country || ""}</p>
+              <p className="font-bold text-black break-words">{formData.cityState || ""}</p>
+              <p className="font-bold text-black break-words">{formData.postalCode || ""}</p>
+              <p className="font-bold text-black break-words">{formData.facebook || ""}</p>
+              <p className="font-bold text-black break-words">{formData.linkedin || ""}</p>
             
             </div>
           </>
