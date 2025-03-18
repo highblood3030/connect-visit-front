@@ -14,9 +14,10 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
 
   return (
     <div className="space-y-4">
-      <label className="block text-sm font-medium text-gray-700">Email</label>
+
       <input
-        type="email"
+        type="text"
+        placeholder="Email*"
         name="email"
         value={formData?.email || ""}
         onChange={handleInputChange}
@@ -26,6 +27,7 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
       <label className="block text-sm font-medium text-gray-700">Phone</label>
       <input
         type="text"
+        placeholder="Phone*"
         name="phone"
         value={formData?.phone || ""}
         onChange={handleInputChange}
@@ -35,7 +37,8 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
       <label className="block text-sm font-medium text-gray-700">Alternate Phone</label>
       <input
         type="text"
-        name="altPhone"
+       placeholder="AltPhone*"
+       name="altphone"
         value={formData?.altPhone || ""}
         onChange={handleInputChange}
         className="w-full border px-3 py-2 rounded-md"
@@ -44,6 +47,7 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
       <label className="block text-sm font-medium text-gray-700">Website</label>
       <input
         type="text"
+        placeholder="Website*"
         name="website"
         value={formData?.website || ""}
         onChange={handleInputChange}
@@ -53,7 +57,8 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
       <label className="block text-sm font-medium text-gray-700">Company Name</label>
       <input
         type="text"
-        name="company"
+       placeholder="Company*"
+       name="company"
         value={formData?.company || ""}
         onChange={handleInputChange}
         className="w-full border px-3 py-2 rounded-md"

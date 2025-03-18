@@ -1,55 +1,69 @@
-"use client";
-import React from "react";
+import React, { useEffect } from "react";
+import type { UserFormData } from "./edituserdashboard";
 
-export default function OfficeAddress() {
+interface OfficeAddressProps {
+  formData: UserFormData;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const OfficeAddress: React.FC<OfficeAddressProps> = ({ formData, handleInputChange }) => {
+  useEffect(() => {
+    console.log("OfficeAddress component mounted");
+    console.log("formData:", formData);
+  }, [formData]);
+
   return (
-    <form className="space-y-6">
-      {/* Displayed Address */}
-      <input
+    <div className="space-y-4">
+            <input
         type="text"
-        className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#145C5B] focus:outline-none"
-        placeholder="Displayed Address *"
+        placeholder="Country*"
+        name="country"
+        value={formData?.phone || ""}
+        onChange={handleInputChange}
+        className="w-full border px-3 py-2 rounded-md"
       />
 
-      {/* Office Address */}
-      <h3 className="font-bold text-lg text-[#145C5B] mt-4">Office Address</h3>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {[
-          "Office Location",
-          "Street *",
-          "City *",
-          "State / Province",
-          "Postal Code *",
-          "Country *",
-        ].map((label, idx) => (
-          <input
-            key={idx}
-            type="text"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#145C5B] focus:outline-none"
-            placeholder={label}
-          />
-        ))}
-      </div>
 
-      {/* Factory Address */}
-      <h3 className="font-bold text-lg text-[#145C5B] mt-4">Factory Address</h3>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {[
-          "Factory Location",
-          "Street",
-          "City",
-          "State / Province",
-          "Postal Code",
-          "Country",
-        ].map((label, idx) => (
-          <input
-            key={idx}
-            type="text"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#145C5B] focus:outline-none"
-            placeholder={label}
-          />
-        ))}
-      </div>
-    </form>
+<input
+        type="text"
+        placeholder="City State*"
+        name="city State"
+        value={formData?.phone || ""}
+        onChange={handleInputChange}
+        className="w-full border px-3 py-2 rounded-md"
+      />
+
+
+<input
+        type="text"
+        placeholder="Postal code*"
+        name="Postal Code"
+        value={formData?.phone || ""}
+        onChange={handleInputChange}
+        className="w-full border px-3 py-2 rounded-md"
+      />
+
+
+<input
+        type="text"
+        placeholder="Website*"
+        name="Website"
+        value={formData?.phone || ""}
+        onChange={handleInputChange}
+        className="w-full border px-3 py-2 rounded-md"
+      />
+
+
+<input
+        type="text"
+        placeholder="Name*"
+        name="Name"
+        value={formData?.phone || ""}
+        onChange={handleInputChange}
+        className="w-full border px-3 py-2 rounded-md"
+      />
+    </div>
   );
-}
+};
+
+export default OfficeAddress;

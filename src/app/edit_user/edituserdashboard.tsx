@@ -7,7 +7,19 @@ export interface UserFormData {
     altPhone?: string;  // Add this line
     website?: string;   // Add this line
     company?: string;   // Add this line
-      }
+}
+
+    export interface UserFormData{ 
+      country: string;
+      cityState: string;
+      postalCode: string;
+     
+  
+  
+  }
+  
+  
+      
       
   
   
