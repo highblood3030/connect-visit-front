@@ -99,9 +99,12 @@ export default function Dashboard() {
         </div>
 
         {/* Logout Button */}
-        <div className="absolute bottom-6 left-6 flex items-center space-x-3 cursor-pointer text-red-500">
-          <FiLogOut className="text-xl" />
-          <span>Logout</span>
+        <div
+        onClick={() => router.push("/")} // Redirects to root page
+        className="absolute bottom-6 left-6 flex items-center space-x-3 cursor-pointer text-red-500 hover:text-red-700 transition"
+        >
+        <FiLogOut className="text-xl" />
+        <span>Logout</span>
         </div>
       </div>
 
