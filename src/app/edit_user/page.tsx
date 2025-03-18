@@ -9,6 +9,8 @@ import PersonalInformation from "./PersonalInformation";
 import ContactInformation from "./ContactInformation";
 import PreviewCard from "./PreviewCard";
 import OfficeAddress from "./OfficeAddress";
+import SocialMediaAccount from "./SocialMediaAccounts";
+import Others from "./Others";
 
 interface UserFormData {
   firstName: string;
@@ -26,9 +28,12 @@ interface UserFormData {
   socialMedia: string;
   others: string;
   altPhone: string;
-  country: string;  // ✅ Fixed capitalization
-  cityState: string;  // ✅ Fixed capitalization
-  postalCode: string;  // ✅ Fixed capitalization
+  country: string;
+  cityState: string;
+  postalCode: string;
+  facebook: string;
+  linkedin: string;
+  note?: string;
 }
 
 export default function EditUser() {
@@ -56,6 +61,8 @@ export default function EditUser() {
     country: "",
     cityState: "",
     postalCode: "",
+    facebook: "",
+    linkedin: "",
   });
 
   const tabs = [
@@ -66,7 +73,7 @@ export default function EditUser() {
     "OTHERS",
   ];
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -126,7 +133,9 @@ export default function EditUser() {
                 />
               )}
               {activeTab === 1 && <ContactInformation formData={formData} handleInputChange={handleInputChange} />}
-              {activeTab === 2 && <OfficeAddress formData={formData} handleInputChange={handleInputChange} />}  {/* ✅ Fixed tab index */}
+              {activeTab === 2 && <OfficeAddress formData={formData} handleInputChange={handleInputChange} />} 
+              {activeTab === 3 && <SocialMediaAccount formData={formData} handleInputChange={handleInputChange} />}
+              {activeTab === 4 && <Others formData={formData} handleInputChange={handleInputChange} />}
 
               <div className="flex justify-center space-x-6 mt-6">
                 <button className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600">Back</button>

@@ -7,6 +7,9 @@ export interface UserFormData {
     altPhone?: string;  // Add this line
     website?: string;   // Add this line
     company?: string;   // Add this line
+    facebook: string; // ✅ Added Facebook field
+    linkedin: string; // ✅ Added LinkedIn field
+    note?: string; // ✅ Add this line
 }
 
     export interface UserFormData{ 
@@ -14,6 +17,7 @@ export interface UserFormData {
       cityState: string;
       postalCode: string;
      
+
   
   
   }
