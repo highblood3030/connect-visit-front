@@ -1,13 +1,14 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FiMenu, FiLogOut } from "react-icons/fi";
+import { FiMenu } from "react-icons/fi";
 import { AiOutlineAppstore, AiOutlineFileImage, AiOutlineFileText, AiOutlineUser } from "react-icons/ai";
 import { HiOutlineDocumentText } from "react-icons/hi";
 
 import PersonalInformation from "./PersonalInformation";
 import ContactInformation from "./ContactInformation";
 import PreviewCard from "./PreviewCard";
+import OfficeAddress from "./OfficeAddress";
 
 interface UserFormData {
   firstName: string;
@@ -24,9 +25,10 @@ interface UserFormData {
   officeAddress: string;
   socialMedia: string;
   others: string;
-  altPhone: string;  // ✅ Added altPhone
-
-  
+  altPhone: string;
+  country: string;  // ✅ Fixed capitalization
+  cityState: string;  // ✅ Fixed capitalization
+  postalCode: string;  // ✅ Fixed capitalization
 }
 
 export default function EditUser() {
@@ -50,10 +52,10 @@ export default function EditUser() {
     officeAddress: "",
     socialMedia: "",
     others: "",
-    altPhone: "",  // ✅ Added altPhone
-  
-   
-    
+    altPhone: "",
+    country: "",
+    cityState: "",
+    postalCode: "",
   });
 
   const tabs = [
@@ -124,6 +126,7 @@ export default function EditUser() {
                 />
               )}
               {activeTab === 1 && <ContactInformation formData={formData} handleInputChange={handleInputChange} />}
+              {activeTab === 2 && <OfficeAddress formData={formData} handleInputChange={handleInputChange} />}  {/* ✅ Fixed tab index */}
 
               <div className="flex justify-center space-x-6 mt-6">
                 <button className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600">Back</button>

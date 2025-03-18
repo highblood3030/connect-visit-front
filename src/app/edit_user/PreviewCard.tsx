@@ -39,6 +39,10 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
               <p className="italic text-xs text-gray-600 break-words">{formData.website}</p>
               <p className="font-bold text-black break-words">{formData?.phone || ""}</p>
               <p className="font-bold text-black break-words">{formData?.altphone || ""}</p>
+              <p className="font-bold text-black break-words">{formData?.country || ""}</p>
+              <p className="font-bold text-black break-words">{formData?.citystate || ""}</p>
+              <p className="font-bold text-black break-words">{formData?.postalcode || ""}</p>
+            
             </div>
           </>
         )}
@@ -61,6 +65,9 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
               <p className="italic text-xs text-gray-600 break-words">{formData.website}</p>
               <p className="font-bold text-black break-words">{formData?.phone || ""}</p>
               <p className="font-bold text-black break-words">{formData?.altphone || ""}</p>
+              <p className="font-bold text-black break-words">{formData?.country || ""}</p>
+              <p className="font-bold text-black break-words">{formData?.citystate || ""}</p>
+              <p className="font-bold text-black break-words">{formData?.postalcode || ""}</p>
 
             {/* Email/Website Section */}
             <div className="flex items-center space-x-2 w-full mt-2 justify-center md:justify-start md:pl-6">
