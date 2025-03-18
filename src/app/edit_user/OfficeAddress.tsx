@@ -1,19 +1,70 @@
-"use client";
-import React from "react";
+import React, { useEffect } from "react";
+import type { UserFormData } from "./edituserdashboard";
 
-export default function OfficeAddress() {
-  return (
-    <form className="space-y-4">
-      <input type="text" className="input-field" placeholder="Displayed Address *" />
-      <h3 className="font-bold text-lg">Office Address</h3>
-      {["Office Location", "Street *", "City *", "State / Province", "Postal Code *", "Country *"].map((label, idx) => (
-        <input key={idx} type="text" className="input-field" placeholder={label} />
-      ))}
-
-      <h3 className="font-bold text-lg">Factory Address</h3>
-      {["Factory Location", "Street", "City", "State / Province", "Postal Code", "Country"].map((label, idx) => (
-        <input key={idx} type="text" className="input-field" placeholder={label} />
-      ))}
-    </form>
-  );
+interface OfficeAddressProps {
+  formData: UserFormData;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
+
+const OfficeAddress: React.FC<OfficeAddressProps> = ({ formData, handleInputChange }) => {
+  useEffect(() => {
+    console.log("OfficeAddress component mounted");
+    console.log("formData:", formData);
+  }, [formData]);
+
+  return (
+    <div className="space-y-4">
+      {/* Country */}
+      <input
+        type="text"
+        placeholder="Country*"
+        name="country"
+        value={formData.country || ""}
+        onChange={handleInputChange}
+        className="w-full border px-3 py-2 rounded-md"
+      />
+
+      {/* City State ✅ FIXED */}
+      <input
+        type="text"
+        placeholder="City State*"
+        name="cityState" // ✅ Corrected name
+        value={formData.cityState || ""}
+        onChange={handleInputChange}
+        className="w-full border px-3 py-2 rounded-md"
+      />
+
+      {/* Postal Code ✅ FIXED */}
+      <input
+        type="text"
+        placeholder="Postal Code*"
+        name="postalCode" // ✅ Corrected name
+        value={formData.postalCode || ""}
+        onChange={handleInputChange}
+        className="w-full border px-3 py-2 rounded-md"
+      />
+
+      {/* Website ✅ FIXED */}
+      <input
+        type="text"
+        placeholder="Website*"
+        name="website" // ✅ Corrected name
+        value={formData.website || ""}
+        onChange={handleInputChange}
+        className="w-full border px-3 py-2 rounded-md"
+      />
+
+      {/* Name or Phone ✅ FIXED */}
+      <input
+        type="text"
+        placeholder="Name*"
+        name="phone" // ✅ Ensure it's correctly linked
+        value={formData.phone || ""}
+        onChange={handleInputChange}
+        className="w-full border px-3 py-2 rounded-md"
+      />
+    </div>
+  );
+};
+
+export default OfficeAddress;

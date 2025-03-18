@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -37,6 +38,7 @@ export default function Home() {
             {/* Logo */}
             <img src="/conneq.webp" alt="Conneq Logo" className="w-48 md:w-72" />
 
+
             {/* Menu with dots */}
             <div className="flex flex-wrap justify-center space-x-3 md:space-x-4 text-[#0e4544] font-semibold text-sm md:text-lg">
               {["PAGE", "TAG", "VISIT", "BIZ"].map((item, idx, arr) => (
@@ -56,6 +58,7 @@ export default function Home() {
           Scroll to explore
         </div>
       </div>
+
 
       {/* RIGHT SIDE */}
       <div className="w-full md:w-[40%] lg:w-[35%] relative flex justify-center items-center bg-gradient-to-b from-[#188E9B] to-[#61C1B3]">
@@ -82,6 +85,7 @@ export default function Home() {
         <div className="absolute top-4 right-4 w-8 md:w-10 h-8 md:h-10 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center shadow-md animate-float">
           <span className="text-white font-bold">?</span>
         </div>
+
       </div>
     </div>
   );

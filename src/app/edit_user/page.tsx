@@ -1,5 +1,6 @@
 "use client";
 
+
 import { FiMenu, FiLogOut, FiTag } from "react-icons/fi";
 import { AiOutlineAppstore, AiOutlineFileImage, AiOutlineFileText, AiOutlineUser } from "react-icons/ai";
 import { HiOutlineDocumentText } from "react-icons/hi";
@@ -7,15 +8,45 @@ import { BsBuildings } from "react-icons/bs";
 import { useState, useRef } from "react";
 
 import PersonalInformation from "./PersonalInformation";
+import ContactInformation from "./ContactInformation";
 import PreviewCard from "./PreviewCard";
+import OfficeAddress from "./OfficeAddress";
+import SocialMediaAccount from "./SocialMediaAccounts";
+import Others from "./Others";
+
+interface UserFormData {
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  honorificPrefix: string;
+  honorificSuffix: string;
+  jobTitle: string;
+  company: string;
+  logo: string;
+  website: string;
+  email: string;
+  phone: string;
+  officeAddress: string;
+  socialMedia: string;
+  others: string;
+  altPhone: string;
+  country: string;
+  cityState: string;
+  postalCode: string;
+  facebook: string;
+  linkedin: string;
+  note?: string;
+}
 
 export default function EditUser() {
   // ✅ HOOKS DECLARED INSIDE COMPONENT BODY
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [profileImage, setProfileImage] = useState("/profile-placeholder.png");
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
+
     firstName: "",
     middleName: "",
     lastName: "",
@@ -25,6 +56,7 @@ export default function EditUser() {
     company: "D&L Industries, Inc.",
     logo: "D&L",
     website: "",
+
   });
 
   // ✅ FORM REF FOR VALIDATION
@@ -40,18 +72,7 @@ export default function EditUser() {
     return true;
   };
 
-  // ✅ NEXT BUTTON HANDLER
-  const handleNextClick = () => {
-    if (activeTab === 0) {
-      if (validatePersonalInformation()) {
-        setActiveTab((prev) => prev + 1);
-      }
-    } else {
-      setActiveTab((prev) => prev + 1);
-    }
-  };
 
-  // ✅ IMAGE HANDLER
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -60,82 +81,38 @@ export default function EditUser() {
     }
   };
 
-  const tabs = [
-    "PERSONAL INFORMATION",
-    "CONTACT INFORMATION",
-    "OFFICE ADDRESS",
-    "SOCIAL MEDIA ACCOUNTS",
-    "OTHERS",
-  ];
-
-  const sidebarItems = [
-    { label: "DASHBOARD", icon: <AiOutlineAppstore className="text-xl" /> },
-    { label: "CONNEQ-Biz", icon: <BsBuildings className="text-xl" /> },
-    { label: "CONNEQ-Page", icon: <AiOutlineUser className="text-xl" /> },
-    { label: "CONNEQ-Tag", icon: <FiTag className="text-xl" /> },
-    { label: "CONNEQ-Visit", icon: <HiOutlineDocumentText className="text-xl" /> },
-  ];
 
   return (
-    <div className="min-h-screen bg-[#E8F1F2] flex flex-col relative overflow-y-auto">
-      {/* Navbar */}
-      <nav className="bg-[#91C8C4] text-white flex justify-between items-center h-16 px-6 shadow-lg">
-        <button onClick={() => setSidebarOpen(true)} className="focus:outline-none">
-          <FiMenu className="text-3xl text-[#145C5B] hover:scale-110 transition-transform" />
+    <div className="min-h-screen bg-[#E8F1F2] flex flex-col text-black">
+      <nav className="bg-[#91C8C4] flex justify-between items-center h-16 px-6 shadow-lg">
+        <button onClick={() => setSidebarOpen(true)} className="md:hidden">
+          <FiMenu className="text-3xl text-[#145C5B]" />
         </button>
-        <img src="/Q.png" alt="Q Logo" className="w-16 h-12 object-contain shadow-md" />
+        <img src="/Q.png" alt="Q Logo" className="w-16 h-12" />
       </nav>
 
-      {/* Floating Sidebar */}
-      <div className={`fixed top-0 left-0 h-full w-72 bg-[#B7E0DA] p-6 shadow-xl transition-transform duration-500 z-50 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
-        <div className="flex flex-col items-center space-y-2">
-          <img src={profileImage} alt="Profile" className="w-24 h-24 rounded-full border-4 border-[#145C5B] shadow-md" />
-          <h2 className="text-lg font-bold text-gray-700">Erika Faller</h2>
-          <p className="text-sm text-gray-600">ojt_fallere@dnl.com.ph</p>
-        </div>
-        <div className="mt-8 space-y-4 text-gray-700">
-          {sidebarItems.map((item, idx) => (
-            <div key={idx} className="flex items-center space-x-3 cursor-pointer hover:text-[#145C5B]">
-              {item.icon}
-              <span>{item.label}</span>
-            </div>
-          ))}
-        </div>
-        <div className="absolute bottom-6 left-6 flex items-center space-x-3 cursor-pointer text-red-500">
-          <FiLogOut className="text-xl" />
-          <span>Logout</span>
-        </div>
-      </div>
+      {sidebarOpen && <div onClick={() => setSidebarOpen(false)} className="fixed inset-0 bg-black bg-opacity-30 md:hidden"></div>}
 
-      {sidebarOpen && <div onClick={() => setSidebarOpen(false)} className="fixed inset-0 bg-black bg-opacity-30 z-40"></div>}
-
-      {/* Main Layout */}
-      <div className="flex flex-1 overflow-hidden">
-        {/* Mini Sidebar */}
-        <aside className="w-16 bg-[#D7F0ED] text-[#145C5B] flex flex-col items-center py-8 space-y-6 border-r border-gray-300 shadow-xl">
+      <div className="flex flex-col md:flex-row flex-1">
+        <aside className="hidden md:flex md:w-16 bg-[#D7F0ED] flex-col items-center py-8 space-y-6 shadow-xl">
           {[AiOutlineAppstore, AiOutlineFileImage, HiOutlineDocumentText, AiOutlineFileText, AiOutlineUser].map((Icon, idx) => (
-            <div key={idx} className="p-3 rounded-full hover:bg-[#145C5B] hover:text-white cursor-pointer transition-all duration-300 transform hover:scale-110 shadow-sm">
+            <div key={idx} className="p-3 rounded-full hover:bg-[#145C5B] hover:text-white cursor-pointer transition">
               <Icon className="text-2xl" />
             </div>
           ))}
         </aside>
 
-        {/* Main Content */}
-        <main className="flex-1 p-8 h-full">
+        <main className="flex-1 p-6">
           <h1 className="text-3xl font-extrabold text-[#145C5B] mb-6">MY INFORMATION</h1>
-          <div className="flex space-x-8 h-full">
-            {/* Form Section */}
-            <div className="w-[950px] bg-white rounded-xl shadow-2xl p-8 overflow-y-auto max-h-[80vh] min-h-[70vh]">
-              {/* Tabs */}
-              <div className="flex space-x-10 border-b-2 border-gray-300 mb-8">
+          <div className="flex flex-col lg:flex-row space-y-8 lg:space-x-8">
+            <div className="w-full lg:w-2/3 bg-white rounded-xl shadow-xl p-6">
+              <div className="flex flex-wrap gap-4 border-b-2 border-gray-300 pb-3">
                 {tabs.map((tab, idx) => (
                   <span
                     key={idx}
                     onClick={() => setActiveTab(idx)}
-                    className={`relative pb-3 font-medium text-sm cursor-pointer transition-all ${
-                      idx === activeTab
-                        ? "text-[#145C5B] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[3px] after:bg-[#145C5B] after:rounded-full"
-                        : "text-gray-500 hover:text-[#145C5B]"
+                    className={`cursor-pointer px-3 py-1 text-sm font-medium ${
+                      idx === activeTab ? "text-[#145C5B] border-b-2 border-[#145C5B]" : "text-gray-500 hover:text-[#145C5B]"
                     }`}
                   >
                     {tab}
@@ -143,7 +120,6 @@ export default function EditUser() {
                 ))}
               </div>
 
-              {/* Form content */}
               {activeTab === 0 && (
                 <PersonalInformation
                   profileImage={profileImage}
@@ -153,39 +129,19 @@ export default function EditUser() {
                   formRef={formRef} // ✅ Ref passed here
                 />
               )}
+              {activeTab === 1 && <ContactInformation formData={formData} handleInputChange={handleInputChange} />}
+              {activeTab === 2 && <OfficeAddress formData={formData} handleInputChange={handleInputChange} />} 
+              {activeTab === 3 && <SocialMediaAccount formData={formData} handleInputChange={handleInputChange} />}
+              {activeTab === 4 && <Others formData={formData} handleInputChange={handleInputChange} />}
 
-              {/* Buttons */}
-              <div className="flex justify-center space-x-6 mt-8">
-                <button
-                  className="bg-gray-500 text-white px-8 py-2 rounded-lg shadow hover:bg-gray-600 transition"
-                  type="button"
-                  onClick={() => setActiveTab((prev) => Math.max(prev - 1, 0))}
-                >
-                  Back
-                </button>
-                <button
-                  className="bg-gray-800 text-white px-8 py-2 rounded-lg shadow hover:bg-gray-900 transition"
-                  type="button"
-                  onClick={handleNextClick}
-                >
-                  Next
-                </button>
-                <button
-                  className="bg-[#145C5B] text-white px-8 py-2 rounded-lg shadow hover:bg-[#104746] transition"
-                  type="submit"
-                >
-                  Save
-                </button>
+
               </div>
             </div>
 
-            {/* Preview Section */}
-            <div className="w-[450px] flex flex-col">
-              <h2 className="text-3xl font-bold text-[#145C5B] mb-4">PREVIEW</h2>
-              <div className="flex flex-col items-center space-y-8 ml-20">
-                <PreviewCard title="Email Signature" profileImage={profileImage} formData={formData} />
-                <PreviewCard title="Business Card" profileImage={profileImage} formData={formData} />
-              </div>
+            <div className="w-full lg:w-1/3 flex flex-col">
+              <h2 className="text-2xl font-bold text-[#145C5B] mb-4">PREVIEW</h2>
+              <PreviewCard title="Email Signature" profileImage={profileImage} formData={formData} />
+              <PreviewCard title="Business Card" profileImage={profileImage} formData={formData} />
             </div>
           </div>
         </main>
