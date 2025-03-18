@@ -84,22 +84,26 @@ export default function ConneqTag() {
             <input
               type="text"
               placeholder="Name filter"
-              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B]"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B] text-black"
+
             />
             <input
               type="text"
               placeholder="Tag filter"
-              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B]"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B] text-black"
+
             />
             <input
               type="text"
               placeholder="Description filter"
-              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B]"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B] text-black"
+
             />
             <input
               type="date"
               placeholder="Date filter"
-              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B]"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B] text-black"
+
             />
             <div className="flex items-center bg-white border border-gray-300 rounded-lg px-3 py-2 shadow-md">
               <input
@@ -129,8 +133,8 @@ export default function ConneqTag() {
               </thead>
               <tbody>
                 <tr>
-                  <td colSpan="7" className="text-center text-gray-500 py-6">
-                    No data available
+                <td colSpan={7} className="text-center text-gray-500 py-6">
+                  No data available
                   </td>
                 </tr>
               </tbody>
