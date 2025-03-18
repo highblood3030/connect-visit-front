@@ -1,9 +1,11 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { FiMenu } from "react-icons/fi";
+
+
+import { FiMenu, FiLogOut, FiTag } from "react-icons/fi";
 import { AiOutlineAppstore, AiOutlineFileImage, AiOutlineFileText, AiOutlineUser } from "react-icons/ai";
 import { HiOutlineDocumentText } from "react-icons/hi";
+import { BsBuildings } from "react-icons/bs";
+import { useState, useRef } from "react";
 
 import PersonalInformation from "./PersonalInformation";
 import ContactInformation from "./ContactInformation";
@@ -37,12 +39,14 @@ interface UserFormData {
 }
 
 export default function EditUser() {
+  // ✅ HOOKS DECLARED INSIDE COMPONENT BODY
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [profileImage, setProfileImage] = useState("/profile-placeholder.png");
   const router = useRouter();
 
-  const [formData, setFormData] = useState<UserFormData>({
+  const [formData, setFormData] = useState({
+
     firstName: "",
     middleName: "",
     lastName: "",
@@ -52,31 +56,22 @@ export default function EditUser() {
     company: "D&L Industries, Inc.",
     logo: "D&L",
     website: "",
-    email: "",
-    phone: "",
-    officeAddress: "",
-    socialMedia: "",
-    others: "",
-    altPhone: "",
-    country: "",
-    cityState: "",
-    postalCode: "",
-    facebook: "",
-    linkedin: "",
+
   });
 
-  const tabs = [
-    "PERSONAL INFORMATION",
-    "CONTACT INFORMATION",
-    "OFFICE ADDRESS",
-    "SOCIAL MEDIA ACCOUNTS",
-    "OTHERS",
-  ];
+  // ✅ FORM REF FOR VALIDATION
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  // ✅ REQUIRED FIELD VALIDATION
+  const validatePersonalInformation = () => {
+    const { firstName, lastName, jobTitle } = formData;
+    if (!firstName.trim() || !lastName.trim() || !jobTitle.trim()) {
+      alert("⚠️ Please fill in First Name, Last Name, and Job Title before proceeding.");
+      return false;
+    }
+    return true;
   };
+
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -85,6 +80,7 @@ export default function EditUser() {
       setProfileImage(imageUrl);
     }
   };
+
 
   return (
     <div className="min-h-screen bg-[#E8F1F2] flex flex-col text-black">
@@ -130,6 +126,7 @@ export default function EditUser() {
                   handleImageChange={handleImageChange}
                   formData={formData}
                   setFormData={setFormData}
+                  formRef={formRef} // ✅ Ref passed here
                 />
               )}
               {activeTab === 1 && <ContactInformation formData={formData} handleInputChange={handleInputChange} />}
@@ -137,10 +134,7 @@ export default function EditUser() {
               {activeTab === 3 && <SocialMediaAccount formData={formData} handleInputChange={handleInputChange} />}
               {activeTab === 4 && <Others formData={formData} handleInputChange={handleInputChange} />}
 
-              <div className="flex justify-center space-x-6 mt-6">
-                <button className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600">Back</button>
-                <button className="bg-gray-800 text-white px-6 py-2 rounded-lg hover:bg-gray-900">Next</button>
-                <button className="bg-[#145C5B] text-white px-6 py-2 rounded-lg hover:bg-[#104746]">Save</button>
+
               </div>
             </div>
 

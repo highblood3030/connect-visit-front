@@ -5,7 +5,8 @@ type Props = {
   profileImage: string;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   formData: any;
-  setFormData: (data: any) => void;
+  setFormData: React.Dispatch<React.SetStateAction<any>>;
+  formRef: React.RefObject<HTMLFormElement>; // ✅ Add this line for formRef
 };
 
 export default function PersonalInformation({
@@ -13,9 +14,10 @@ export default function PersonalInformation({
   handleImageChange,
   formData,
   setFormData,
+  formRef, // ✅ Destructure formRef properly here
 }: Props) {
   return (
-    <form className="space-y-4 text-black">
+    <form ref={formRef} className="space-y-4">
       {/* Upload Photo */}
       <div className="flex flex-col md:flex-row items-center space-x-0 md:space-x-6 space-y-4 md:space-y-0">
         <div className="w-28 h-28 rounded-full border border-gray-300 overflow-hidden">
@@ -46,6 +48,7 @@ export default function PersonalInformation({
           placeholder="First Name *"
           value={formData.firstName}
           onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+          required
         />
         <input
           type="text"
@@ -60,6 +63,7 @@ export default function PersonalInformation({
           placeholder="Last Name *"
           value={formData.lastName}
           onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+          required
         />
       </div>
 
@@ -86,21 +90,10 @@ export default function PersonalInformation({
         placeholder="Job Title *"
         value={formData.jobTitle}
         onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
+        required
       />
-
-      <input
-        type="text"
-        className="input-field bg-gray-100"
-        value={formData.company}
-        readOnly
-      />
-      <input
-        type="text"
-        className="input-field bg-gray-100"
-        value={formData.logo}
-        readOnly
-      />
-
+      <input type="text" className="input-field bg-gray-100" value="D&L Industries, Inc." readOnly />
+      <input type="text" className="input-field bg-gray-100" value="D&L" readOnly />
       <input
         type="text"
         className="input-field"
@@ -114,8 +107,7 @@ export default function PersonalInformation({
         <div className="flex items-start space-x-2">
           <input type="checkbox" className="mt-1" checked readOnly />
           <p>
-            I confirm that I have read, understood, and agree with the Privacy Notice of D&L
-            Industries, Inc..{" "}
+            I confirm that I have read, understood, and agree with the Privacy Notice of D&L Industries, Inc..{" "}
             <a href="#" className="text-blue-500 underline">
               Corporate Data Privacy Policy
             </a>
