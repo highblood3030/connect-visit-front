@@ -12,30 +12,34 @@ export default function ConneqPage() {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false); // ✅ Modal state
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    name: string;
+    description: string;
+    status: string;
+    file: File | null; // ✅ Correct type
+  }>({
     name: "",
     description: "",
     status: "Active",
     file: null,
   });
+  
 
-  // Handle Input Change
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
-  // Handle File Upload
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, file: e.target.files[0] });
+  
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, file: e.target.files ? e.target.files[0] : null });
   };
-
-  // Handle Form Submission
-  const handleSubmit = (e) => {
+  
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form Submitted:", formData);
-    setModalOpen(false); // Close modal after submission
+    setModalOpen(false);
   };
+  
 
   const sidebarItems = [
     { label: "DASHBOARD", icon: <AiOutlineAppstore className="text-2xl" />, path: "/dashboard" },
@@ -111,7 +115,7 @@ export default function ConneqPage() {
               </thead>
               <tbody>
                 <tr>
-                  <td colSpan="5" className="text-center text-gray-500 py-6">
+                  <td colSpan={5} className="text-center text-gray-500 py-6">
                     No data available
                   </td>
                 </tr>
