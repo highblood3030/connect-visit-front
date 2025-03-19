@@ -1,125 +1,158 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
-import {
-  FaUser,
-  FaTags,
-  FaClipboardList,
-  FaBuilding,
-  FaSignOutAlt,
-  FaTh,
-  FaFileAlt,
-} from "react-icons/fa";
-import { BsBuildings } from "react-icons/bs";
-import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { FiMenu, FiLogOut, FiSearch, FiUpload } from "react-icons/fi";
+import { AiOutlineAppstore, AiOutlineUser } from "react-icons/ai";
+import { HiOutlineDocumentText } from "react-icons/hi";
+import { BsBuildings, BsPrinter } from "react-icons/bs";
+import { FiTag } from "react-icons/fi";
 
-const MyCardsPage = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [conneqBizOpen, setConneqBizOpen] = useState(false);
-  const [cards, setCards] = useState([
-    { id: 1, title: "Business 1", description: "Description for Business 1" },
-    { id: 2, title: "Business 2", description: "Description for Business 2" },
-    { id: 3, title: "Business 3", description: "Description for Business 3" },
-    { id: 4, title: "Business 4", description: "Description for Business 4" },
-  ]);
+export default function ConneqTag() {
   const router = useRouter();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const updateCard = (id: number, field: keyof typeof cards[number], value: string) => {
-    setCards((prevCards) =>
-      prevCards.map((card) =>
-        card.id === id ? { ...card, [field]: value } : card
-      )
-    );
-  };
-  
+  const sidebarItems = [
+    { label: "DASHBOARD", icon: <AiOutlineAppstore className="text-2xl" />, path: "/dashboard" },
+    { label: "CONNEQ-Biz", icon: <BsBuildings className="text-2xl" />, path: "/my_cards" },
+    { label: "CONNEQ-Page", icon: <AiOutlineUser className="text-2xl" />, path: "/conneq-page" },
+    { label: "CONNEQ-Tag", icon: <FiTag className="text-2xl" />, path: "/conneq-tag" },
+    { label: "CONNEQ-Visit", icon: <HiOutlineDocumentText className="text-2xl" />, path: "/conneq-visit" },
+  ];
 
   return (
-    <div className="flex h-screen">
-      {/* Sidebar */}
-      <div
-        className={`bg-[#D8F0EB] text-gray-800 h-full fixed lg:relative transition-all duration-300 shadow-lg p-4 ${
-          isSidebarOpen ? "w-64" : "w-0 overflow-hidden"
-        }`}
-      >
-        {isSidebarOpen && (
-          <div className="text-center mb-6">
-            <div className="w-24 h-24 border-4 border-teal-900 rounded-full mx-auto"></div>
-            <h2 className="font-bold text-lg mt-2">Erika Faller</h2>
-            <p className="text-sm text-gray-600">ojt_fallere@dnl.com.ph</p>
-          </div>
-        )}
+    <div className="min-h-screen bg-gray-100 flex flex-col relative overflow-hidden">
+      {/* Navbar */}
+      <nav className="bg-[#91C8C4] text-white flex justify-between items-center h-16 px-6 shadow-md">
+      <button
+        onClick={() => setSidebarOpen(true)} // ✅ This ensures clicking opens the sidebar
+        className="focus:outline-none"
+        >
+        <FiMenu className="text-3xl text-[#145C5B] hover:scale-110 transition-transform" />
+        </button>
 
-        {/* Navigation Links */}
-        <nav className={`${isSidebarOpen ? "block" : "hidden"} lg:block`}>
-          <ul className="space-y-2">
-            <li className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-[#A9DCD6] cursor-pointer">
-              <FaTh className="text-lg" />
-              <Link href="/dashboard">DASHBOARD</Link>
-            </li>
-            <li className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-[#A9DCD6] cursor-pointer">
-              <FaUser className="text-lg" />
-              <Link href="/conneq-page">CONNEQ-Page</Link>
-            </li>
-            <li className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-[#A9DCD6] cursor-pointer">
-              <FaTags className="text-lg" />
-              <Link href="/conneq-tag">CONNEQ-Tag</Link>
-            </li>
-            <li className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-[#A9DCD6] cursor-pointer">
-              <FaFileAlt className="text-lg" />
-              <Link href="/conneq-visit">CONNEQ-Visit</Link>
-            </li>
-            {/* CONNEQ-Biz Dropdown */}
-            <div>
-              <div
-                onClick={() => setConneqBizOpen(!conneqBizOpen)}
-                className="flex items-center justify-between px-4 py-3 cursor-pointer hover:bg-[#A9DCD6] rounded-lg transition"
-              >
-                <div className="flex items-center space-x-3">
-                  <BsBuildings className="text-lg" />
-                  <span>CONNEQ-Biz</span>
-                </div>
-                {conneqBizOpen ? <FiChevronUp className="text-xl" /> : <FiChevronDown className="text-xl" />}
-              </div>
-            </div>
-            <li className="flex items-center space-x-3 px-4 py-3 text-red-500 cursor-pointer">
-              <FaSignOutAlt className="text-lg" />
-              <span>Logout</span>
-            </li>
-          </ul>
-        </nav>
-      </div>
+        <img src="/Q.png" alt="Q Logo" className="w-16 h-12 object-contain shadow-md" />
+      </nav>
 
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col bg-[#D8E0E3] min-h-screen p-6">
-        {/* Top Navigation */}
-        <div className="bg-[#5F939A] text-white p-4 flex items-center justify-between">
-          <h1 className="font-bold text-xl">CONNEQ-Biz</h1>
-          <div className="w-8 h-8 bg-black rounded-full"></div>
-        </div>
-
-        {/* Editable Cards Section */}
-        <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {cards.map((card) => (
-            <div key={card.id} className="bg-white p-4 rounded-lg shadow-md">
-              <input
-                type="text"
-                value={card.title}
-                onChange={(e) => updateCard(card.id, "title", e.target.value)}
-                className="text-black font-bold w-full border-b focus:outline-none"
-              />
-              <textarea
-                value={card.description}
-                onChange={(e) => updateCard(card.id, "description", e.target.value)}
-                className="text-black w-full mt-2 border focus:outline-none"
-              />
+      {/* Main Layout */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Sidebar */}
+        <aside className="w-16 bg-[#D7F0ED] text-[#145C5B] flex flex-col items-center py-8 space-y-6 border-r border-gray-300 shadow-xl">
+          {sidebarItems.map((item, idx) => (
+            <div
+              key={idx}
+              onClick={() => router.push(item.path)}
+              className="p-3 rounded-full hover:bg-[#145C5B] hover:text-white cursor-pointer transition-all duration-300 transform hover:scale-110 shadow-sm"
+            >
+              {item.icon}
             </div>
           ))}
-        </div>
+        </aside>
+
+        {/* Main Content */}
+        <main className="flex-1 p-8">
+          <h1 className="text-2xl font-extrabold text-[#145C5B] mb-6">CONNEQ TAG</h1>
+
+          {/* Actions Section */}
+          <div className="flex gap-4 mb-4">
+            <button
+              className="bg-[#145C5B] text-white px-6 py-2 rounded-lg shadow-md hover:bg-[#0e4b4b] transition"
+              onClick={() => alert("Create Tag Clicked")}
+            >
+              + Create
+            </button>
+
+            <button
+              className="bg-green-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-green-600 transition flex items-center"
+              onClick={() => alert("Upload Tags File Clicked")}
+            >
+              <FiUpload className="mr-2" />
+              Upload Tags File
+            </button>
+
+            <button
+              className="bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition flex items-center"
+              onClick={() => alert("Batch Print Clicked")}
+            >
+              <BsPrinter className="mr-2" />
+              Batch Print
+            </button>
+          </div>
+
+          {/* Filters & Search */}
+          <div className="bg-white p-4 rounded-lg shadow-md flex gap-4 mb-4">
+            <input
+              type="text"
+              placeholder="Name filter"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B] text-black"
+
+            />
+            <input
+              type="text"
+              placeholder="Tag filter"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B] text-black"
+
+            />
+            <input
+              type="text"
+              placeholder="Description filter"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B] text-black"
+
+            />
+            <input
+              type="date"
+              placeholder="Date filter"
+              className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B] text-black"
+
+            />
+            <div className="flex items-center bg-white border border-gray-300 rounded-lg px-3 py-2 shadow-md">
+              <input
+                type="text"
+                placeholder="Search"
+                className="outline-none bg-transparent text-gray-700 placeholder-gray-400"
+              />
+              <FiSearch className="text-xl text-gray-500 cursor-pointer" />
+            </div>
+          </div>
+
+          {/* Table */}
+          <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+            <table className="w-full border-collapse">
+              <thead className="bg-gray-200 text-gray-700">
+                <tr>
+                  <th className="py-3 px-4 text-left">
+                    <input type="checkbox" />
+                  </th>
+                  <th className="py-3 px-4 text-left">ID</th>
+                  <th className="py-3 px-4 text-left">Name</th>
+                  <th className="py-3 px-4 text-left">Text Tag</th>
+                  <th className="py-3 px-4 text-left">Description</th>
+                  <th className="py-3 px-4 text-left">Status</th>
+                  <th className="py-3 px-4 text-left">Date Created</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                <td colSpan={7} className="text-center text-gray-500 py-6">
+                  No data available
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            {/* Pagination */}
+            <div className="flex justify-between items-center px-4 py-3 bg-gray-100">
+              <button className="text-gray-500 px-3 py-1 rounded-lg cursor-not-allowed" disabled>
+                ◄
+              </button>
+              <span className="text-gray-600">Page 1 of 0</span>
+              <button className="text-gray-500 px-3 py-1 rounded-lg cursor-not-allowed" disabled>
+                ►
+              </button>
+            </div>
+          </div>
+        </main>
       </div>
     </div>
   );
-};
-
-export default MyCardsPage;
+}
