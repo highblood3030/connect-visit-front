@@ -5,34 +5,39 @@ import { useState } from "react";
 import { FiSearch, FiX } from "react-icons/fi";
 
 export default function ConneqPage() {
+
   const [modalOpen, setModalOpen] = useState(false);
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [formData, setFormData] = useState({
+
     name: "",
     category: "",
     description: "",
     status: "Active",
     file: null,
   });
+  
+
 
   const [dataList, setDataList] = useState([]); // ✅ Store submitted data
 
   // Handle Input Change
   const handleChange = (e) => {
+
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
-  // Handle File Upload
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, file: e.target.files[0] });
+  
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, file: e.target.files ? e.target.files[0] : null });
   };
-
-  // Handle Form Submission
-  const handleSubmit = (e) => {
+  
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+
 
     if (editMode) {
       // Update Existing Item
@@ -126,6 +131,7 @@ export default function ConneqPage() {
               {dataList.length === 0 ? (
                 <tr>
                   <td colSpan="6" className="text-center text-gray-500 py-6">
+
                     No data available
                   </td>
                 </tr>

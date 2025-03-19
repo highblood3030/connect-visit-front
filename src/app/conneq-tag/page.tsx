@@ -51,6 +51,7 @@ export default function ConneqTag() {
             Upload Tags File
           </button>
 
+
           <button
             className="bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition flex items-center"
             onClick={() => alert("Batch Print Clicked")} // ✅ Ensure button works
@@ -87,6 +88,7 @@ export default function ConneqTag() {
               type="text"
               placeholder="Search"
               className="outline-none bg-transparent text-gray-700 placeholder-gray-400"
+
             />
             <FiSearch className="text-xl text-gray-500 cursor-pointer" />
           </div>
@@ -196,6 +198,7 @@ export default function ConneqTag() {
                 className="bg-[#145C5B] text-white px-6 py-2 rounded-md w-full mt-2 hover:bg-[#0e4b4b] transition-all"
               >
                 Save
+
               </button>
             </form>
           </div>
