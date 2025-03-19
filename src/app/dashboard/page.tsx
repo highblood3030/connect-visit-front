@@ -13,7 +13,6 @@ export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [conneqBizOpen, setConneqBizOpen] = useState(false); // Dropdown state
 
-  // ✅ FIX: Ensure DASHBOARD appears only once in this array
   const sidebarItems = [
     { label: "DASHBOARD", icon: <AiOutlineAppstore className="text-2xl" />, path: "/dashboard" },
     { label: "CONNEQ-Page", icon: <AiOutlineUser className="text-2xl" />, path: "/conneq-page" },
@@ -49,7 +48,6 @@ export default function Dashboard() {
 
         {/* Sidebar Items */}
         <div className="mt-4 space-y-1 text-gray-700">
-          {/* ✅ FIX: Ensure DASHBOARD appears only once */}
           {sidebarItems.map((item, idx) => (
             <div
               key={idx}
@@ -61,7 +59,7 @@ export default function Dashboard() {
             </div>
           ))}
 
-          {/* CONNEQ-BIZ with Dropdown (Appears only once) */}
+          {/* CONNEQ-BIZ with Dropdown */}
           <div>
             <div
               onClick={() => setConneqBizOpen(!conneqBizOpen)}
@@ -73,121 +71,46 @@ export default function Dashboard() {
               </div>
               {conneqBizOpen ? <FiChevronUp className="text-xl" /> : <FiChevronDown className="text-xl" />}
             </div>
-
-            {/* Dropdown Items */}
             <div
               className={`ml-10 space-y-2 overflow-hidden transition-all duration-300 ${
                 conneqBizOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
               }`}
             >
-              <div
-                onClick={() => router.push("/my_cards")}
-                className="flex items-center space-x-3 px-4 py-2 cursor-pointer hover:bg-[#A9DCD6] rounded-lg transition"
-              >
+              <div onClick={() => router.push("/my_cards")} className="flex items-center space-x-3 px-4 py-2 cursor-pointer hover:bg-[#A9DCD6] rounded-lg transition">
                 <BsCreditCard className="text-xl" />
                 <span>My Cards</span>
               </div>
-              <div
-                onClick={() => router.push("/edit-information")}
-                className="flex items-center space-x-3 px-4 py-2 cursor-pointer hover:bg-[#A9DCD6] rounded-lg transition"
-              >
+              <div onClick={() => router.push("/edit-information")} className="flex items-center space-x-3 px-4 py-2 cursor-pointer hover:bg-[#A9DCD6] rounded-lg transition">
                 <MdOutlineEdit className="text-xl" />
                 <span>Edit Information</span>
               </div>
             </div>
           </div>
         </div>
-
-        {/* Logout Button */}
-        <div
-        onClick={() => router.push("/")} // Redirects to root page
-        className="absolute bottom-6 left-6 flex items-center space-x-3 cursor-pointer text-red-500 hover:text-red-700 transition"
-        >
-        <FiLogOut className="text-xl" />
-        <span>Logout</span>
+        <div onClick={() => router.push("/")} className="absolute bottom-6 left-6 flex items-center space-x-3 cursor-pointer text-red-500 hover:text-red-700 transition">
+          <FiLogOut className="text-xl" />
+          <span>Logout</span>
         </div>
       </div>
-
-      {sidebarOpen && (
-        <div onClick={() => setSidebarOpen(false)} className="fixed inset-0 bg-black/40 z-40"></div>
-      )}
-
+      {sidebarOpen && <div onClick={() => setSidebarOpen(false)} className="fixed inset-0 bg-black/40 z-40"></div>}
       {/* Main Content */}
-      <div className="flex flex-1 overflow-hidden">
-      <aside className="w-16 bg-[#D7F0ED] text-[#145C5B] flex flex-col items-center py-8 space-y-6 border-r border-gray-300 shadow-xl">
-  {/* Dashboard Icon */}
-  <div
-    onClick={() => router.push("/dashboard")}
-    className="p-3 rounded-full hover:bg-[#145C5B] hover:text-white cursor-pointer transition-all duration-300 transform hover:scale-110 shadow-sm"
-  >
-    <AiOutlineAppstore className="text-2xl" />
-  </div>
-
-  {/* ✅ Added CONNEQ-Biz Icon */}
-  <div
-    onClick={() => router.push("/my_cards")} // Redirects to my_cards.tsx
-    className="p-3 rounded-full hover:bg-[#145C5B] hover:text-white cursor-pointer transition-all duration-300 transform hover:scale-110 shadow-sm"
-  >
-    <BsBuildings className="text-2xl" />
-  </div>
-
-  {/* CONNEQ-Page Icon */}
-  <div
-    onClick={() => router.push("/conneq-page")}
-    className="p-3 rounded-full hover:bg-[#145C5B] hover:text-white cursor-pointer transition-all duration-300 transform hover:scale-110 shadow-sm"
-  >
-    <AiOutlineUser className="text-2xl" />
-  </div>
-
-  {/* CONNEQ-Tag Icon */}
-  <div
-    onClick={() => router.push("/conneq-tag")}
-    className="p-3 rounded-full hover:bg-[#145C5B] hover:text-white cursor-pointer transition-all duration-300 transform hover:scale-110 shadow-sm"
-  >
-    <FiTag className="text-2xl" />
-  </div>
-
-  {/* CONNEQ-Visit Icon */}
-  <div
-    onClick={() => router.push("/conneq-visit")}
-    className="p-3 rounded-full hover:bg-[#145C5B] hover:text-white cursor-pointer transition-all duration-300 transform hover:scale-110 shadow-sm"
-  >
-    <HiOutlineDocumentText className="text-2xl" />
-  </div>
-</aside>
-
-        {/* Main Content */}
-        <main className="flex-1 p-8">
-        <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-[#145C5B] mb-6">
-            Welcome back, Erika Faller 👋
-          </h1>
-
-          {/* Dashboard Menu Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Ensure "DASHBOARD" is removed, but "CONNEQ-Biz" remains */}
-            <div
-              onClick={() => router.push("/my_cards")}
-              className="bg-[#D7F0ED] hover:bg-[#B7E0DA] text-[#145C5B] flex flex-col items-center justify-center p-8 rounded-2xl shadow-lg transition-all duration-300 cursor-pointer hover:scale-105"
-            >
-              <BsBuildings className="text-2xl" />
-              <h2 className="text-lg font-semibold mt-4">CONNEQ-Biz</h2>
-            </div>
-
-            {sidebarItems
-              .filter((card) => card.label !== "DASHBOARD") // 🔥 Ensure DASHBOARD is removed from main section
-              .map((card, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => router.push(card.path)}
-                  className="bg-[#D7F0ED] hover:bg-[#B7E0DA] text-[#145C5B] flex flex-col items-center justify-center p-8 rounded-2xl shadow-lg transition-all duration-300 cursor-pointer hover:scale-105"
-                >
-                  {card.icon}
-                  <h2 className="text-lg font-semibold mt-4">{card.label}</h2>
-                </div>
-              ))}
+      <main className="flex-1 p-8">
+        <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-[#145C5B] mb-6">Welcome back, Erika Faller 👋</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div onClick={() => router.push("/my_cards")} className="bg-[#D7F0ED] hover:bg-[#B7E0DA] text-[#145C5B] flex flex-col items-center justify-center p-8 rounded-2xl shadow-lg transition-all duration-300 cursor-pointer hover:scale-105">
+            <BsBuildings className="text-2xl" />
+            <h2 className="text-lg font-semibold mt-4">CONNEQ-Biz</h2>
           </div>
-        </main>
-      </div>
+          {sidebarItems
+            .filter((card) => card.label !== "DASHBOARD")
+            .map((card, idx) => (
+              <div key={idx} onClick={() => router.push(card.path)} className="bg-[#D7F0ED] hover:bg-[#B7E0DA] text-[#145C5B] flex flex-col items-center justify-center p-8 rounded-2xl shadow-lg transition-all duration-300 cursor-pointer hover:scale-105">
+                {card.icon}
+                <h2 className="text-lg font-semibold mt-4">{card.label}</h2>
+              </div>
+            ))}
+        </div>
+      </main>
     </div>
   );
 }
