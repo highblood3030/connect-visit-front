@@ -1,5 +1,3 @@
-"use client";
-
 import Layout from "../../components/Layout"; // ✅ Ensure Layout is used
 import { useState } from "react";
 import { FiSearch, FiX, FiDownload, FiEdit, FiInfo } from "react-icons/fi";
@@ -24,14 +22,26 @@ interface FormDataType {
   file: File | null;
 }
 
+// Define DataItem type
+interface DataItem {
+  id: number;
+  name: string;
+  category: string;
+  description: string;
+  status: string;
+  file: File | null;
+}
+
 export default function ConneqPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [selectedItem, setSelectedItem] = useState<DataItem | null>(null);
 
+
   // formData state using the FormDataType interface
   const [formData, setFormData] = useState<FormDataType>({
+
     name: "",
     category: "",
     description: "",
@@ -39,7 +49,9 @@ export default function ConneqPage() {
     file: null,
   });
 
+
   const [dataList, setDataList] = useState<DataItem[]>([]);
+
 
   // Handle text & select changes
   const handleChange = (
@@ -74,30 +86,39 @@ export default function ConneqPage() {
   };
 
   // Handle create/edit form submission
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (editMode && selectedItem) {
+
       // Update existing item
       const updatedDataList = dataList.map((item) =>
+
         item.id === selectedItem.id ? { ...item, ...formData } : item
       );
       setDataList(updatedDataList);
     } else {
+
       // Create a new item
       const newData: DataItem = {
         id: dataList.length + 1,
+
         ...formData,
       };
       setDataList([...dataList, newData]);
     }
 
+
     setModalOpen(false);
+
     setEditMode(false);
     setSelectedItem(null);
   };
 
+
   // Open edit modal
+
   const handleEdit = (item: DataItem) => {
     setFormData({
       name: item.name,
@@ -111,11 +132,14 @@ export default function ConneqPage() {
     setModalOpen(true);
   };
 
+
   // Open view details modal
+
   const handleViewDetails = (item: DataItem) => {
     setSelectedItem(item);
     setViewModalOpen(true);
   };
+}
 
   // Download the currently viewed file
   const handleDownloadFile = () => {
@@ -327,6 +351,7 @@ export default function ConneqPage() {
       {/* View Details Modal */}
       {viewModalOpen && selectedItem && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
+
           <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-xl">
             {/* Close Icon */}
             <div className="flex justify-end">
@@ -418,7 +443,8 @@ export default function ConneqPage() {
             </div>
           </div>
         </div>
+
       )}
     </Layout>
   );
-}
+

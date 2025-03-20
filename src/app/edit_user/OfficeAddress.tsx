@@ -1,0 +1,107 @@
+import React, { useEffect, useState } from "react";
+
+interface OfficeAddressProps {
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  formData: any;
+  setFormData: (data: any) => void;
+}
+
+const OfficeAddress: React.FC<OfficeAddressProps> = ({ formData, handleInputChange, setFormData }) => {
+  const [showAsterisk, setShowAsterisk] = useState({ address: true, location: true });
+
+  useEffect(() => {
+    console.log("OfficeAddress component mounted");
+    console.log("formData:", formData);
+  }, [formData]);
+
+  const isPlaceholderSelected = (value: string) => value === "";
+
+  const locationOptions: { [key: string]: string[] } = {
+    Office: ["Mercury Office", "BVFO Office", "LBL Main Office", "LBL-South Plant", "Laguna Plant", "MRI Plant",
+      "FIT", "Bauan Office", "CCPI Office", "CTI Davao Branch"],
+    Factory: ["Mercury Office", "BVFO Office", "LBL Main Office", "LBL-South Plant", "Laguna Plant", "MRI Plant",
+      "FIT", "Bauan Office", "CCPI Office", "CTI Davao Branch"],
+  };
+
+  const addressDetails: { [key: string]: { street: string; city: string; state: string; postalCode: string; country: string } } = {
+    "Mercury Office": { street: "#5 Mercury Avenue, Bagumbayan #5 Mercury Avenue, Bagumbayan", city: "Quezon City", state: "Metro Manila", postalCode: "1110 ", country: "Philippines" },
+    "BVFO Office": { street: "#62 Calle Industria", city: "Quezon City", state: "Metro Manila", postalCode: "1110 ", country: "Philippines" },
+    "LBL Main Office": { street: "#65 Calle Industria", city: "Quezon City", state: "Metro Manila", postalCode: "1110 ", country: "Philippines" },
+    "LBL-South Plant": { street: "#66 Calle Industria", city: "Quezon City", state: "Metro Manila", postalCode: "1110 ", country: "Philippines" },
+    "Laguna Plant": { street: "122 Progress Ave., Carmelray Industrial Park 1, Special Economic Zone, Canlubang", city: "Calamba City", state: "Laguna", postalCode: "4027", country: "Philippines" },
+    "MRI Plant": { street: "2821 F. Manalo St. Punta Sta Ana", city: "Manila", state: "Metro Manila", postalCode: "1009", country: "Philippines" },
+    "FIT": { street: "Administration Building, First Industrial Township-sez, Brgy. Pagaspas", city: "Tanauan", state: "Batangas", postalCode: "4232", country: "Philippines" },
+    "Bauan Office": { street: "Barangay Balayong", city: "Bauan", state: "Batangas", postalCode: "4201", country: "Philippines" },
+    "CCPI Office": { street: "Consumer Care Bldg. Manggahan Light Industrial Park A Rodriguez Avenue Santolan", city: "Pasig City", state: "Metro Manila", postalCode: "1610", country: "Philippines" },
+    "CTI Davao Branch": { street: "Door 2C & 2D, Main Building, Amina Way Business Park, Diversion Road, Sasa", city: "Davao City", state: "Davao Del Sur", postalCode: "8000", country: "Philippines" },
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="relative">
+        <select
+          className={`input-field appearance-none w-full pr-6 ${isPlaceholderSelected(formData.address) ? "text-gray-400" : "text-black"}`}
+          value={formData.address}
+          onChange={(e) => {
+            const selectedAddress = e.target.value;
+            setFormData({
+              ...formData,
+              address: selectedAddress,
+              location: "",
+              street: "",
+              city: "",
+              state: "",
+              postalCode: "",
+              country: "",
+            });
+            setShowAsterisk({ address: selectedAddress === "", location: true });
+          }}
+        >
+          <option value="" className="text-gray-400">Address</option>
+          <option value="Office">Office</option>
+          <option value="Factory">Factory</option>
+        </select>
+        {showAsterisk.address && <span className="absolute right-151.5 top-3 text-red-500">*</span>}
+      </div>
+
+      <div className="relative">
+        <select
+          className={`input-field appearance-none w-full pr-6 ${isPlaceholderSelected(formData.location) ? "text-gray-400" : "text-black"}`}
+          value={formData.location}
+          onChange={(e) => {
+            const selectedLocation = e.target.value;
+            setFormData({
+              ...formData,
+              location: selectedLocation,
+              ...(selectedLocation ? addressDetails[selectedLocation] : {
+                street: "",
+                city: "",
+                state: "",
+                postalCode: "",
+                country: "",
+              }),
+            });
+            setShowAsterisk((prev) => ({ ...prev, location: selectedLocation === "" }));
+          }}
+          disabled={!formData.address}
+        >
+          <option value="" className="text-gray-400">Location</option>
+          {formData.address &&
+            locationOptions[formData.address]?.map((loc) => (
+              <option key={loc} value={loc}>{loc}</option>
+            ))}
+        </select>
+        {showAsterisk.location && <span className="absolute right-151 top-3 text-red-500">*</span>}
+      </div>
+
+      <input type="text" className="input-field" placeholder="Street" value={formData.street || ""} readOnly />
+      <input type="text" className="input-field" placeholder="City" value={formData.city || ""} readOnly />
+      <input type="text" className="input-field" placeholder="State/Province" value={formData.state || ""} readOnly />
+      <input type="text" className="input-field" placeholder="Postal Code" value={formData.postalCode || ""} readOnly />
+      <input type="text" className="input-field" placeholder="Country" value={formData.country || ""} readOnly />
+      <br />
+    </div>
+  );
+};
+
+export default OfficeAddress;
