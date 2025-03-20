@@ -34,7 +34,7 @@ export default function Layout({ children }: LayoutProps) {
       path: "#",
       dropdown: [
         { label: "My Cards", path: "/conneq-biz" },
-        { label: "Edit Information", path: "/conneq-biz/edit-info" },
+        { label: "Edit Information", path: "/edit_user" },
       ],
     },
     { label: "CONNEQ-Page", icon: FiUsers, path: "/conneq-page" },

@@ -1,15 +1,23 @@
-"use client";
-
 import Layout from "../../components/Layout"; // ✅ Ensure Layout is used
 import { useState } from "react";
 import { FiSearch, FiX } from "react-icons/fi";
+
+// Define DataItem type
+interface DataItem {
+  id: number;
+  name: string;
+  category: string;
+  description: string;
+  status: string;
+  file: File | null;
+}
 
 export default function ConneqPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [formData, setFormData] = useState({
+  const [selectedItem, setSelectedItem] = useState<DataItem | null>(null);
+  const [formData, setFormData] = useState<Omit<DataItem, "id">>({
     name: "",
     category: "",
     description: "",
@@ -17,7 +25,7 @@ export default function ConneqPage() {
     file: null,
   });
 
-  const [dataList, setDataList] = useState<object[]>([]); // ✅ Store submitted data
+  const [dataList, setDataList] = useState<DataItem[]>([]); // ✅ Store submitted data
 
   // Handle Input Change
   const handleChange = (
@@ -26,45 +34,35 @@ export default function ConneqPage() {
     >
   ) => {
     const { name, value } = e.target;
-    console.log({ name, value })
     setFormData({ ...formData, [name]: value });
   };
 
-  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setFormData({
-  //     ...formData,
-  //     file: e.target.files ? e.target.files[0] : null,
-  //   });
-  // };
-
+  // Handle Submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (editMode) {
-  const updatedDataList = dataList.map((item) => {
-  if (selectedItem && selectedItem['id'] && item === selectedItem['id']) {
-    return { ...(selectedItem as object), ...formData };
-  }
-  return item; // Ensure we return the original item if not updated
-});
-
+    if (editMode && selectedItem) {
+      // Ensure selectedItem is not null
+      const updatedDataList = dataList.map((item: DataItem) =>
+        item.id === selectedItem.id ? { ...item, ...formData } : item
+      );
       setDataList(updatedDataList);
     } else {
       // Add New Item
-      const newData = {
-        id: dataList.length + 1, // Assign an ID
+      const newData: DataItem = {
+        id: dataList.length + 1, // Assign ID
         ...formData,
       };
       setDataList([...dataList, newData]);
     }
-
-    setModalOpen(false); // Close modal after submission
+  
+    // Reset States
     setEditMode(false);
     setSelectedItem(null);
   };
 
   // Open Edit Modal
-  const handleEdit = (item) => {
+  const handleEdit = (item: DataItem) => {
     setFormData({
       name: item.name,
       category: item.category,
@@ -78,10 +76,11 @@ export default function ConneqPage() {
   };
 
   // Open View Details Modal
-  const handleViewDetails = (item) => {
+  const handleViewDetails = (item: DataItem) => {
     setSelectedItem(item);
     setViewModalOpen(true);
   };
+}
 
   return (
     <Layout>
@@ -231,28 +230,27 @@ export default function ConneqPage() {
       )}
 
       {/* View Details Modal */}
-     {/* View Details Modal */}
-{viewModalOpen && selectedItem && (
-  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
-    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
-      <div className="flex justify-between items-center border-b pb-2">
-        <h2 className="text-xl font-bold text-black">CONNEQ PAGE</h2>
-        <FiX
-          className="text-xl cursor-pointer text-black hover:text-black"
-          onClick={() => {
-            console.log('here');
-            setViewModalOpen(false);
-          }}
-        />
-      </div>
-      <p className="text-black">Status: {selectedItem['status']}</p>
-      <p className="text-black">Name: {selectedItem['name']}</p>
-      <p className="text-black">Category: {selectedItem['category']}</p>
-      <p className="text-black">Description: {selectedItem['description']}</p>
-    </div>
-  </div>
-)}
+      {viewModalOpen && selectedItem && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+            <div className="flex justify-between items-center border-b pb-2">
+              <h2 className="text-xl font-bold text-black">CONNEQ PAGE</h2>
+              <FiX
+                className="text-xl cursor-pointer text-black hover:text-black"
+                onClick={() => {
+                  console.log('here')
+                  setViewModalOpen(false)
+                }}
+              />
+            </div>
+            <p>Status: {selectedItem['status']}</p>
+            <p>Name: {selectedItem['name']}</p>
+            <p>Category: {selectedItem['category']}</p>
+            <p>Description: {selectedItem['description text']}</p>
+          </div>
+        </div>
 
+      )}
     </Layout>
   );
-}
+
