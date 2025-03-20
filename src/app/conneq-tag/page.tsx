@@ -15,8 +15,13 @@ export default function ConneqTag() {
   });
 
   // Handle Input Change
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
+    console.log({ name, value })
     setFormData({ ...formData, [name]: value });
   };
 
