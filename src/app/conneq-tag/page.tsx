@@ -15,13 +15,13 @@ export default function ConneqTag() {
   });
 
   // Handle Input Change
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
   // Handle Form Submission
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form Submitted:", formData);
     setModalOpen(false); // Close modal after submission
@@ -112,7 +112,7 @@ export default function ConneqTag() {
             </thead>
             <tbody>
               <tr>
-                <td colSpan="7" className="text-center text-gray-500 py-6">
+                <td colSpan={7} className="text-center text-gray-500 py-6">
                   No data available
                 </td>
               </tr>
