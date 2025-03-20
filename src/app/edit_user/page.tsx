@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { FiMenu } from "react-icons/fi";
 import {
@@ -97,7 +97,7 @@ export default function EditUser() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev: UserFormData) => ({ ...prev, [name]: value }));
   };
 
   // Handle profile image upload
@@ -109,6 +109,17 @@ export default function EditUser() {
     }
   };
 
+
+  // Handle form submission
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Here you would normally save the data via an API call or similar.
+    // For this example, we'll just log the formData.
+    console.log("Form submitted", formData);
+    // You can also navigate or show a success message.
+  };
+
+
   return (
     <Layout>
       <div className="max-w-7xl mx-auto text-black">
@@ -118,94 +129,117 @@ export default function EditUser() {
 
         {/* Main content area: Tabs + Preview */}
         <div className="flex flex-col lg:flex-row space-y-8 lg:space-x-8">
-          {/* Left side: Tabs + Forms */}
+
+          {/* Left side: Tabs + Form */}
           <div className="w-full lg:w-2/3 bg-white rounded-xl shadow-xl p-6">
-            {/* Tabs */}
-            <div className="flex flex-wrap gap-4 border-b-2 border-gray-300 pb-3">
-              {tabs.map((tab, idx) => (
-                <span
-                  key={idx}
-                  onClick={() => setActiveTab(idx)}
-                  className={`cursor-pointer px-3 py-1 text-sm font-medium ${
-                    idx === activeTab
-                      ? "text-[#145C5B] border-b-2 border-[#145C5B]"
-                      : "text-gray-500 hover:text-[#145C5B]"
-                  }`}
+            <form ref={formRef} onSubmit={handleSubmit}>
+              {/* Tabs */}
+              <div className="flex flex-wrap gap-4 border-b-2 border-gray-300 pb-3">
+                {tabs.map((tab, idx) => (
+                  <span
+                    key={idx}
+                    onClick={() => setActiveTab(idx)}
+                    className={`cursor-pointer px-3 py-1 text-sm font-medium ${
+                      idx === activeTab
+                        ? "text-[#145C5B] border-b-2 border-[#145C5B]"
+                        : "text-gray-500 hover:text-[#145C5B]"
+                    }`}
+                  >
+                    {tab}
+                  </span>
+                ))}
+              </div>
+
+              {/* Tab Content */}
+              {activeTab === 0 && (
+                <PersonalInformation
+                  profileImage={profileImage}
+                  handleImageChange={handleImageChange}
+                  formData={formData}
+                  setFormData={setFormData}
+                />
+              )}
+              {activeTab === 1 && (
+                <ContactInformation
+                  formData={formData}
+                  handleInputChange={handleInputChange}
+                />
+              )}
+              {activeTab === 2 && (
+                <OfficeAddress
+                  formData={formData}
+                  handleInputChange={handleInputChange}
+                  setFormData={setFormData}
+                />
+              )}
+              {activeTab === 3 && (
+                <SocialMediaAccount
+                  formData={formData}
+                  handleInputChange={handleInputChange}
+                />
+              )}
+              {activeTab === 4 && (
+                <Others formData={formData} handleInputChange={handleInputChange} />
+              )}
+
+              {/* Privacy Policy Link */}
+              <div className="text-center mt-6">
+                <a
+                  href="https://dnl.com.ph/privacy-policy/"
+                  className="text-blue-500 underline"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  {tab}
-                </span>
-              ))}
-            </div>
+                  Corporate Data Privacy Policy
+                </a>
+              </div>
 
-            {/* Tab Content */}
-            {activeTab === 0 && (
-              <PersonalInformation
-                profileImage={profileImage}
-                handleImageChange={handleImageChange}
-                formData={formData}
-                setFormData={setFormData}
-              />
-            )}
-            {activeTab === 1 && (
-              <ContactInformation
-                formData={formData}
-                handleInputChange={handleInputChange}
-              />
-            )}
-            {activeTab === 2 && (
-              <OfficeAddress
-                formData={formData}
-                handleInputChange={handleInputChange}
-                setFormData={setFormData}
-              />
-            )}
-            {activeTab === 3 && (
-              <SocialMediaAccount
-                formData={formData}
-                handleInputChange={handleInputChange}
-              />
-            )}
-            {activeTab === 4 && (
-              <Others formData={formData} handleInputChange={handleInputChange} />
-            )}
+              {/* Checkbox Confirmation */}
+              <div className="relative flex items-start space-x-2 mt-4">
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={() => setIsChecked(!isChecked)}
+                />
+                {!isChecked && <span className="text-red-500">*</span>}
+                <p className="text-gray-700 text-justify">
+                  I confirm that I have read, understood, and agree with the Privacy
+                  Notice of {formData.company || "(company name)"}. I understand that
+                  some of my personal information will be used in my digital cards.
+                </p>
+              </div>
 
-            {/* Privacy Policy Link */}
-            <div className="text-center mt-6">
-              <a
-                href="https://dnl.com.ph/privacy-policy/"
-                className="text-blue-500 underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Corporate Data Privacy Policy
-              </a>
-            </div>
-
-            {/* Checkbox Confirmation */}
-            <div className="relative flex items-start space-x-2 mt-4">
-              <input
-                type="checkbox"
-                checked={isChecked}
-                onChange={() => setIsChecked(!isChecked)}
-              />
-              {!isChecked && <span className="text-red-500">*</span>}
-              <p className="text-gray-700 text-justify">
-                I confirm that I have read, understood, and agree with the Privacy
-                Notice of {formData.company || "(company name)"}. I understand
-                that some of my personal information, such as my personal mobile
-                number, will be used as part of my email signature, business card,
-                and virtual card. I understand that my consent does not preclude
-                the existence of other criteria for lawful processing of personal
-                data, and does not waive any of my rights under the Data Privacy
-                Act of 2012 and other applicable laws.
-              </p>
-            </div>
+              {/* Navigation Buttons */}
+              <div className="flex justify-end space-x-4 mt-6">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab((prev) => prev - 1)}
+                  disabled={activeTab === 0}
+                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded disabled:opacity-50"
+                >
+                  Back
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab((prev) => prev + 1)}
+                  disabled={activeTab === tabs.length - 1}
+                  className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+                >
+                  Next
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-[#145C5B] text-white rounded"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
           </div>
 
           {/* Right side: Preview Cards */}
           <div className="w-full lg:w-1/3 flex flex-col">
             <h2 className="text-2xl font-bold text-[#145C5B] mb-4">PREVIEW</h2>
-            {/* The two preview cards remain unchanged */}
             <PreviewCard
               title="Email Signature"
               profileImage={profileImage}
@@ -217,6 +251,7 @@ export default function EditUser() {
               formData={formData}
             />
           </div>
+
         </div>
       </div>
     </Layout>
