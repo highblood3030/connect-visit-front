@@ -1,5 +1,6 @@
 "use client";
 
+import { ReactNode } from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FiUsers, FiMenu, FiLogOut } from "react-icons/fi";
@@ -8,13 +9,18 @@ import { HiOutlineCreditCard } from "react-icons/hi";
 import { RiFileSearchLine } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
 
-export default function Layout({ children }) {
+// Define the type for Layout props
+interface LayoutProps {
+  children: ReactNode;
+}
+
+export default function Layout({ children }: LayoutProps) {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [bizDropdownOpen, setBizDropdownOpen] = useState(false);
 
   // Close Floating Sidebar & Dropdown When Clicking Outside
-  const handleOutsideClick = (e) => {
+  const handleOutsideClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     setSidebarOpen(false);
     setBizDropdownOpen(false);

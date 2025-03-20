@@ -17,7 +17,7 @@ export default function ConneqPage() {
     file: null,
   });
 
-  const [dataList, setDataList] = useState([]); // ✅ Store submitted data
+  const [dataList, setDataList] = useState<object[]>([]); // ✅ Store submitted data
 
   // Handle Input Change
   const handleChange = (
@@ -41,10 +41,13 @@ export default function ConneqPage() {
     e.preventDefault();
 
     if (editMode) {
-      // Update Existing Item
-      const updatedDataList = dataList.map((item) =>
-        item['id'] === selectedItem.id ? { ...selectedItem, ...formData } : item
-      );
+  const updatedDataList = dataList.map((item) => {
+  if (selectedItem && selectedItem['id'] && item === selectedItem['id']) {
+    return { ...(selectedItem as object), ...formData };
+  }
+  return item; // Ensure we return the original item if not updated
+});
+
       setDataList(updatedDataList);
     } else {
       // Add New Item
