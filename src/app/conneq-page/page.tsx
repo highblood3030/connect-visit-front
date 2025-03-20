@@ -231,27 +231,28 @@ export default function ConneqPage() {
       )}
 
       {/* View Details Modal */}
-      {viewModalOpen && selectedItem && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
-            <div className="flex justify-between items-center border-b pb-2">
-              <h2 className="text-xl font-bold text-black">CONNEQ PAGE</h2>
-              <FiX
-                className="text-xl cursor-pointer text-black hover:text-black"
-                onClick={() => {
-                  console.log('here')
-                  setViewModalOpen(false)
-                }}
-              />
-            </div>
-            <p>Status: {selectedItem['status']}</p>
-            <p>Name: {selectedItem['name']}</p>
-            <p>Category: {selectedItem['category']}</p>
-            <p>Description: {selectedItem['description text']}</p>
-          </div>
-        </div>
+     {/* View Details Modal */}
+{viewModalOpen && selectedItem && (
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
+    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+      <div className="flex justify-between items-center border-b pb-2">
+        <h2 className="text-xl font-bold text-black">CONNEQ PAGE</h2>
+        <FiX
+          className="text-xl cursor-pointer text-black hover:text-black"
+          onClick={() => {
+            console.log('here');
+            setViewModalOpen(false);
+          }}
+        />
+      </div>
+      <p className="text-black">Status: {selectedItem['status']}</p>
+      <p className="text-black">Name: {selectedItem['name']}</p>
+      <p className="text-black">Category: {selectedItem['category']}</p>
+      <p className="text-black">Description: {selectedItem['description']}</p>
+    </div>
+  </div>
+)}
 
-      )}
     </Layout>
   );
 }
