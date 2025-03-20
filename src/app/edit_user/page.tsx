@@ -109,6 +109,7 @@ export default function EditUser() {
     }
   };
 
+
   // Handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -117,6 +118,7 @@ export default function EditUser() {
     console.log("Form submitted", formData);
     // You can also navigate or show a success message.
   };
+
 
   return (
     <Layout>
@@ -127,6 +129,7 @@ export default function EditUser() {
 
         {/* Main content area: Tabs + Preview */}
         <div className="flex flex-col lg:flex-row space-y-8 lg:space-x-8">
+
           {/* Left side: Tabs + Form */}
           <div className="w-full lg:w-2/3 bg-white rounded-xl shadow-xl p-6">
             <form ref={formRef} onSubmit={handleSubmit}>
@@ -248,6 +251,7 @@ export default function EditUser() {
               formData={formData}
             />
           </div>
+
         </div>
       </div>
     </Layout>
