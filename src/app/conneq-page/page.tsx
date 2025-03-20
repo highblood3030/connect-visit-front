@@ -5,44 +5,45 @@ import { useState } from "react";
 import { FiSearch, FiX } from "react-icons/fi";
 
 export default function ConneqPage() {
-
   const [modalOpen, setModalOpen] = useState(false);
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [formData, setFormData] = useState({
-
     name: "",
     category: "",
     description: "",
     status: "Active",
     file: null,
   });
-  
-
 
   const [dataList, setDataList] = useState([]); // ✅ Store submitted data
 
   // Handle Input Change
-  const handleChange = (e) => {
-
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
+    console.log({ name, value })
     setFormData({ ...formData, [name]: value });
   };
-  
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, file: e.target.files ? e.target.files[0] : null });
-  };
-  
+
+  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setFormData({
+  //     ...formData,
+  //     file: e.target.files ? e.target.files[0] : null,
+  //   });
+  // };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-
 
     if (editMode) {
       // Update Existing Item
       const updatedDataList = dataList.map((item) =>
-        item.id === selectedItem.id ? { ...selectedItem, ...formData } : item
+        item['id'] === selectedItem.id ? { ...selectedItem, ...formData } : item
       );
       setDataList(updatedDataList);
     } else {
@@ -117,7 +118,7 @@ export default function ConneqPage() {
         {/* Table Section */}
         <div className="bg-white shadow-lg rounded-lg overflow-hidden">
           <table className="w-full border-collapse">
-            <thead className="bg-gray-200 text-gray-700">
+            <thead className="bg-gray-200 text-black">
               <tr>
                 <th className="py-3 px-4 text-left">ID</th>
                 <th className="py-3 px-4 text-left">Name</th>
@@ -130,20 +131,19 @@ export default function ConneqPage() {
             <tbody>
               {dataList.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="text-center text-gray-500 py-6">
-
+                  <td colSpan={6} className="text-center text-black py-6">
                     No data available
                   </td>
                 </tr>
               ) : (
                 dataList.map((item) => (
-                  <tr key={item.id} className="border-t hover:bg-gray-100">
-                    <td className="py-3 px-4">{item.id}</td>
-                    <td className="py-3 px-4">{item.name}</td>
-                    <td className="py-3 px-4">{item.category}</td>
-                    <td className="py-3 px-4">{item.description}</td>
-                    <td className="py-3 px-4 font-semibold text-[#145C5B]">
-                      {item.status}
+                  <tr key={item['id']} className="border-t hover:bg-gray-100">
+                    <td className="py-3 px-4 text-black">{item['id']}</td>
+                    <td className="py-3 px-4 text-black">{item['name']}</td>
+                    <td className="py-3 px-4 text-black">{item['category']}</td>
+                    <td className="py-3 px-4 text-black">{item['description']}</td>
+                    <td className="py-3 px-4 font-semibold text-black">
+                      {item['status']}
                     </td>
                     <td className="py-3 px-4 space-x-2">
                       <button
@@ -172,24 +172,56 @@ export default function ConneqPage() {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
             <div className="flex justify-between items-center border-b pb-2">
-              <h2 className="text-xl font-bold text-[#145C5B]">
+              <h2 className="text-xl font-bold text-black">
                 {editMode ? "Edit CONNEQ Page" : "CONNEQ PAGE FORM"}
               </h2>
               <FiX
-                className="text-xl cursor-pointer text-gray-600 hover:text-gray-800"
+                className="text-xl cursor-pointer text-black hover:text-black"
                 onClick={() => setModalOpen(false)}
               />
             </div>
             {/* Form */}
             <form onSubmit={handleSubmit} className="mt-4 space-y-4">
-              <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required className="w-full border p-2 rounded-md"/>
-              <input type="text" name="category" value={formData.category} onChange={handleChange} placeholder="Category" required className="w-full border p-2 rounded-md"/>
-              <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Description" className="w-full border p-2 rounded-md"></textarea>
-              <select name="status" value={formData.status} onChange={handleChange} className="w-full border p-2 rounded-md">
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Name"
+                required
+                className="w-full border p-2 rounded-md text-black"
+              />
+              <input
+                type="text"
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                placeholder="Category"
+                required
+                className="w-full border p-2 rounded-md text-black"
+              />
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="Description"
+                className="w-full border p-2 rounded-md text-black"
+              ></textarea>
+              <select
+                name="status"
+                value={formData.status}
+                onChange={handleChange}
+                className="w-full border p-2 rounded-md text-black"
+              >
                 <option value="Active">Active</option>
                 <option value="Inactive">Inactive</option>
               </select>
-              <button type="submit" className="w-full bg-[#145C5B] text-white py-2 rounded-md">Save</button>
+              <button
+                type="submit"
+                className="w-full bg-[#145C5B] text-white py-2 rounded-md  text-black"
+              >
+                Save
+              </button>
             </form>
           </div>
         </div>
@@ -199,13 +231,23 @@ export default function ConneqPage() {
       {viewModalOpen && selectedItem && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
-            <h2 className="text-xl font-bold text-[#145C5B]">CONNEQ PAGE</h2>
-            <p>Status: {selectedItem.status}</p>
-            <p>Name: {selectedItem.name}</p>
-            <p>Category: {selectedItem.category}</p>
-            <p>Description: {selectedItem.description}</p>
+            <div className="flex justify-between items-center border-b pb-2">
+              <h2 className="text-xl font-bold text-black">CONNEQ PAGE</h2>
+              <FiX
+                className="text-xl cursor-pointer text-black hover:text-black"
+                onClick={() => {
+                  console.log('here')
+                  setViewModalOpen(false)
+                }}
+              />
+            </div>
+            <p>Status: {selectedItem['status']}</p>
+            <p>Name: {selectedItem['name']}</p>
+            <p>Category: {selectedItem['category']}</p>
+            <p>Description: {selectedItem['description text']}</p>
           </div>
         </div>
+
       )}
     </Layout>
   );
