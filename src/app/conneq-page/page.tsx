@@ -1,6 +1,26 @@
 import Layout from "../../components/Layout"; // ✅ Ensure Layout is used
 import { useState } from "react";
-import { FiSearch, FiX } from "react-icons/fi";
+import { FiSearch, FiX, FiDownload, FiEdit, FiInfo } from "react-icons/fi";
+import QRCode from "react-qr-code";
+
+// Define the data item interface for list items
+interface DataItem {
+  id: number;
+  name: string;
+  category: string;
+  description: string;
+  status: string;
+  file: File | null;
+}
+
+// Define the form data type
+interface FormDataType {
+  name: string;
+  category: string;
+  description: string;
+  status: string;
+  file: File | null;
+}
 
 // Define DataItem type
 interface DataItem {
@@ -17,7 +37,11 @@ export default function ConneqPage() {
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [selectedItem, setSelectedItem] = useState<DataItem | null>(null);
-  const [formData, setFormData] = useState<Omit<DataItem, "id">>({
+
+
+  // formData state using the FormDataType interface
+  const [formData, setFormData] = useState<FormDataType>({
+
     name: "",
     category: "",
     description: "",
@@ -25,9 +49,11 @@ export default function ConneqPage() {
     file: null,
   });
 
-  const [dataList, setDataList] = useState<DataItem[]>([]); // ✅ Store submitted data
 
-  // Handle Input Change
+  const [dataList, setDataList] = useState<DataItem[]>([]);
+
+
+  // Handle text & select changes
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -37,31 +63,62 @@ export default function ConneqPage() {
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle Submission
+  // Handle file input and infer category
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+
+    let inferredCategory = "";
+    if (file) {
+      if (file.type.startsWith("image/")) {
+        inferredCategory = "Image";
+      } else if (file.type === "application/pdf") {
+        inferredCategory = "PDF";
+      } else {
+        inferredCategory = "Unknown";
+      }
+    }
+
+    setFormData({
+      ...formData,
+      file,
+      category: file ? inferredCategory : "",
+    });
+  };
+
+  // Handle create/edit form submission
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (editMode && selectedItem) {
-      // Ensure selectedItem is not null
-      const updatedDataList = dataList.map((item: DataItem) =>
+
+      // Update existing item
+      const updatedDataList = dataList.map((item) =>
+
         item.id === selectedItem.id ? { ...item, ...formData } : item
       );
       setDataList(updatedDataList);
     } else {
-      // Add New Item
+
+      // Create a new item
       const newData: DataItem = {
-        id: dataList.length + 1, // Assign ID
+        id: dataList.length + 1,
+
         ...formData,
       };
       setDataList([...dataList, newData]);
     }
-  
-    // Reset States
+
+
+    setModalOpen(false);
+
     setEditMode(false);
     setSelectedItem(null);
   };
 
-  // Open Edit Modal
+
+  // Open edit modal
+
   const handleEdit = (item: DataItem) => {
     setFormData({
       name: item.name,
@@ -75,12 +132,24 @@ export default function ConneqPage() {
     setModalOpen(true);
   };
 
-  // Open View Details Modal
+
+  // Open view details modal
+
   const handleViewDetails = (item: DataItem) => {
     setSelectedItem(item);
     setViewModalOpen(true);
   };
 }
+
+  // Download the currently viewed file
+  const handleDownloadFile = () => {
+    if (!selectedItem || !selectedItem.file) return;
+    const fileURL = URL.createObjectURL(selectedItem.file);
+    const link = document.createElement("a");
+    link.href = fileURL;
+    link.download = selectedItem.file.name; // File name for the downloaded file
+    link.click();
+  };
 
   return (
     <Layout>
@@ -94,6 +163,7 @@ export default function ConneqPage() {
           <button
             className="bg-[#145C5B] text-white px-6 py-2 rounded-lg shadow-md hover:bg-[#0e4b4b] transition"
             onClick={() => {
+              // Reset form for new entry
               setFormData({
                 name: "",
                 category: "",
@@ -139,13 +209,13 @@ export default function ConneqPage() {
                 </tr>
               ) : (
                 dataList.map((item) => (
-                  <tr key={item['id']} className="border-t hover:bg-gray-100">
-                    <td className="py-3 px-4 text-black">{item['id']}</td>
-                    <td className="py-3 px-4 text-black">{item['name']}</td>
-                    <td className="py-3 px-4 text-black">{item['category']}</td>
-                    <td className="py-3 px-4 text-black">{item['description']}</td>
+                  <tr key={item.id} className="border-t hover:bg-gray-100">
+                    <td className="py-3 px-4 text-black">{item.id}</td>
+                    <td className="py-3 px-4 text-black">{item.name}</td>
+                    <td className="py-3 px-4 text-black">{item.category}</td>
+                    <td className="py-3 px-4 text-black">{item.description}</td>
                     <td className="py-3 px-4 font-semibold text-black">
-                      {item['status']}
+                      {item.status}
                     </td>
                     <td className="py-3 px-4 space-x-2">
                       <button
@@ -184,43 +254,92 @@ export default function ConneqPage() {
             </div>
             {/* Form */}
             <form onSubmit={handleSubmit} className="mt-4 space-y-4">
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Name"
-                required
-                className="w-full border p-2 rounded-md text-black"
-              />
-              <input
-                type="text"
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-                placeholder="Category"
-                required
-                className="w-full border p-2 rounded-md text-black"
-              />
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                placeholder="Description"
-                className="w-full border p-2 rounded-md text-black"
-              ></textarea>
-              <select
-                name="status"
-                value={formData.status}
-                onChange={handleChange}
-                className="w-full border p-2 rounded-md text-black"
-              >
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
-              </select>
+              {/* Name */}
+              <div>
+                <label className="block text-black font-semibold mb-1">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="e.g. Erika Faller"
+                  required
+                  className="w-full border p-2 rounded-md text-black"
+                />
+              </div>
+
+              {/* Description */}
+              <div>
+                <label className="block text-black font-semibold mb-1">
+                  Description
+                </label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  placeholder="Short description..."
+                  className="w-full border p-2 rounded-md text-black"
+                ></textarea>
+              </div>
+
+              {/* Status */}
+              <div>
+                <label className="block text-black font-semibold mb-1">
+                  Status
+                </label>
+                <select
+                  name="status"
+                  value={formData.status}
+                  onChange={handleChange}
+                  className="w-full border p-2 rounded-md text-black"
+                >
+                  <option value="Active">Active</option>
+                  <option value="Inactive">Inactive</option>
+                </select>
+              </div>
+
+              {/* File Upload */}
+              <div>
+                <label className="block text-black font-semibold mb-1">
+                  Upload File(s)
+                </label>
+                <p className="text-sm text-gray-600 mb-2">
+                  Supports JPG, PNG, PDF up to 1MB
+                </p>
+                <input
+                  type="file"
+                  accept="image/*,application/pdf"
+                  onChange={handleFileChange}
+                  className="w-full border p-2 rounded-md text-black"
+                />
+                {formData.file && (
+                  <p className="text-sm text-gray-600 mt-1">
+                    Selected file: {formData.file.name}
+                  </p>
+                )}
+              </div>
+
+              {/* Category (Read-Only) */}
+              {formData.file && (
+                <div>
+                  <label className="block text-black font-semibold mb-1">
+                    Category
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.category}
+                    readOnly
+                    className="w-full border p-2 rounded-md bg-gray-100 text-black"
+                  />
+                </div>
+              )}
+
+              {/* Save Button */}
               <button
                 type="submit"
-                className="w-full bg-[#145C5B] text-white py-2 rounded-md  text-black"
+                className="w-full bg-[#145C5B] text-white py-2 rounded-md mt-2"
               >
                 Save
               </button>
@@ -232,21 +351,96 @@ export default function ConneqPage() {
       {/* View Details Modal */}
       {viewModalOpen && selectedItem && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
-            <div className="flex justify-between items-center border-b pb-2">
-              <h2 className="text-xl font-bold text-black">CONNEQ PAGE</h2>
+
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-xl">
+            {/* Close Icon */}
+            <div className="flex justify-end">
               <FiX
-                className="text-xl cursor-pointer text-black hover:text-black"
-                onClick={() => {
-                  console.log('here')
-                  setViewModalOpen(false)
-                }}
+                className="text-xl cursor-pointer text-gray-600 hover:text-gray-800"
+                onClick={() => setViewModalOpen(false)}
               />
             </div>
-            <p>Status: {selectedItem['status']}</p>
-            <p>Name: {selectedItem['name']}</p>
-            <p>Category: {selectedItem['category']}</p>
-            <p>Description: {selectedItem['description text']}</p>
+
+            {/* Large Icon at Top */}
+            <div className="mx-auto mb-4 flex items-center justify-center w-20 h-20 rounded-full bg-blue-100">
+              <FiInfo className="text-blue-600 text-4xl" />
+            </div>
+
+            {/* Title */}
+            <h2 className="text-xl font-bold text-gray-700 mb-4 text-center">
+              CONNEQ PAGE
+            </h2>
+
+            {/* Main Content: QR on left, details on right */}
+            <div className="flex flex-col md:flex-row md:items-start md:gap-6">
+              {/* QR Code Section */}
+              <div className="flex justify-center mb-4 md:mb-0">
+                {/* Generate local URL if file exists, else use "NoFile" */}
+                {selectedItem.file ? (
+                  <QRCode
+                    value={URL.createObjectURL(selectedItem.file)}
+                    size={150}
+                  />
+                ) : (
+                  <QRCode value="NoFile" size={150} />
+                )}
+              </div>
+
+              {/* Info Section */}
+              <div className="flex-1 space-y-3">
+                <p className="text-black">
+                  <strong>Status:</strong> {selectedItem.status}
+                </p>
+                <p className="text-black">
+                  <strong>File:</strong>{" "}
+                  {selectedItem.file ? selectedItem.file.name : "No file"}
+                </p>
+                <p className="text-black">
+                  <strong>URL:</strong>{" "}
+                  {selectedItem.file ? (
+                    <a
+                      href={URL.createObjectURL(selectedItem.file)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 underline break-all"
+                    >
+                      {URL.createObjectURL(selectedItem.file)}
+                    </a>
+                  ) : (
+                    "N/A"
+                  )}
+                </p>
+                <p className="text-black">
+                  <strong>Name:</strong> {selectedItem.name}
+                </p>
+                <p className="text-black">
+                  <strong>Description:</strong> {selectedItem.description}
+                </p>
+              </div>
+            </div>
+
+            {/* Action Buttons: Download + Edit */}
+            <div className="mt-6 flex justify-center gap-4">
+              {/* Download Button */}
+              <button
+                onClick={handleDownloadFile}
+                className="flex items-center bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition"
+              >
+                <FiDownload className="mr-2" />
+                Download
+              </button>
+              {/* Edit Button */}
+              <button
+                onClick={() => {
+                  setViewModalOpen(false);
+                  handleEdit(selectedItem);
+                }}
+                className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+              >
+                <FiEdit className="mr-2" />
+                Edit
+              </button>
+            </div>
           </div>
         </div>
 
