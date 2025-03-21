@@ -41,7 +41,7 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
 
         {/* BUSINESS CARD */}
         {title === "Business Card" && (
-          <div className="relative w-full h-full flex flex-col items-center justify-start px-6 py-4 space-y-2">
+          <div className="relative w-full max-w-md mx-auto flex flex-col items-center justify-start px-6 py-4 space-y-4">
             <div className="w-28 h-28 rounded-full border-4 border-[#145C5B] overflow-hidden">
               <img
                 src={formData.profileImage || "/Default.jpeg"}
