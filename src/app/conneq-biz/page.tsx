@@ -1,42 +1,104 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Layout from "../../components/Layout";
-import { FiEdit, FiMail, FiDownload, FiRefreshCw, FiGrid } from "react-icons/fi";
+import PreviewCard from "../edit_user/PreviewCard";
+import {
+  FiEdit,
+  FiMail,
+  FiDownload,
+  FiRefreshCw,
+  FiGrid,
+} from "react-icons/fi";
+import html2canvas from "html2canvas";  // Fix import issue
+import QRCode from "qrcode";  // Uses installed @types/qrcode
 
-interface UserFormData {
-  firstname: string;
-  middlename?: string;
-  lastname: string;
-  honorificprefix?: string;
-  honorificsuffix?: string;
-  jobtitle: string;
-  company: string;
-  logo: string;
-  website?: string;
-  cellphone?: string;
-  whatsapp?: string;
-  viber?: string;
-  wechat?: string;
-  workphone?: string;
-  workemail: string;
-  workfax?: string;
-  address: string;
-  location: string;
-  linkedin?: string;
-  facebook?: string;
-  note?: string;
-}
+// Sample User Data for Display
+const sampleUserData = {
+  firstname: "John",
+  middlename: "A.",
+  lastname: "Doe",
+  honorificprefix: "Dr.",
+  honorificsuffix: "PhD",
+  jobtitle: "Software Engineer",
+  company: "D&L Industries",
+  logo: "/Default.jpeg",
+  website: "https://example.com",
+  cellphone: "+1 234 567 890",
+  workemail: "john.doe@example.com",
+  address: "123 Main St, New York, USA",
+};
 
 export default function ConneqBizCards() {
-  const [userData, setUserData] = useState<UserFormData | null>(null);
+  const [userData] = useState(sampleUserData);
+  const router = useRouter();
 
-  useEffect(() => {
-    const storedData = localStorage.getItem("userFormData");
-    if (storedData) {
-      setUserData(JSON.parse(storedData));
-    }
-  }, []);
+  // 📌 Redirect to Edit Page
+  const handleEdit = () => {
+    router.push("/edit_user");
+  };
+
+  // 📌 Copy Signature to Clipboard & Show Success
+  const handleCopySignature = () => {
+    const signatureText = `
+      ${userData.firstname} ${userData.lastname} - ${userData.jobtitle}
+      ${userData.company}
+      📧 ${userData.workemail}
+      📍 ${userData.address}
+      📞 ${userData.cellphone}
+    `;
+
+    navigator.clipboard.writeText(signatureText).then(() => {
+      alert("✔️ Download Success!\nSignature has been copied to your clipboard. Kindly paste it to your email signature form.");
+    });
+  };
+
+  // 📌 Download Email Signature Card as an Image
+  const handleDownloadSignature = () => {
+    const signatureElement = document.getElementById("email-signature-card");
+
+    if (!signatureElement) return;
+
+    html2canvas(signatureElement).then((canvas: HTMLCanvasElement) => {
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = "Email_Signature.png";
+      link.click();
+
+      alert("✔️ Email Signature Successfully Downloaded!");
+    });
+  };
+
+  // 📌 Refresh Page & Show Confirmation
+  const handleRefresh = () => {
+    alert("✔️ Email Signature Successfully Refreshed!\nKindly check your email signature. You may need to refresh the page to see the changes.");
+    window.location.reload();
+  };
+
+  // 📌 Generate & Download QR Code
+  const handleDownloadQR = () => {
+    const qrData = `
+      Name: ${userData.firstname} ${userData.lastname}
+      Job: ${userData.jobtitle}
+      Company: ${userData.company}
+      Email: ${userData.workemail}
+      Phone: ${userData.cellphone}
+      Address: ${userData.address}
+    `;
+
+    QRCode.toDataURL(qrData, { width: 300 }, (err: Error | null, url: string) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "Contact_QR.png";
+      link.click();
+    });
+  };
 
   return (
     <Layout>
@@ -50,66 +112,36 @@ export default function ConneqBizCards() {
 
         {/* Action Buttons */}
         <div className="flex justify-end gap-3 mb-6">
-          <button className="flex items-center bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow-md text-sm hover:bg-blue-700 transition">
-            <FiEdit className="mr-1.5" /> Edit
+          <button onClick={handleEdit} className="flex items-center bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow-md text-sm hover:bg-blue-700 transition">
+            <FiEdit className="mr-1.5" /> Edit Information
           </button>
-          <button className="flex items-center bg-green-600 text-white px-3 py-1.5 rounded-lg shadow-md text-sm hover:bg-green-700 transition">
-            <FiMail className="mr-1.5" /> Send VCard
+          <button onClick={handleCopySignature} className="flex items-center bg-green-600 text-white px-3 py-1.5 rounded-lg shadow-md text-sm hover:bg-green-700 transition">
+            <FiMail className="mr-1.5" /> Send Vcard via Email
           </button>
-          <button className="flex items-center bg-gray-600 text-white px-3 py-1.5 rounded-lg shadow-md text-sm hover:bg-gray-700 transition">
-            <FiDownload className="mr-1.5" /> Download
+          <button onClick={handleDownloadSignature} className="flex items-center bg-gray-600 text-white px-3 py-1.5 rounded-lg shadow-md text-sm hover:bg-gray-700 transition">
+            <FiDownload className="mr-1.5" /> Download Email Signature
           </button>
-          <button className="flex items-center bg-[#91C8C4] text-white px-3 py-1.5 rounded-lg shadow-md text-sm hover:bg-[#78B0AC] transition">
-            <FiRefreshCw className="mr-1.5" /> Refresh
+          <button onClick={handleRefresh} className="flex items-center bg-[#91C8C4] text-white px-3 py-1.5 rounded-lg shadow-md text-sm hover:bg-[#78B0AC] transition">
+            <FiRefreshCw className="mr-1.5" /> Refresh Email Signature
           </button>
-          <button className="flex items-center bg-[#91C8C4] text-white px-3 py-1.5 rounded-lg shadow-md text-sm hover:bg-[#78B0AC] transition">
-            <FiGrid className="mr-1.5" /> QR Code
+          <button onClick={handleDownloadQR} className="flex items-center bg-[#91C8C4] text-white px-3 py-1.5 rounded-lg shadow-md text-sm hover:bg-[#78B0AC] transition">
+            <FiGrid className="mr-1.5" /> Download My QR
           </button>
         </div>
 
-        {/* Business Cards Layout */}
+        {/* Business Cards Layout using Sample Data */}
         <div className="flex flex-col md:flex-row gap-12 items-start">
-          {/* Left Side: Profile Card */}
-          <div className="bg-gradient-to-br from-[#145C5B] to-[#0e4b4b] text-white rounded-xl p-6 w-full md:w-[40%] flex flex-col items-center text-center shadow-lg">
-            <div className="w-24 h-24 rounded-full border-4 border-white shadow-md bg-gray-300 overflow-hidden">
-              {userData?.logo ? (
-                <img
-                  src={userData.logo}
-                  alt="Profile"
-                  className="object-cover w-full h-full"
-                />
-              ) : (
-                <p className="text-sm text-white pt-8">No Logo</p>
-              )}
-            </div>
-            <h3 className="text-xl font-bold mt-4">
-              {userData ? `${userData.firstname} ${userData.lastname}` : "---"}
-            </h3>
-            <p className="text-sm font-semibold">{userData?.jobtitle || "---"}</p>
-            <div className="mt-6 space-y-3 text-sm">
-              <p>📍 {userData?.address || "---"}</p>
-              <p>✉️ {userData?.workemail || "---"}</p>
-              <p>📞 {userData?.cellphone || "---"}</p>
-            </div>
-            <button className="mt-4 bg-white text-[#145C5B] px-4 py-2 rounded-lg shadow-md hover:bg-gray-200 transition">
-              Save Contact
-            </button>
-            <div className="mt-4 w-16 h-8 bg-gray-300 rounded" />
-          </div>
-
-          {/* Right Side: QR Code Business Card */}
-          <div className="bg-white shadow-md rounded-xl p-6 w-full md:w-[40%] border border-gray-300 flex flex-col items-center">
-            <div className="w-24 h-24 bg-gray-300 rounded-md mb-4" />
-            <h3 className="text-lg font-bold text-gray-800">
-              {userData ? `${userData.firstname} ${userData.lastname}` : "---"}
-            </h3>
-            <p className="text-sm text-gray-600">{userData?.jobtitle || "---"}</p>
-            <div className="mt-4 space-y-2 text-sm text-gray-500 text-center">
-              <p>📍 {userData?.address || "---"}</p>
-              <p>📞 {userData?.cellphone || "---"}</p>
-              <p>✉️ {userData?.workemail || "---"}</p>
-            </div>
-            <div className="mt-4 w-16 h-8 bg-gray-300 rounded" />
+          <PreviewCard
+            title="Business Card"
+            profileImage={userData.logo || "/Default.jpeg"}
+            formData={userData}
+          />
+          <div id="email-signature-card">
+            <PreviewCard
+              title="Email Signature"
+              profileImage={userData.logo || "/Default.jpeg"}
+              formData={userData}
+            />
           </div>
         </div>
       </div>
