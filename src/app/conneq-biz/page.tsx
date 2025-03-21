@@ -1,5 +1,6 @@
 "use client";
 
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Layout from "../../components/Layout";
@@ -100,6 +101,7 @@ export default function ConneqBizCards() {
     });
   };
 
+
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-6">
@@ -110,7 +112,7 @@ export default function ConneqBizCards() {
           </h1>
         </div>
 
-        {/* Action Buttons */}
+        {/* Action Buttons - Right Aligned & Smaller */}
         <div className="flex justify-end gap-3 mb-6">
           <button onClick={handleEdit} className="flex items-center bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow-md text-sm hover:bg-blue-700 transition">
             <FiEdit className="mr-1.5" /> Edit Information
@@ -129,6 +131,7 @@ export default function ConneqBizCards() {
           </button>
         </div>
 
+
         {/* Business Cards Layout using Sample Data */}
         <div className="flex flex-col md:flex-row gap-12 items-start">
           <PreviewCard
@@ -142,6 +145,7 @@ export default function ConneqBizCards() {
               profileImage={userData.logo || "/Default.jpeg"}
               formData={userData}
             />
+
           </div>
         </div>
       </div>

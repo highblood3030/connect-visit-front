@@ -1,5 +1,7 @@
 "use client";
 
+import { FaPhone, FaGlobe, FaEnvelope } from "react-icons/fa";
+
 type Props = {
   title: string;
   profileImage: string;
@@ -31,17 +33,31 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
           <>
             <img src="/qr.png" alt="QR Code" className="absolute top-4 left-4 w-16 h-16 object-contain" />
             <img src="/DNL-BC.png" alt="D&L Logo" className="absolute bottom-4 right-4 w-16 h-8 object-contain" />
+            
+            {/* Left-aligned info */}
             <div className="absolute top-6 right-6 text-right leading-tight">
-              <p className="font-bold">{fullName}</p> {/* UPPERCASE name */}
-              <p className="font-bold text-green-700 text-sm capitalize">{jobTitleCapitalized}</p> {/* BOLD + GREEN + Capitalized */}
-              <p className="italic text-xs text-gray-600">{formData.website}</p> {/* Website italic and gray */}
+              <p className="font-bold">{fullName}</p>
+              <p className="font-bold text-green-700 text-sm capitalize">{jobTitleCapitalized}</p>
+            </div>
+           
+            
+            {/* Right-aligned name and title */}
+            <div className="absolute top-24 left-6 text-left leading-tight">
+            <p className="text-sm flex items-center"><FaPhone className="mr-2 text-green-700" />{formData.cellphone}</p>
+              <p className="text-sm flex items-center"><FaEnvelope className="mr-2 text-green-700" />{formData.workemail}</p>
+              <p className="italic text-xs text-gray-600 flex items-center"><FaGlobe className="mr-2" />{formData.website}</p> {/* Website italic and gray with icon */}
+              <div className="text-xs text-gray-600 mt-2 flex flex-col text-left">
+                <p>{formData.street}</p>
+                <p>{formData.city}, {formData.state}</p>
+                <p>{formData.postalCode}, {formData.country}</p>
+              </div>
             </div>
           </>
         )}
 
         {/* BUSINESS CARD */}
         {title === "Business Card" && (
-          <div className="relative w-full h-full flex flex-col items-center justify-start px-6 py-4 space-y-2">
+          <div className="relative w-full max-w-md mx-auto flex flex-col items-center justify-start px-6 py-4 space-y-4">
             <div className="w-28 h-28 rounded-full border-4 border-[#145C5B] overflow-hidden">
               <img
                 src={formData.profileImage || "/Default.jpeg"}
@@ -49,13 +65,18 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
               />
             </div>
 
-            <p className="font-bold text-lg">{fullName}</p> {/* Name UPPERCASE */}
-            <p className="text-sm capitalize">{jobTitleCapitalized}</p> {/* Job title Capitalized, Normal */}
+            <p className="font-bold text-lg text-center">{fullName}</p>
+            <p className="text-sm capitalize text-center text-gray-700">{jobTitleCapitalized}</p>
 
-            {/* Email/Website Section */}
-            <div className="flex items-center space-x-2 w-full mt-2 justify-start pl-6">
-              <p className="text-lg">{formData.website}</p> {/* Bigger email/website */}
+            {/* Contact Info */}
+            <div className="flex flex-col items-start w-full mt-2 space-y-1 px-6">
+              <p className="text-sm flex items-center"><FaPhone className="mr-2 text-green-700" />{formData.cellphone}</p>
+              <p className="text-sm flex items-center"><FaEnvelope className="mr-2 text-green-700" />{formData.workemail}</p>
+              <p className="text-sm flex items-center"><FaGlobe className="mr-2 text-green-700" />{formData.website}</p>
             </div>
+
+            {/* Address */}
+            <p className="text-xs text-center text-gray-600 mt-2">{formData.street}, {formData.city}, {formData.state}, {formData.postalCode}, {formData.country}</p>
 
             {/* Button */}
             <button className="bg-[#198754] text-white px-4 py-1 rounded-md mt-2 text-sm">

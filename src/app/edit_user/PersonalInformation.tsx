@@ -75,7 +75,7 @@ export default function PersonalInformation({
   };
 
   return (
-    <div className="space-y-4">
+    <form className="space-y-4">
       <div className="flex items-center space-x-6">
         <div className="w-28 h-28 rounded-full border border-gray-300 overflow-hidden">
           <img
@@ -228,6 +228,6 @@ export default function PersonalInformation({
       {websiteError && (
         <p className="text-red-500 text-sm mt-1">Invalid website URL format.</p>
       )}
-    </div>
+    </form>
   );
 }

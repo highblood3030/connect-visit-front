@@ -33,7 +33,7 @@ export default function Layout({ children }: LayoutProps) {
       icon: HiOutlineCreditCard,
       path: "#",
       dropdown: [
-        { label: "My Cards", path: "/conneq-biz" },
+        { label: "My Cards", path: "/conneq-biz/my-cards" },
         { label: "Edit Information", path: "/edit_user" },
       ],
     },
