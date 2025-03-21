@@ -11,8 +11,8 @@ import {
   FiRefreshCw,
   FiGrid,
 } from "react-icons/fi";
-import html2canvas from "html2canvas";  // Fix import issue
-import QRCode from "qrcode";  // Uses installed @types/qrcode
+import html2canvas from "html2canvas";
+import QRCode from "qrcode";
 
 // Sample User Data for Display
 const sampleUserData = {
@@ -60,7 +60,7 @@ export default function ConneqBizCards() {
 
     if (!signatureElement) return;
 
-    html2canvas(signatureElement).then((canvas: HTMLCanvasElement) => {
+    html2canvas(signatureElement).then((canvas) => {
       const link = document.createElement("a");
       link.href = canvas.toDataURL("image/png");
       link.download = "Email_Signature.png";
@@ -87,7 +87,7 @@ export default function ConneqBizCards() {
       Address: ${userData.address}
     `;
 
-    QRCode.toDataURL(qrData, { width: 300 }, (err: Error | null, url: string) => {
+    QRCode.toDataURL(qrData, { width: 300 }, (err, url) => {
       if (err) {
         console.error(err);
         return;
