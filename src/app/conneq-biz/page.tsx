@@ -17,19 +17,21 @@ import QRCode from "qrcode";
 
 // Sample User Data for Display
 const sampleUserData = {
-  firstname: "John",
-  middlename: "A.",
-  lastname: "Doe",
-  honorificprefix: "Dr.",
-  honorificsuffix: "PhD",
-  jobtitle: "Software Engineer",
-  company: "D&L Industries",
+  firstname: "this",
+  middlename: "is",
+  lastname: "user",
+  honorificprefix: "Mr.",
+  honorificsuffix: "",
+  jobtitle: "Mason",
+  company: "",
   logo: "/Default.jpeg",
   website: "https://example.com",
-  cellphone: "+1 234 567 890",
-  workemail: "john.doe@example.com",
-  address: "123 Main St, New York, USA",
+  cellphone: "091223421111",
+  workemail: "",
+  address: "",
 };
+
+
 
 export default function ConneqBizCards() {
   const [userData] = useState(sampleUserData);
@@ -107,7 +109,7 @@ export default function ConneqBizCards() {
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <div className="mb-4">
-          <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-[#145C5B]">
+          <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-black">
             MY CARDS
           </h1>
         </div>

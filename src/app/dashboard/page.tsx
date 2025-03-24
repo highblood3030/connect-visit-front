@@ -14,7 +14,7 @@ export default function Dashboard() {
   // Sidebar Items (Matches Mini Sidebar)
 
   const sidebarItems = [
-    { label: "CONNEQ-Biz", icon: HiOutlineCreditCard, path: "/my_cards" },
+    { label: "CONNEQ-Biz", icon: HiOutlineCreditCard, path: "/conneq-biz" },
     { label: "CONNEQ-Page", icon: FiUsers, path: "/conneq-page" },
     { label: "CONNEQ-Tag", icon: MdOutlineSell, path: "/conneq-tag" },
     { label: "CONNEQ-Visit", icon: RiFileSearchLine, path: "/conneq-visit" },
