@@ -7,7 +7,7 @@ interface OfficeAddressProps {
 }
 
 const OfficeAddress: React.FC<OfficeAddressProps> = ({ formData, handleInputChange, setFormData }) => {
-  const [showAsterisk, setShowAsterisk] = useState({ address: true, location: true });
+  const [showAsterisk, setShowAsterisk] = useState({ address: !formData.address, location: !formData.location });
 
   useEffect(() => {
     console.log("OfficeAddress component mounted");
@@ -39,8 +39,10 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({ formData, handleInputChan
   return (
     <div className="space-y-4">
       <div className="relative">
+      <label htmlFor="address">Address</label>
+      {showAsterisk.address && <span className="ml-1 text-red-500">*</span>}
         <select
-          className={`input-field appearance-none w-full pr-6 ${isPlaceholderSelected(formData.address) ? "text-gray-400" : "text-black"}`}
+          className={`input-field appearance-none w-full pr-6 ${isPlaceholderSelected(formData.address)}`}
           value={formData.address}
           onChange={(e) => {
             const selectedAddress = e.target.value;
@@ -57,16 +59,17 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({ formData, handleInputChan
             setShowAsterisk({ address: selectedAddress === "", location: true });
           }}
         >
-          <option value="" className="text-gray-400">Address</option>
+          <option value=""></option>
           <option value="Office">Office</option>
           <option value="Factory">Factory</option>
         </select>
-        {showAsterisk.address && <span className="absolute right-151.5 top-3 text-red-500">*</span>}
       </div>
 
       <div className="relative">
+      <label htmlFor="location">Location</label>
+      {showAsterisk.location && <span className="ml-1 text-red-500">*</span>}
         <select
-          className={`input-field appearance-none w-full pr-6 ${isPlaceholderSelected(formData.location) ? "text-gray-400" : "text-black"}`}
+          className={`input-field appearance-none w-full pr-6 ${isPlaceholderSelected(formData.location)}`}
           value={formData.location}
           onChange={(e) => {
             const selectedLocation = e.target.value;
@@ -85,21 +88,18 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({ formData, handleInputChan
           }}
           disabled={!formData.address}
         >
-          <option value="" className="text-gray-400">Location</option>
+          <option value=""></option>
           {formData.address &&
             locationOptions[formData.address]?.map((loc) => (
               <option key={loc} value={loc}>{loc}</option>
             ))}
         </select>
-        {showAsterisk.location && <span className="absolute right-151 top-3 text-red-500">*</span>}
       </div>
-
       <input type="text" className="input-field" placeholder="Street" value={formData.street || ""} readOnly />
       <input type="text" className="input-field" placeholder="City" value={formData.city || ""} readOnly />
       <input type="text" className="input-field" placeholder="State/Province" value={formData.state || ""} readOnly />
       <input type="text" className="input-field" placeholder="Postal Code" value={formData.postalCode || ""} readOnly />
       <input type="text" className="input-field" placeholder="Country" value={formData.country || ""} readOnly />
-      <br />
     </div>
   );
 };

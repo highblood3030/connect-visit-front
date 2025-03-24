@@ -106,16 +106,16 @@ export default function ConneqBizCards() {
 
   return (
     <Layout>
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-[#91C8C4] min-h-screen">
         {/* Section Header */}
         <div className="mb-4">
-          <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-black">
+          <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-black break-words">
             MY CARDS
           </h1>
         </div>
 
         {/* Action Buttons - Right Aligned & Smaller */}
-        <div className="flex justify-end gap-3 mb-6">
+        <div className="flex flex-wrap justify-center md:justify-end gap-2 md:gap 3 mb-6"> {/* 🔹 Update for responsiveness*/}
           <button onClick={handleEdit} className="flex items-center bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow-md text-sm hover:bg-blue-700 transition">
             <FiEdit className="mr-1.5" /> Edit Information
           </button>
@@ -135,13 +135,14 @@ export default function ConneqBizCards() {
 
 
         {/* Business Cards Layout using Sample Data */}
-        <div className="flex flex-col md:flex-row gap-12 items-start">
+        <div className="flex flex-col items-center justify-start w-full min-h-screen bg-white mt-[-50px] sm:mt[-70px] md:mt-[-100px]"> {/* Update for responsiveness */}
+        <img className="w-24 h-24 object-cover rounded-full" />
           <PreviewCard
             title="Business Card"
             profileImage={userData.logo || "/Default.jpeg"}
             formData={userData}
           />
-          <div id="email-signature-card">
+          <div id="email-signature-card" className="w-full max-w-lg  shadow-lg rounded-lg">
             <PreviewCard
               title="Email Signature"
               profileImage={userData.logo || "/Default.jpeg"}
