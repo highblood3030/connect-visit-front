@@ -24,12 +24,18 @@
 /* Global Body Styles */
 body {
   background: var(--color-background);
-  color: black !important; /* Force all text to be black */
   font-family: var(--font-sans);
   margin: 0;
   padding: 0;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+
+  /* for background-color */
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #91C8C4;
 }
 
 /* Ensure text remains black for all common elements */

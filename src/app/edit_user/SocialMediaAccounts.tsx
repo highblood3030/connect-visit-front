@@ -40,9 +40,9 @@ const SocialMediaAccount: React.FC<SocialMediaProps> = ({ formData, handleInputC
     <div className="w-full max-w-lg mx-auto p-4">
       <div className="space-y-4">
         <div>
+        <label htmlFor="facebook">Facebook</label>
           <input
             type="text"
-            placeholder="Facebook"
             name="facebook"
             value={formData.facebook}
             onChange={handleChange}
@@ -52,9 +52,9 @@ const SocialMediaAccount: React.FC<SocialMediaProps> = ({ formData, handleInputC
         </div>
 
         <div>
+        <label htmlFor="linkedin">LinkedIn</label>
           <input
             type="text"
-            placeholder="LinkedIn"
             name="linkedin"
             value={formData.linkedin}
             onChange={handleChange}

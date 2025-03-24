@@ -66,7 +66,7 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
             </div>
 
             <p className="font-bold text-lg text-center">{fullName}</p>
-            <p className="text-sm capitalize text-center text-gray-700">{jobTitleCapitalized}</p>
+            <p className="text-sm capitalize text-center text-green-700">{jobTitleCapitalized}</p>
 
             {/* Contact Info */}
             <div className="flex flex-col items-start w-full mt-2 space-y-1 px-6">

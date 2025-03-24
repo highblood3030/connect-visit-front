@@ -14,7 +14,7 @@ const Others: React.FC<OthersProps> = ({ formData, handleInputChange }) => {
 
   return (
     <div className="w-full max-w-lg mx-auto p-4">
-      <label className="block text-gray-700 font-semibold mb-2">Note</label>
+      <label className="block text-gray-700 font-semibold mb-2" htmlFor="note">Note</label>
       <textarea
         name="note"
         placeholder="Write your note here..."
