@@ -18,10 +18,10 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
 
   return (
     <div className="flex flex-col items-center mb-8">
-      <h3 className="text-lg font-semibold text-gray-700 mb-2">{title}</h3>
+      <h3 className="text-lg font-semibold text-gray-700 mb-2 text-center">{title}</h3>
 
       {/* Card */}
-      <div className={`relative w-[450px] ${title === "Business Card" ? "min-h-[270px]" : "h-[250px]"} bg-white rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-105 duration-300`}>
+      <div className={`relative w-[360px] ${title === "Business Card" ? "min-h-[216px]" : "h-[200px]"} bg-white rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-105 duration-300 mt-6`}>
         <img
           src="/Background-ESign.png"
           alt={`${title} background`}
@@ -31,22 +31,19 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
         {/* EMAIL SIGNATURE */}
         {title === "Email Signature" && (
           <>
-            <img src="/qr.png" alt="QR Code" className="absolute top-4 left-4 w-16 h-16 object-contain" />
-            <img src="/DNL-BC.png" alt="D&L Logo" className="absolute bottom-4 right-4 w-16 h-8 object-contain" />
+            <img src="/qr.png" alt="QR Code" className="absolute top-3 left-3 w-12 h-12 object-contain" />
+            <img src="/DNL-BC.png" alt="D&L Logo" className="absolute bottom-3 right-3 w-12 h-6 object-contain" />
             
-            {/* Left-aligned info */}
-            <div className="absolute top-6 right-6 text-right leading-tight">
+            <div className="absolute top-4 right-4 text-right leading-tight">
               <p className="font-bold">{fullName}</p>
               <p className="font-bold text-green-700 text-sm capitalize">{jobTitleCapitalized}</p>
             </div>
-           
             
-            {/* Right-aligned name and title */}
-            <div className="absolute top-24 left-6 text-left leading-tight">
-            <p className="text-sm flex items-center"><FaPhone className="mr-2 text-green-700" />{formData.cellphone}</p>
-              <p className="text-sm flex items-center"><FaEnvelope className="mr-2 text-green-700" />{formData.workemail}</p>
-              <p className="italic text-xs text-gray-600 flex items-center"><FaGlobe className="mr-2" />{formData.website}</p> {/* Website italic and gray with icon */}
-              <div className="text-xs text-gray-600 mt-2 flex flex-col text-left">
+            <div className="absolute top-16 left-4 text-left leading-tight">
+              <p className="text-xs flex items-center"><FaPhone className="mr-1 text-green-700" />{formData.cellphone}</p>
+              <p className="text-xs flex items-center"><FaEnvelope className="mr-1 text-green-700" />{formData.workemail}</p>
+              <p className="italic text-xs text-gray-600 flex items-center"><FaGlobe className="mr-1" />{formData.website}</p>
+              <div className="text-xs text-gray-600 mt-1">
                 <p>{formData.street}</p>
                 <p>{formData.city}, {formData.state}</p>
                 <p>{formData.postalCode}, {formData.country}</p>
@@ -57,33 +54,29 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
 
         {/* BUSINESS CARD */}
         {title === "Business Card" && (
-          <div className="relative w-full max-w-md mx-auto flex flex-col items-center justify-start px-6 py-4 space-y-4">
-            <div className="w-28 h-28 rounded-full border-4 border-[#145C5B] overflow-hidden">
+          <div className="relative w-full max-w-sm mx-auto flex flex-col items-center justify-start px-4 py-3 space-y-3">
+            <div className="w-24 h-24 rounded-full border-4 border-[#145C5B] overflow-hidden">
               <img
                 src={formData.profileImage || "/Default.jpeg"}
                 className="object-cover w-full h-full rounded-full"
               />
             </div>
-
-            <p className="font-bold text-lg text-center">{fullName}</p>
-            <p className="text-sm capitalize text-center text-green-700">{jobTitleCapitalized}</p>
-
-            {/* Contact Info */}
-            <div className="flex flex-col items-start w-full mt-2 space-y-1 px-6">
-              <p className="text-sm flex items-center"><FaPhone className="mr-2 text-green-700" />{formData.cellphone}</p>
-              <p className="text-sm flex items-center"><FaEnvelope className="mr-2 text-green-700" />{formData.workemail}</p>
-              <p className="text-sm flex items-center"><FaGlobe className="mr-2 text-green-700" />{formData.website}</p>
+            <p className="font-bold text-md text-center">{fullName}</p>
+            <p className="text-xs capitalize text-center text-gray-700">{jobTitleCapitalized}</p>
+            
+            <div className="flex flex-col items-start w-full mt-1 space-y-1 px-4">
+              <p className="text-xs flex items-center"><FaPhone className="mr-1 text-green-700" />{formData.cellphone}</p>
+              <p className="text-xs flex items-center"><FaEnvelope className="mr-1 text-green-700" />{formData.workemail}</p>
+              <p className="text-xs flex items-center"><FaGlobe className="mr-1 text-green-700" />{formData.website}</p>
             </div>
-
-            {/* Address */}
-            <p className="text-xs text-center text-gray-600 mt-2">{formData.street}, {formData.city}, {formData.state}, {formData.postalCode}, {formData.country}</p>
-
-            {/* Button */}
-            <button className="bg-[#198754] text-white px-4 py-1 rounded-md mt-2 text-sm">
+            
+            <p className="text-xs text-center text-gray-600 mt-1">{formData.street}, {formData.city}, {formData.state}, {formData.postalCode}, {formData.country}</p>
+            
+            <button className="bg-[#198754] text-white px-3 py-1 rounded-md mt-1 text-xs">
               Save Contact
             </button>
-
-            <img src="/DNL-BC.png" alt="D&L Logo" className="w-20 h-10 object-contain mt-2" />
+            
+            <img src="/DNL-BC.png" alt="D&L Logo" className="w-16 h-8 object-contain mt-1" />
           </div>
         )}
       </div>

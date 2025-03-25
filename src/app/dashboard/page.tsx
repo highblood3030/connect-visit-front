@@ -23,13 +23,13 @@ export default function Dashboard() {
   return (
 
     <Layout>
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full h-screen flex">
         <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-[#145C5B] mb-6">
           Welcome back, Erika Faller 👋
         </h1>
 
         {/* Responsive Dashboard Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-grow">
           {sidebarItems.map((card, idx) => (
             <div 
               key={idx} 
