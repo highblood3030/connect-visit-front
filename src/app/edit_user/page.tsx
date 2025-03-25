@@ -233,7 +233,7 @@ export default function EditUser() {
 
           {/* Right side: Preview Cards */}
           <div className="w-full lg:w-1/3 flex flex-col">
-            <h2 className="text-2xl font-bold text-[#145C5B] mb-4">PREVIEW</h2>
+            <h2 className="text-2xl font-bold text-green mb-4">PREVIEW</h2>
             <PreviewCard
               title="Email Signature"
               profileImage={profileImage}
