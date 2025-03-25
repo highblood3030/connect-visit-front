@@ -129,13 +129,13 @@ export default function ConneqPage() {
 
   return (
     <Layout>
-      <div className="max-w-7xl mx-auto">
+      <div className="container mx-auto px-4">
         <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-[#145C5B] mb-6">
           CONNEQ PAGE
         </h1>
 
         {/* Create & Search Section */}
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 space-y-2 md:space-y-0">
           <button
             className="bg-[#145C5B] text-white px-6 py-2 rounded-lg shadow-md hover:bg-[#0e4b4b] transition"
             onClick={() => {
@@ -164,7 +164,7 @@ export default function ConneqPage() {
         </div>
 
         {/* Table Section */}
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+        <div className="bg-white shadow-lg rounded-lg overflow-x-auto">
           <table className="w-full border-collapse">
             <thead className="bg-gray-200 text-black">
               <tr>
@@ -193,7 +193,7 @@ export default function ConneqPage() {
                     <td className="py-3 px-4 font-semibold text-black">
                       {item.status}
                     </td>
-                    <td className="py-3 px-4 space-x-2">
+                    <td className="py-3 px-4 flex flex-wrap-2">
                       <button
                         className="bg-gray-500 text-white px-3 py-1 rounded-md hover:bg-gray-700 transition"
                         onClick={() => handleEdit(item)}
@@ -229,7 +229,7 @@ export default function ConneqPage() {
               />
             </div>
             {/* Form */}
-            <form onSubmit={handleSubmit} className="mt-4 space-y-4">
+            <form onSubmit={handleSubmit} className="grid gap-4">
               {/* Name */}
               <div>
                 <label className="block text-black font-semibold mb-1">

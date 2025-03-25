@@ -19,7 +19,7 @@ export default function Dashboard() {
 
   return (
     <Layout>
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full h-screen flex">
         <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-[#145C5B] mb-6">
           Welcome back, User 👋
         </h1>
@@ -30,6 +30,7 @@ export default function Dashboard() {
               key={idx}
               onClick={() => router.push(card.path)}
               className="w-full h-52 bg-[#D7F0ED] hover:bg-[#B7E0DA] text-[#145C5B] flex flex-col items-center justify-center rounded-2xl shadow-2xl transition-all duration-300 cursor-pointer hover:scale-105 group"
+
             >
               <card.icon className="text-5xl font-bold" />
               <h2 className="text-lg font-semibold mt-4">{card.label}</h2>

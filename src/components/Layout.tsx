@@ -13,8 +13,10 @@ import {
 } from "react-icons/md";
 import { HiOutlineCreditCard } from "react-icons/hi";
 import { RiFileSearchLine } from "react-icons/ri";
+
 import { IoIosArrowDown } from "react-icons/io";
 import clsx from "clsx";
+
 
 interface LayoutProps {
   children: ReactNode;
@@ -43,6 +45,7 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FAE7C9] to-[#b4f6ff] flex relative">
+
       {/* Top Navbar */}
       <nav className="bg-[#91C8C4] text-white flex items-center h-16 px-6 shadow-md fixed top-0 left-0 w-full z-50">
         {/* Hamburger Button */}
@@ -93,9 +96,9 @@ export default function Layout({ children }: LayoutProps) {
                 ))}
               </div>
             )}
+
           </div>
-        ))}
-      </aside>
+
 
       {/* Floating Sidebar (Mobile) */}
       <div
@@ -132,7 +135,10 @@ export default function Layout({ children }: LayoutProps) {
                 <item.icon className="text-2xl" />
                 <span>{item.label}</span>
                 {item.dropdown && <IoIosArrowDown />}
+
               </div>
+            ))}
+          </div>
 
               {item.dropdown && bizDropdownOpen && (
                 <div className="pl-10 space-y-1">
@@ -166,6 +172,7 @@ export default function Layout({ children }: LayoutProps) {
             <FiLogOut className="text-2xl" />
             <span>Logout</span>
           </button>
+
         </div>
       </div>
 
@@ -178,6 +185,7 @@ export default function Layout({ children }: LayoutProps) {
       )}
 
       {/* Main Content */}
+
       <main
         className={`flex-grow transition-all duration-300 p-6 md:p-8 ${
           sidebarOpen ? "blur-sm pointer-events-none select-none" : ""
@@ -185,6 +193,7 @@ export default function Layout({ children }: LayoutProps) {
       >
         {children}
       </main>
+
     </div>
   );
 }
