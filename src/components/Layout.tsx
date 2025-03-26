@@ -9,6 +9,7 @@ import { RiFileSearchLine } from "react-icons/ri";
 import { IoIosArrowDown, IoMdClose } from "react-icons/io";
 
 // Define the type for Layout props
+
 interface LayoutProps {
   children: ReactNode;
 }
@@ -26,6 +27,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div className="h-screen flex bg-gradient-to-br from-[#FAE7C9] to-[#b4f6ff]">
       {/* Sidebar */}
+
       <div
         className={`fixed top-0 left-0 h-screen w-64 sm:w-80 bg-[#D7F0ED] shadow-xl overflow-y-auto transform transition-transform duration-500 z-50
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -133,6 +135,7 @@ export default function Layout({ children }: LayoutProps) {
         {/* Content */}
         <main className="flex-grow p-4 sm:p-8 mt-16 sm:mt-0">{children}</main>
       </div>
+
     </div>
   );
 }
