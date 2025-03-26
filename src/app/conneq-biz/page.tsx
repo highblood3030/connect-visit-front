@@ -20,13 +20,13 @@ const sampleUserData = {
   lastname: "user",
   honorificprefix: "Mr.",
   honorificsuffix: "",
-  jobtitle: "Mason",
+  jobtitle: "Kanal Inspector",
   company: "",
   logo: "/Default.jpeg",
   website: "https://example.com",
   cellphone: "091223421111",
   workemail: "",
-  address: "",
+  address: "wala akong bahay",
 };
 
 export default function ConneqBizCards() {
@@ -93,10 +93,10 @@ export default function ConneqBizCards() {
     <Layout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-[#91C8C4] min-h-[90vh]">
         <div className="mb-4 text-center md:text-left">
-          <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-black break-words mt-8">MY CARDS</h1>
+          <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-black break-words mt-7">MY CARDS</h1>
         </div>
 
-        <div className="flex justify-end gap-2 mb-4"> 
+        <div className="flex flex-wrap justify-end gap-2 mb-6"> 
           <button onClick={handleEdit} className="flex items-center bg-blue-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-blue-700 transition">
             <FiEdit className="mr-1 text-xs" /> Edit
           </button>
@@ -114,12 +114,20 @@ export default function ConneqBizCards() {
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start w-full min-h-screen bg-white px-4 py-6 rounded-lg shadow-lg mt-[-50px] sm:mt-[-70px] md:mt-[-100px] lg:mt-0 overflow-hidden"> 
-          <PreviewCard title="Business Card" profileImage={userData.logo || "/Default.jpeg"} formData={userData} />
-          <div id="email-signature-card" className="w-full max-w-lg shadow-lg rounded-lg overflow-hidden">
-            <PreviewCard title="Email Signature" profileImage={userData.logo || "/Default.jpeg"} formData={userData} />
-          </div>
-        </div>
+        <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start w-full min-h-[500px] bg-white px-4 py-6 rounded-lg shadow-lg mt-0 overflow-hidden">
+  {/* Business Card Section */}
+  <div className="flex flex-col items-center w-full max-w-lg">
+    <PreviewCard title="Business Card" profileImage={userData.logo || "/Default.jpeg"} formData={userData} />
+  </div>
+
+  {/* Email Signature Section */}
+  <div className="flex flex-col items-center w-full max-w-lg">
+    <div id="email-signature-card" className="w-full shadow-lg rounded-lg overflow-hidden">
+      <PreviewCard title="Email Signature" profileImage={userData.logo || "/Default.jpeg"} formData={userData} />
+    </div>
+  </div>
+</div>
+
       </div>
     </Layout>
   );
