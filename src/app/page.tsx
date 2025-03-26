@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     const delayTimeout = setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 1300); // Slightly more than fade-out
 
     return () => clearTimeout(delayTimeout);
   }, []);
@@ -24,7 +24,7 @@ export default function Home() {
   );
 }
 
-// 1️⃣ SPLASH SCREEN (Unchanged)
+// 1️⃣ SPLASH SCREEN
 const SplashScreen = () => {
   const [fadeOut, setFadeOut] = useState(false);
 
@@ -38,9 +38,9 @@ const SplashScreen = () => {
 
   return (
     <div
-      className={`fixed inset-0 flex justify-center items-center bg-[#188E9B] transition-all duration-500 ease-out ${
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-[#188E9B] transition-all duration-500 ease-out ${
         fadeOut
-          ? "opacity-0 scale-95 translate-y-[-15px]"
+          ? "opacity-0 scale-95 -translate-y-4"
           : "opacity-100 scale-105"
       }`}
     >
@@ -65,7 +65,6 @@ const LandingPage = () => {
     "/Frame-Landing5.png",
   ];
 
-  // React Slick settings
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -73,7 +72,7 @@ const LandingPage = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 2000,
     fade: true,
     arrows: false,
   };
@@ -85,31 +84,24 @@ const LandingPage = () => {
   return (
     <div className="relative h-screen w-screen overflow-hidden">
       {/* Static Background */}
-      <div className="absolute inset-0 bg-[url('/Background.png')] bg-cover bg-center bg-no-repeat" />
+      <div className="absolute inset-0 z-0 bg-[url('/Background.png')] bg-cover bg-center bg-no-repeat" />
 
       {/* Slider Over Background */}
       <Slider {...sliderSettings} className="relative z-10 h-full w-full">
         {frames.map((frame, idx) => (
           <div
             key={idx}
-            className="
-              flex flex-col
-              h-screen w-screen
-              px-4
-              pt-45  /* Increased top padding to push content further down */
-              pb-25  /* Slightly increased bottom padding */
-            "
+            className="flex h-screen w-screen flex-col px-4 pt-16 pb-12"
           >
-            {/* Expandable center area */}
-            <div className="flex-grow flex flex-col items-center justify-center">
+            <div className="flex flex-grow flex-col items-center justify-center text-center">
               <img
                 src={frame}
                 alt={`Frame ${idx + 1}`}
-                className="max-h-[50%] object-contain mb-6"
+                className="max-h-[50vh] w-full max-w-[90%] object-contain mb-6 md:max-w-[500px]"
               />
               <button
                 onClick={handleButtonClick}
-                className="bg-green-700 text-white px-6 py-3 rounded-full font-semibold shadow-md transition-transform hover:scale-105"
+                className="bg-green-700 text-white px-6 py-3 rounded-full font-semibold shadow-md transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500"
               >
                 Login using Corporate Email
               </button>

@@ -106,9 +106,7 @@ export default function Layout({ children }: LayoutProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col items-center p-6 mt-16">
-          <img
-            src="/profile-placeholder.png"
-            alt="Profile"
+        <img src="/profile-placeholder.jpeg" alt="User avatar" 
             className="w-24 h-24 rounded-full border-4 border-[#145C5B] shadow-md"
           />
           <h2 className="text-lg font-bold text-gray-700 mt-2">Erika Faller</h2>

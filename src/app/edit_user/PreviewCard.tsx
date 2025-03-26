@@ -57,7 +57,7 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
           <div className="relative w-full max-w-sm mx-auto flex flex-col items-center justify-start px-4 py-3 space-y-3">
             <div className="w-24 h-24 rounded-full border-4 border-[#145C5B] overflow-hidden">
               <img
-                src={formData.profileImage || "/Default.jpeg"}
+                src={formData.profileImage || "/profile-placeholder.jpeg"}
                 className="object-cover w-full h-full rounded-full"
               />
             </div>
