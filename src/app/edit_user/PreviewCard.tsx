@@ -21,7 +21,7 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
       <h3 className="text-lg font-semibold text-gray-700 mb-2 text-center">{title}</h3>
 
       {/* Card */}
-      <div className={`relative w-[360px] ${title === "Business Card" ? "min-h-[216px]" : "h-[200px]"} bg-white rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-105 duration-300 mt-6`}>
+      <div className={`relative w-[360px] ${title === "Business Card" ? "min-h-[216px]" : "h-[200px]"}  rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-105 duration-300 mt-6`}>
         <img
           src="/Background-ESign.png"
           alt={`${title} background`}
@@ -57,7 +57,7 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
           <div className="relative w-full max-w-sm mx-auto flex flex-col items-center justify-start px-4 py-3 space-y-3">
             <div className="w-24 h-24 rounded-full border-4 border-[#145C5B] overflow-hidden">
               <img
-                src={formData.profileImage || "/Default.jpeg"}
+                src={formData.profileImage || "/profile-placeholder.jpeg"}
                 className="object-cover w-full h-full rounded-full"
               />
             </div>
