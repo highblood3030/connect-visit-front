@@ -39,9 +39,7 @@ const SplashScreen = () => {
   return (
     <div
       className={`fixed inset-0 z-50 flex items-center justify-center bg-[#188E9B] transition-all duration-500 ease-out ${
-        fadeOut
-          ? "opacity-0 scale-95 -translate-y-4"
-          : "opacity-100 scale-105"
+        fadeOut ? "opacity-0 scale-95 -translate-y-4" : "opacity-100 scale-105"
       }`}
     >
       <img

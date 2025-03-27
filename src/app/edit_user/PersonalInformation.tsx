@@ -22,7 +22,8 @@ const logoOptionsMap: Record<string, string[]> = {
 
 const isValidName = (value: string) => /^[A-Za-z\s-]{0,20}$/.test(value);
 const isValidJobtitle = (value: string) => /^[A-Za-z\s().-]{0,40}$/.test(value);
-const isValidWebsite = (value: string) => /^(https?:\/\/)?([a-zA-Z0-9.-]+)\.[a-zA-Z]{2,}([\/\w .-]*)?$/.test(value);
+const isValidWebsite = (value: string) =>
+  /^(https?:\/\/)?([a-zA-Z0-9.-]+)\.[a-zA-Z]{2,}([\/\w .-]*)?$/.test(value);
 const isValidHonorific = (value: string) => /^[A-Za-z\s.,-]{0,20}$/.test(value);
 
 export default function PersonalInformation({
@@ -30,7 +31,6 @@ export default function PersonalInformation({
   formData,
   setFormData,
 }: Props) {
-
   const [showAsterisk, setShowAsterisk] = useState({
     firstname: !formData.firstname,
     lastname: !formData.lastname,
@@ -70,7 +70,10 @@ export default function PersonalInformation({
 
       const reader = new FileReader();
       reader.onload = () => {
-        setFormData((prevData: any) => ({ ...prevData, profileImage: reader.result }));
+        setFormData((prevData: any) => ({
+          ...prevData,
+          profileImage: reader.result,
+        }));
       };
       reader.readAsDataURL(file);
     }
@@ -81,11 +84,17 @@ export default function PersonalInformation({
       (field === "jobtitle" && isValidJobtitle(value)) ||
       (field === "honorificprefix" && isValidHonorific(value)) ||
       (field === "honorificsuffix" && isValidHonorific(value)) ||
-      (field !== "jobtitle" && field !== "honorificprefix" && field !== "honorificsuffix" && isValidName(value)) ||
+      (field !== "jobtitle" &&
+        field !== "honorificprefix" &&
+        field !== "honorificsuffix" &&
+        isValidName(value)) ||
       value === ""
     ) {
       setFormData((prevData: any) => ({ ...prevData, [field]: value }));
-      setShowAsterisk((prevAsterisk) => ({ ...prevAsterisk, [field]: value === "" }));
+      setShowAsterisk((prevAsterisk) => ({
+        ...prevAsterisk,
+        [field]: value === "",
+      }));
     }
   };
 
@@ -125,7 +134,9 @@ export default function PersonalInformation({
       <div className="grid grid-cols-3 gap-4">
         <div className="relative">
           <label htmlFor="firstname">First Name</label>
-          {showAsterisk.firstname && <span className="ml-1 text-red-500">*</span>}
+          {showAsterisk.firstname && (
+            <span className="ml-1 text-red-500">*</span>
+          )}
           <input
             type="text"
             className="input-field pr-6"
@@ -146,7 +157,9 @@ export default function PersonalInformation({
 
         <div className="relative">
           <label htmlFor="lastname">Last Name</label>
-          {showAsterisk.lastname && <span className="ml-1 text-red-500">*</span>}
+          {showAsterisk.lastname && (
+            <span className="ml-1 text-red-500">*</span>
+          )}
           <input
             type="text"
             className="input-field pr-6"
@@ -157,28 +170,32 @@ export default function PersonalInformation({
       </div>
 
       <div className="space-y-4">
-      <div className="grid grid-cols-2 gap-4">
-        <div className="flex flex-col w-full">
-          <label htmlFor="honorificprefix">Honorific Prefix</label>
-          <input
-            type="text"
-            className="input-field pr-6"
-            value={formData.honorificprefix}
-            onChange={(e) => handleInputChange("honorificprefix", e.target.value)}
-          />
-        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="flex flex-col w-full">
+            <label htmlFor="honorificprefix">Honorific Prefix</label>
+            <input
+              type="text"
+              className="input-field pr-6"
+              value={formData.honorificprefix}
+              onChange={(e) =>
+                handleInputChange("honorificprefix", e.target.value)
+              }
+            />
+          </div>
 
-        <div className="flex flex-col w-full">
-          <label htmlFor="honorificsuffix">Honorific Suffix</label>
-          <input
-            type="text"
-            className="input-field pr-6"
-            value={formData.honorificsuffix}
-            onChange={(e) => handleInputChange("honorificsuffix", e.target.value)}
-          />
+          <div className="flex flex-col w-full">
+            <label htmlFor="honorificsuffix">Honorific Suffix</label>
+            <input
+              type="text"
+              className="input-field pr-6"
+              value={formData.honorificsuffix}
+              onChange={(e) =>
+                handleInputChange("honorificsuffix", e.target.value)
+              }
+            />
+          </div>
         </div>
       </div>
-    </div>
 
       <div className="relative">
         <label htmlFor="jobtitle">Job Title</label>
@@ -205,7 +222,9 @@ export default function PersonalInformation({
         >
           <option value=""></option>
           {Object.keys(logoOptionsMap).map((key) => (
-            <option key={key} value={key}>{key}</option>
+            <option key={key} value={key}>
+              {key}
+            </option>
           ))}
         </select>
       </div>
@@ -221,11 +240,15 @@ export default function PersonalInformation({
             setFormData({ ...formData, logo: value });
             setShowAsterisk((prev) => ({ ...prev, logo: value === "" }));
           }}
-          disabled={!formData.company || (logoOptionsMap[formData.company]?.length === 1)}
+          disabled={
+            !formData.company || logoOptionsMap[formData.company]?.length === 1
+          }
         >
           <option value=""></option>
           {getLogoOptions(formData.company).map((option) => (
-            <option key={option} value={option}>{option}</option>
+            <option key={option} value={option}>
+              {option}
+            </option>
           ))}
         </select>
       </div>
@@ -243,7 +266,9 @@ export default function PersonalInformation({
           }}
         />
         {websiteError && (
-          <p className="text-red-500 text-sm mt-1">Invalid website URL format.</p>
+          <p className="text-red-500 text-sm mt-1">
+            Invalid website URL format.
+          </p>
         )}
       </div>
     </div>

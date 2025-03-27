@@ -6,7 +6,10 @@ interface ContactInformationProps {
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handleInputChange }) => {
+const ContactInformation: React.FC<ContactInformationProps> = ({
+  formData,
+  handleInputChange,
+}) => {
   const [showAsterisk, setShowAsterisk] = useState(!formData?.workemail);
   const [emailError, setEmailError] = useState("");
   const [cellphoneError, setCellphoneError] = useState("");
@@ -22,41 +25,41 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
   }, [formData]);
 
   const handleCellphoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/[^\d]/g, ""); 
-  
+    let value = e.target.value.replace(/[^\d]/g, "");
+
     if (value === "" || value === "63") {
       handleInputChange({
-        target: { name: e.target.name, value: "" }
+        target: { name: e.target.name, value: "" },
       } as React.ChangeEvent<HTMLInputElement>);
       setCellphoneError("");
       return;
     }
-  
+
     if (value.startsWith("63")) {
       value = value.slice(2);
     }
-    
+
     if (value.length > 0 && !value.startsWith("9")) {
       return;
     }
-  
+
     if (value.length > 10) {
       value = value.slice(0, 10);
     }
-  
+
     let formattedValue = "+63" + value;
-  
+
     if (value.length > 3) {
       formattedValue = `+63${value.slice(0, 3)}-${value.slice(3, 6)}`;
     }
     if (value.length > 6) {
       formattedValue = `+63${value.slice(0, 3)}-${value.slice(3, 6)}-${value.slice(6)}`;
     }
-  
+
     handleInputChange({
-      target: { name: e.target.name, value: formattedValue }
+      target: { name: e.target.name, value: formattedValue },
     } as React.ChangeEvent<HTMLInputElement>);
-  
+
     if (value.length === 0) {
       setCellphoneError("");
     } else if (value.length !== 10) {
@@ -65,43 +68,43 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
       setCellphoneError("");
     }
   };
-  
+
   const handleWhatsappChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/[^\d]/g, ""); 
-  
+    let value = e.target.value.replace(/[^\d]/g, "");
+
     if (value === "" || value === "63") {
       handleInputChange({
-        target: { name: e.target.name, value: "" }
+        target: { name: e.target.name, value: "" },
       } as React.ChangeEvent<HTMLInputElement>);
       setWhatsappError("");
       return;
     }
-  
+
     if (value.startsWith("63")) {
       value = value.slice(2);
     }
-    
+
     if (value.length > 0 && !value.startsWith("9")) {
       return;
     }
-  
+
     if (value.length > 10) {
       value = value.slice(0, 10);
     }
-  
+
     let formattedValue = "+63" + value;
-  
+
     if (value.length > 3) {
       formattedValue = `+63${value.slice(0, 3)}-${value.slice(3, 6)}`;
     }
     if (value.length > 6) {
       formattedValue = `+63${value.slice(0, 3)}-${value.slice(3, 6)}-${value.slice(6)}`;
     }
-  
+
     handleInputChange({
-      target: { name: e.target.name, value: formattedValue }
+      target: { name: e.target.name, value: formattedValue },
     } as React.ChangeEvent<HTMLInputElement>);
-  
+
     if (value.length === 0) {
       setWhatsappError("");
     } else if (value.length !== 10) {
@@ -112,41 +115,41 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
   };
 
   const handleViberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/[^\d]/g, ""); 
-  
+    let value = e.target.value.replace(/[^\d]/g, "");
+
     if (value === "" || value === "63") {
       handleInputChange({
-        target: { name: e.target.name, value: "" }
+        target: { name: e.target.name, value: "" },
       } as React.ChangeEvent<HTMLInputElement>);
       setViberError("");
       return;
     }
-  
+
     if (value.startsWith("63")) {
       value = value.slice(2);
     }
-    
+
     if (value.length > 0 && !value.startsWith("9")) {
       return;
     }
-  
+
     if (value.length > 10) {
       value = value.slice(0, 10);
     }
-  
+
     let formattedValue = "+63" + value;
-  
+
     if (value.length > 3) {
       formattedValue = `+63${value.slice(0, 3)}-${value.slice(3, 6)}`;
     }
     if (value.length > 6) {
       formattedValue = `+63${value.slice(0, 3)}-${value.slice(3, 6)}-${value.slice(6)}`;
     }
-  
+
     handleInputChange({
-      target: { name: e.target.name, value: formattedValue }
+      target: { name: e.target.name, value: formattedValue },
     } as React.ChangeEvent<HTMLInputElement>);
-  
+
     if (value.length === 0) {
       setViberError("");
     } else if (value.length !== 10) {
@@ -157,41 +160,41 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
   };
 
   const handleWechatChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/[^\d]/g, ""); 
-  
+    let value = e.target.value.replace(/[^\d]/g, "");
+
     if (value === "" || value === "63") {
       handleInputChange({
-        target: { name: e.target.name, value: "" }
+        target: { name: e.target.name, value: "" },
       } as React.ChangeEvent<HTMLInputElement>);
       setWechatError("");
       return;
     }
-  
+
     if (value.startsWith("63")) {
       value = value.slice(2);
     }
-    
+
     if (value.length > 0 && !value.startsWith("9")) {
       return;
     }
-  
+
     if (value.length > 10) {
       value = value.slice(0, 10);
     }
-  
+
     let formattedValue = "+63" + value;
-  
+
     if (value.length > 3) {
       formattedValue = `+63${value.slice(0, 3)}-${value.slice(3, 6)}`;
     }
     if (value.length > 6) {
       formattedValue = `+63${value.slice(0, 3)}-${value.slice(3, 6)}-${value.slice(6)}`;
     }
-  
+
     handleInputChange({
-      target: { name: e.target.name, value: formattedValue }
+      target: { name: e.target.name, value: formattedValue },
     } as React.ChangeEvent<HTMLInputElement>);
-  
+
     if (value.length === 0) {
       setWechatError("");
     } else if (value.length !== 10) {
@@ -203,32 +206,32 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
 
   const handleWorkphoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/[^\d()\s]/g, "");
-  
+
     if (value === "") {
       handleInputChange({
-        target: { name: e.target.name, value: "" }
+        target: { name: e.target.name, value: "" },
       } as React.ChangeEvent<HTMLInputElement>);
       setWorkphoneError("");
       return;
     }
-  
+
     const match = value.match(/\((\d+)\)/);
     const digitsInsideParentheses = match ? match[1] : "";
-  
+
     const maxLength = digitsInsideParentheses.length === 2 ? 13 : 14;
     value = value.slice(0, maxLength);
-  
+
     let formattedValue = value;
     if (value.length > 6) {
       formattedValue = `${value.slice(0, value.length - 4)}-${value.slice(value.length - 4)}`;
     }
-  
+
     handleInputChange({
-      target: { name: e.target.name, value: formattedValue }
+      target: { name: e.target.name, value: formattedValue },
     } as React.ChangeEvent<HTMLInputElement>);
-  
+
     const numericValue = value.replace(/\(\d+\)/g, "").replace(/[^\d]/g, "");
-  
+
     if (numericValue.length === 0) {
       setWorkphoneError("");
     } else if (numericValue.length < 7) {
@@ -237,7 +240,7 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
       setWorkphoneError("");
     }
   };
-  
+
   const handleWorkEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleInputChange(e);
     setShowAsterisk(!e.target.value);
@@ -252,32 +255,32 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
 
   const handleWorkfaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/[^\d()\s]/g, "");
-  
+
     if (value === "") {
       handleInputChange({
-        target: { name: e.target.name, value: "" }
+        target: { name: e.target.name, value: "" },
       } as React.ChangeEvent<HTMLInputElement>);
       setWorkfaxError("");
       return;
     }
-  
+
     const match = value.match(/\((\d+)\)/);
     const digitsInsideParentheses = match ? match[1] : "";
-  
+
     const maxLength = digitsInsideParentheses.length === 2 ? 13 : 14;
     value = value.slice(0, maxLength);
-  
+
     let formattedValue = value;
     if (value.length > 6) {
       formattedValue = `${value.slice(0, value.length - 4)}-${value.slice(value.length - 4)}`;
     }
-  
+
     handleInputChange({
-      target: { name: e.target.name, value: formattedValue }
+      target: { name: e.target.name, value: formattedValue },
     } as React.ChangeEvent<HTMLInputElement>);
-  
+
     const numericValue = value.replace(/\(\d+\)/g, "").replace(/[^\d]/g, "");
-  
+
     if (numericValue.length === 0) {
       setWorkfaxError("");
     } else if (numericValue.length < 7) {
@@ -299,7 +302,9 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
           onChange={handleCellphoneChange}
           className="w-full border px-3 py-2 rounded-md"
         />
-        {cellphoneError && <p className="text-red-500 text-sm mt-1">{cellphoneError}</p>}
+        {cellphoneError && (
+          <p className="text-red-500 text-sm mt-1">{cellphoneError}</p>
+        )}
       </div>
 
       <div className="relative w-full">
@@ -312,7 +317,9 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
           onChange={handleWhatsappChange}
           className="w-full border px-3 py-2 rounded-md"
         />
-        {whatsappError && <p className="text-red-500 text-sm mt-1">{whatsappError}</p>}
+        {whatsappError && (
+          <p className="text-red-500 text-sm mt-1">{whatsappError}</p>
+        )}
       </div>
 
       <div className="relative w-full">
@@ -325,7 +332,9 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
           onChange={handleViberChange}
           className="w-full border px-3 py-2 rounded-md"
         />
-        {viberError && <p className="text-red-500 text-sm mt-1">{viberError}</p>}
+        {viberError && (
+          <p className="text-red-500 text-sm mt-1">{viberError}</p>
+        )}
       </div>
 
       <div className="relative w-full">
@@ -338,7 +347,9 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
           onChange={handleWechatChange}
           className="w-full border px-3 py-2 rounded-md"
         />
-        {wechatError && <p className="text-red-500 text-sm mt-1">{wechatError}</p>}
+        {wechatError && (
+          <p className="text-red-500 text-sm mt-1">{wechatError}</p>
+        )}
       </div>
 
       <div className="relative w-full">
@@ -351,7 +362,9 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
           onChange={handleWorkphoneChange}
           className="w-full border px-3 py-2 rounded-md"
         />
-        {workphoneError && <p className="text-red-500 text-sm mt-1">{workphoneError}</p>}
+        {workphoneError && (
+          <p className="text-red-500 text-sm mt-1">{workphoneError}</p>
+        )}
       </div>
 
       <div className="relative w-full">
@@ -365,7 +378,9 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
           onChange={handleWorkEmailChange}
           className="w-full border px-3 py-2 rounded-md"
         />
-        {emailError && <p className="text-red-500 text-sm mt-1">{emailError}</p>}
+        {emailError && (
+          <p className="text-red-500 text-sm mt-1">{emailError}</p>
+        )}
       </div>
 
       <div className="relative w-full">
@@ -378,7 +393,9 @@ const ContactInformation: React.FC<ContactInformationProps> = ({ formData, handl
           onChange={handleWorkfaxChange}
           className="w-full border px-3 py-2 rounded-md"
         />
-        {workfaxError && <p className="text-red-500 text-sm mt-1">{workfaxError}</p>}
+        {workfaxError && (
+          <p className="text-red-500 text-sm mt-1">{workfaxError}</p>
+        )}
       </div>
     </div>
   );
