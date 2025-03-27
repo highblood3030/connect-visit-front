@@ -29,19 +29,31 @@ export default function Layout({ children }: LayoutProps) {
       {/* Sidebar */}
 
       <div
-        className={`fixed top-0 left-0 h-screen w-64 sm:w-80 bg-[#D7F0ED] shadow-xl overflow-y-auto transform transition-transform duration-500 z-50
-        ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
-	 }`}
+    className={`fixed top-0 left-0 h-screen w-64 sm:w-80 bg-[#D7F0ED] shadow-xl overflow-y-auto z-50 
+      transform transition-transform duration-500 ease-in-out 
+      ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+      } sm:translate-x-0 sm:relative}`}
       >
         {/* Sidebar Header */}
-        <div className="flex justify-between items-center px-6 py-4 bg-[#A9DCD6]">
-          <h2 className="text-lg font-bold text-gray-700">Navigation</h2>
-          <button
+       
+        <button
             onClick={() => setSidebarOpen(false)}
-            className="ext-3xl text-gray-700 focus:outline-nonet"
+            className="abosulute top-4 left-4 text-3xl text-gray-700 focus:outline-none"
           >
             <IoMdClose />
           </button>
+          
+           <div className="flex justify-between  px-6 py-4 bg-[#A9DCD6]">
+        <div className="flex flex-col items-center p-6 mt-0">
+          <img
+                src="/profile-placeholder.jpeg"
+                alt="User avatar"
+                className="w-24 h-24 rounded-full border-4 border-[#145C5B] shadow-md"/>
+          <h2 className="text-lg bg-[#A9DCD6] font-bold text-gray-700 mt-2">Lebron</h2>
+          <p className="text-sm bg-[#A9DCD6] text-gray-600">Kinangkongjames@yahoo.com</p>
+        </div>
+
+
         </div>
 
         {/* Sidebar Items */}
