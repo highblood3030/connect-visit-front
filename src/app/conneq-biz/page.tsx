@@ -90,7 +90,8 @@ ${userData.company}
   return (
     <Layout>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-[#91C8C4] min-h-[90vh]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[90vh]">
+
         <div className="mb-4 text-center md:text-left">
           <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-black break-words mt-7">MY CARDS</h1>
         </div>
@@ -113,7 +114,7 @@ ${userData.company}
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start w-full min-h-[500px] bg-white px-4 py-6 rounded-lg shadow-lg mt-0 overflow-hidden">
+        <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start w-full min-h-[500px]  px-4 py-6 rounded-lg shadow-lg mt-0 overflow-hidden">
   {/* Business Card Section */}
   <div className="flex flex-col items-center w-full max-w-lg">
     <PreviewCard title="Business Card" profileImage={userData.logo || "/Default.jpeg"} formData={userData} />
@@ -121,7 +122,7 @@ ${userData.company}
 
   {/* Email Signature Section */}
   <div className="flex flex-col items-center w-full max-w-lg">
-    <div id="email-signature-card" className="w-full shadow-lg rounded-lg overflow-hidden">
+    <div id="email-signature-card" className="w-full  overflow-hidden">
       <PreviewCard title="Email Signature" profileImage={userData.logo || "/Default.jpeg"} formData={userData} />
     </div>
   </div>
