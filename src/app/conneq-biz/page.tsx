@@ -20,33 +20,33 @@ const sampleUserData = {
   lastname: "user",
   honorificprefix: "Mr.",
   honorificsuffix: "",
+
   jobtitle: "Kanal Inspector",
-  company: "",
-  logo: "/Default.jpeg",
+  company: "Sample Construction Co.",
+  logo: "/profile-placeholder.jpeg",
   website: "https://example.com",
   cellphone: "091223421111",
-  workemail: "",
-  address: "wala akong bahay",
+  workemail: "user@example.com",
+  address: "123 Sample Street, City",
+
 };
 
 export default function ConneqBizCards() {
   const [userData] = useState(sampleUserData);
   const router = useRouter();
 
-  const handleEdit = () => {
-    router.push("/edit_user");
-  };
+  const handleEdit = () => router.push("/edit_user");
 
   const handleCopySignature = () => {
     const signatureText = `
-      ${userData.firstname} ${userData.lastname} - ${userData.jobtitle}
-      ${userData.company}
-      📧 ${userData.workemail}
-      📍 ${userData.address}
-      📞 ${userData.cellphone}
+${userData.firstname} ${userData.lastname} - ${userData.jobtitle}
+${userData.company}
+📧 ${userData.workemail}
+📍 ${userData.address}
+📞 ${userData.cellphone}
     `;
     navigator.clipboard.writeText(signatureText).then(() => {
-      alert("✔️ Download Success!\nSignature has been copied to your clipboard. Kindly paste it to your email signature form.");
+      alert("✔️ Copy Success!\nSignature copied to clipboard.");
     });
   };
 
@@ -59,29 +59,27 @@ export default function ConneqBizCards() {
       link.href = canvas.toDataURL("image/png");
       link.download = "Email_Signature.png";
       link.click();
-      alert("✔️ Email Signature Successfully Downloaded!");
+      alert("✔️ Email Signature Downloaded!");
     });
   };
 
   const handleRefresh = () => {
-    alert("✔️ Email Signature Successfully Refreshed!\nKindly check your email signature. You may need to refresh the page to see the changes.");
+    alert("✔️ Signature refreshed. Please reload the page to see changes.");
     window.location.reload();
   };
 
   const handleDownloadQR = () => {
-    const qrData = `
-      Name: ${userData.firstname} ${userData.lastname}
-      Job: ${userData.jobtitle}
-      Company: ${userData.company}
-      Email: ${userData.workemail}
-      Phone: ${userData.cellphone}
-      Address: ${userData.address}
-    `;
+    const qrData = JSON.stringify({
+      name: `${userData.firstname} ${userData.lastname}`,
+      jobTitle: userData.jobtitle,
+      company: userData.company,
+      email: userData.workemail,
+      phone: userData.cellphone,
+      address: userData.address,
+    });
+
     QRCode.toDataURL(qrData, { width: 300 }, (err, url) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
+      if (err) return console.error(err);
       const link = document.createElement("a");
       link.href = url;
       link.download = "Contact_QR.png";
@@ -91,7 +89,9 @@ export default function ConneqBizCards() {
 
   return (
     <Layout>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[90vh]">
+
         <div className="mb-4 text-center md:text-left">
           <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-black break-words mt-7">MY CARDS</h1>
         </div>

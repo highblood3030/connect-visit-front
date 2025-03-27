@@ -47,7 +47,7 @@ export default function EditUser() {
   const [activeTab, setActiveTab] = useState(0);
 
   // Profile Image
-  const [profileImage, setProfileImage] = useState("/Default.jpeg");
+  const [profileImage, setProfileImage] = useState("/profile-placeholder.jpeg");
 
   // Checkbox for Privacy Notice
   const [isChecked, setIsChecked] = useState(false);

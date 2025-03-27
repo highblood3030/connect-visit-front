@@ -33,6 +33,8 @@ export default function Layout({ children }: LayoutProps) {
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
 	 }`}
       >
+
+
         {/* Sidebar Header */}
        
         <button
@@ -50,6 +52,7 @@ export default function Layout({ children }: LayoutProps) {
                 className="w-24 h-24 rounded-full border-4 border-[#145C5B] shadow-md"/>
           <h2 className="text-lg bg-[#A9DCD6] font-bold text-gray-700 mt-2">Lebron</h2>
           <p className="text-sm bg-[#A9DCD6] text-gray-600">Kinangkongjames@yahoo.com</p>
+
         </div>
 
 
