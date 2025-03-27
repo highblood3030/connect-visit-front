@@ -2,15 +2,8 @@
 
 import { ReactNode, useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  FiUsers,
-  FiMenu,
-  FiLogOut
-} from "react-icons/fi";
-import {
-  MdSpaceDashboard,
-  MdOutlineSell
-} from "react-icons/md";
+import { FiUsers, FiMenu, FiLogOut } from "react-icons/fi";
+import { MdSpaceDashboard, MdOutlineSell } from "react-icons/md";
 import { HiOutlineCreditCard } from "react-icons/hi";
 import { RiFileSearchLine } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
@@ -33,7 +26,7 @@ export default function Layout({ children }: LayoutProps) {
       path: "#",
       dropdown: [
         { label: "My Cards", path: "/conneq-biz" },
-        { label: "Edit Information", path: "/edit_user" }
+        { label: "Edit Information", path: "/edit_user" },
       ],
     },
     { label: "CONNEQ-Page", icon: FiUsers, path: "/conneq-page" },
@@ -57,14 +50,16 @@ export default function Layout({ children }: LayoutProps) {
         </button>
 
         <div className="ml-auto flex items-center">
-          <img src="/QR-Logo.png" alt="QR-Logo" className="w-16 h-12 object-contain shadow-md" />
+          <img
+            src="/QR-Logo.png"
+            alt="QR-Logo"
+            className="w-16 h-12 object-contain shadow-md"
+          />
         </div>
       </nav>
 
       {/* Mini Sidebar (Desktop) */}
-      <aside
-        className="hidden md:flex w-16 h-screen bg-[#D7F0ED] text-[#145C5B] flex-col items-center py-6 space-y-6 border-r border-gray-300 shadow-xl fixed top-0 left-0 z-40 mt-16"
-      >
+      <aside className="hidden md:flex w-16 h-screen bg-[#D7F0ED] text-[#145C5B] flex-col items-center py-6 space-y-6 border-r border-gray-300 shadow-xl fixed top-0 left-0 z-40 mt-16">
         {sidebarItems.map((item, idx) => (
           <div key={idx} className="relative">
             <div
@@ -101,7 +96,7 @@ export default function Layout({ children }: LayoutProps) {
       <div
         className={clsx(
           "fixed top-0 left-0 h-screen w-72 bg-[#D7F0ED] shadow-xl transition-transform duration-500 z-50 md:hidden",
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          sidebarOpen ? "translate-x-0" : "-translate-x-full",
         )}
         onClick={(e) => e.stopPropagation()}
       >

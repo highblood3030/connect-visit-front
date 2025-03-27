@@ -45,7 +45,7 @@ export default function ConneqPage() {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -80,7 +80,7 @@ export default function ConneqPage() {
     if (editMode && selectedItem) {
       // Update existing item
       const updatedDataList = dataList.map((item) =>
-        item.id === selectedItem.id ? { ...item, ...formData } : item
+        item.id === selectedItem.id ? { ...item, ...formData } : item,
       );
       setDataList(updatedDataList);
     } else {
@@ -216,32 +216,49 @@ export default function ConneqPage() {
         </div>
       </div>
 
-        {/* Mobile View: Cards Layout */}
-        <div className="block md:hidden space-y-4">
-          {dataList.map((item) => (
-            <div key={item.id} className="border p-4 rounded-md shadow-md bg-white">
-              <p><strong>ID:</strong> {item.id}</p>
-              <p><strong>Name:</strong> {item.name}</p>
-              <p><strong>Category:</strong> {item.category}</p>
-              <p><strong>Description:</strong> {item.description}</p>
-              <p><strong>Status:</strong> {item.status}</p>
-              <div className="flex justify-between mt-3">
-                <button className="bg-gray-500 text-white px-3 py-1 rounded-md hover:bg-gray-700 transition"
-                  onClick={() => handleEdit(item)}>
-                  Edit
-                </button>
-                <button className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition"
-                  onClick={() => handleViewDetails(item)}>
-                  View
-                </button>
-              </div>
+      {/* Mobile View: Cards Layout */}
+      <div className="block md:hidden space-y-4">
+        {dataList.map((item) => (
+          <div
+            key={item.id}
+            className="border p-4 rounded-md shadow-md bg-white"
+          >
+            <p>
+              <strong>ID:</strong> {item.id}
+            </p>
+            <p>
+              <strong>Name:</strong> {item.name}
+            </p>
+            <p>
+              <strong>Category:</strong> {item.category}
+            </p>
+            <p>
+              <strong>Description:</strong> {item.description}
+            </p>
+            <p>
+              <strong>Status:</strong> {item.status}
+            </p>
+            <div className="flex justify-between mt-3">
+              <button
+                className="bg-gray-500 text-white px-3 py-1 rounded-md hover:bg-gray-700 transition"
+                onClick={() => handleEdit(item)}
+              >
+                Edit
+              </button>
+              <button
+                className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition"
+                onClick={() => handleViewDetails(item)}
+              >
+                View
+              </button>
             </div>
-    ))}
-  </div>
+          </div>
+        ))}
+      </div>
 
       {/* Create & Edit Modal */}
       {modalOpen && (
-  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50 p-4">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50 p-4">
           <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg md:max-w-2xl">
             <div className="flex justify-between items-center border-b pb-2">
               <h2 className="text-xl font-bold text-black">

@@ -8,14 +8,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#145C5B",      // Used for headings, text, buttons
-        cardBg: "#D7F0ED",       // Background color of dashboard cards
-        cardHover: "#B7E0DA",    // Hover color for cards
+        primary: "#145C5B", // Used for headings, text, buttons
+        cardBg: "#D7F0ED", // Background color of dashboard cards
+        cardHover: "#B7E0DA", // Hover color for cards
       },
       animation: {
         "bounce-slow": "bounce 2.5s infinite",
-        "float": "float 3s ease-in-out infinite",
-        "gradient": "gradientMove 5s ease infinite",
+        float: "float 3s ease-in-out infinite",
+        gradient: "gradientMove 5s ease infinite",
       },
       keyframes: {
         float: {

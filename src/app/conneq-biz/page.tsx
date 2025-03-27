@@ -29,7 +29,6 @@ const sampleUserData = {
   cellphone: "091223421111",
   workemail: "user@example.com",
   address: "123 Sample Street, City",
-
 };
 
 export default function ConneqBizCards() {
@@ -41,7 +40,7 @@ export default function ConneqBizCards() {
       setUserData(JSON.parse(savedData));
     }
   }, []);
-  
+
   const router = useRouter();
 
   const handleEdit = () => router.push("/edit_user");
@@ -97,49 +96,74 @@ ${userData.company}
   };
 
   if (!userData) {
-    return <div className="p-10 text-center">Loading your business cards...</div>;
+    return (
+      <div className="p-10 text-center">Loading your business cards...</div>
+    );
   }
-  
+
   return (
     <Layout>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-[#91C8C4] min-h-[90vh]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8  min-h-[90vh]">
         <div className="mb-4 text-center md:text-left">
-          <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-black break-words mt-7">MY CARDS</h1>
+          <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-black break-words mt-7">
+            MY CARDS
+          </h1>
         </div>
 
-        <div className="flex flex-wrap justify-end gap-2 mb-6"> 
-          <button onClick={handleEdit} className="flex items-center bg-blue-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-blue-700 transition">
+        <div className="flex flex-wrap justify-end gap-2 mb-6">
+          <button
+            onClick={handleEdit}
+            className="flex items-center bg-blue-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-blue-700 transition"
+          >
             <FiEdit className="mr-1 text-xs" /> Edit
           </button>
-          <button onClick={handleCopySignature} className="flex items-center bg-green-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-green-700 transition">
+          <button
+            onClick={handleCopySignature}
+            className="flex items-center bg-green-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-green-700 transition"
+          >
             <FiMail className="mr-1 text-xs" /> Vcard
           </button>
-          <button onClick={handleDownloadSignature} className="flex items-center bg-gray-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-gray-700 transition">
+          <button
+            onClick={handleDownloadSignature}
+            className="flex items-center bg-gray-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-gray-700 transition"
+          >
             <FiDownload className="mr-1 text-xs" /> Signature
           </button>
-          <button onClick={handleRefresh} className="flex items-center bg-[#91C8C4] text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-[#78B0AC] transition">
+          <button
+            onClick={handleRefresh}
+            className="flex items-center bg-[#91C8C4] text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-[#78B0AC] transition"
+          >
             <FiRefreshCw className="mr-1 text-xs" /> Refresh
           </button>
-          <button onClick={handleDownloadQR} className="flex items-center bg-[#91C8C4] text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-[#78B0AC] transition">
+          <button
+            onClick={handleDownloadQR}
+            className="flex items-center bg-[#91C8C4] text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-[#78B0AC] transition"
+          >
             <FiGrid className="mr-1 text-xs" /> QR
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start w-full min-h-[500px] bg-white px-4 py-6 rounded-lg shadow-lg mt-0 overflow-hidden">
-  {/* Business Card Section */}
-  <div className="flex flex-col items-center w-full max-w-lg">
-    <PreviewCard title="Business Card" profileImage={userData.logo || "/Default.jpeg"} formData={userData} />
-  </div>
+        <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start w-full min-h-[500px]  px-4 py-6 rounded-lg shadow-lg mt-0 overflow-hidden">
+          {/* Business Card Section */}
+          <div className="flex flex-col items-center w-full max-w-lg">
+            <PreviewCard
+              title="Business Card"
+              profileImage={userData.logo || "/Default.jpeg"}
+              formData={userData}
+            />
+          </div>
 
-  {/* Email Signature Section */}
-  <div className="flex flex-col items-center w-full max-w-lg">
-    <div id="email-signature-card" className="w-full shadow-lg rounded-lg overflow-hidden">
-      <PreviewCard title="Email Signature" profileImage={userData.logo || "/Default.jpeg"} formData={userData} />
-    </div>
-  </div>
-</div>
-
+          {/* Email Signature Section */}
+          <div className="flex flex-col items-center w-full max-w-lg">
+            <div id="email-signature-card" className="w-full  overflow-hidden">
+              <PreviewCard
+                title="Email Signature"
+                profileImage={userData.logo || "/Default.jpeg"}
+                formData={userData}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </Layout>
   );

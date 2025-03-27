@@ -3,8 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-
-
 import Layout from "../../components/Layout";
 import PersonalInformation from "./PersonalInformation";
 import ContactInformation from "./ContactInformation";
@@ -88,7 +86,7 @@ export default function EditUser() {
 
   // Handle text input changes
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev: UserFormData) => ({ ...prev, [name]: value }));
@@ -103,21 +101,17 @@ export default function EditUser() {
     }
   };
 
-
   // Handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("🚀 Form submitted!", formData); // For debugging
-  
+
     // Save to localStorage
     localStorage.setItem("userFormData", JSON.stringify(formData));
-  
-    // Redirect to MY CARDS page
-    router.push("/my-cards");
-  };
-  
-  
 
+    // Redirect to MY CARDS page
+    router.push("/conneq-biz");
+  };
 
   return (
     <Layout>
@@ -128,7 +122,6 @@ export default function EditUser() {
 
         {/* Main content area: Tabs + Preview */}
         <div className="flex flex-col lg:flex-row space-y-8 lg:space-x-8">
-
           {/* Left side: Tabs + Form */}
           <div className="w-full lg:w-2/3 bg-white rounded-xl shadow-xl p-6">
             <form ref={formRef} onSubmit={handleSubmit}>
@@ -138,10 +131,11 @@ export default function EditUser() {
                   <span
                     key={idx}
                     onClick={() => setActiveTab(idx)}
-                    className={`cursor-pointer px-3 py-1 text-sm font-medium ${idx === activeTab
+                    className={`cursor-pointer px-3 py-1 text-sm font-medium ${
+                      idx === activeTab
                         ? "text-[#145C5B] border-b-2 border-[#145C5B]"
                         : "text-gray-500 hover:text-[#145C5B]"
-                      }`}
+                    }`}
                   >
                     {tab}
                   </span>
@@ -177,7 +171,10 @@ export default function EditUser() {
                 />
               )}
               {activeTab === 4 && (
-                <Others formData={formData} handleInputChange={handleInputChange} />
+                <Others
+                  formData={formData}
+                  handleInputChange={handleInputChange}
+                />
               )}
 
               {/* Privacy Policy Link */}
@@ -201,10 +198,15 @@ export default function EditUser() {
                 />
                 {!isChecked && <span className="text-red-500">*</span>}
                 <p className="text-gray-700 text-justify">
-                  I confirm that I have read, understood, and agree with the Privacy Notice of {formData.company || "(company name)"}. I understand
-                  that some of my personal information, such as my personal mobile number, will be used for as part of my email signature,
-                  business card and virtual card. I understand that my consent does not preclude the existence of other criteria for lawful
-                  processing of personal data, and does not waive any of my rights under the Data Privacy Act of 2012 and other applicable laws.
+                  I confirm that I have read, understood, and agree with the
+                  Privacy Notice of {formData.company || "(company name)"}. I
+                  understand that some of my personal information, such as my
+                  personal mobile number, will be used for as part of my email
+                  signature, business card and virtual card. I understand that
+                  my consent does not preclude the existence of other criteria
+                  for lawful processing of personal data, and does not waive any
+                  of my rights under the Data Privacy Act of 2012 and other
+                  applicable laws.
                 </p>
               </div>
 
@@ -226,7 +228,7 @@ export default function EditUser() {
                 >
                   Next
                 </button>
-                  <button
+                <button
                   type="submit"
                   className="px-4 py-2 bg-[#145C5B] text-white rounded"
                 >
