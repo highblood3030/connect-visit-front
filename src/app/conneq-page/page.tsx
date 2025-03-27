@@ -129,13 +129,13 @@ export default function ConneqPage() {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4">
+      <div className="w-full min-h-screen overflow-hidden bg-gray-100">
         <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-[#145C5B] mb-6">
           CONNEQ PAGE
         </h1>
 
         {/* Create & Search Section */}
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 space-y-2 md:space-y-0">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 space-y-2 md:space-y-0 gap-2">
           <button
             className="bg-[#145C5B] text-white px-6 py-2 rounded-lg shadow-md hover:bg-[#0e4b4b] transition"
             onClick={() => {
@@ -164,7 +164,8 @@ export default function ConneqPage() {
         </div>
 
         {/* Table Section */}
-        <div className="bg-white shadow-lg rounded-lg overflow-x-auto">
+        <div className="hidden md:block"></div>
+        <div className="bg-white shadow-lg rounded-lg w-full overflow-x-auto">
           <table className="w-full border-collapse">
             <thead className="bg-gray-200 text-black">
               <tr>
@@ -193,7 +194,7 @@ export default function ConneqPage() {
                     <td className="py-3 px-4 font-semibold text-black">
                       {item.status}
                     </td>
-                    <td className="py-3 px-4 flex flex-wrap-2">
+                    <td className="py-3 px-4 flex space-x-2">
                       <button
                         className="bg-gray-500 text-white px-3 py-1 rounded-md hover:bg-gray-700 transition"
                         onClick={() => handleEdit(item)}
@@ -215,10 +216,33 @@ export default function ConneqPage() {
         </div>
       </div>
 
+        {/* Mobile View: Cards Layout */}
+        <div className="block md:hidden space-y-4">
+          {dataList.map((item) => (
+            <div key={item.id} className="border p-4 rounded-md shadow-md bg-white">
+              <p><strong>ID:</strong> {item.id}</p>
+              <p><strong>Name:</strong> {item.name}</p>
+              <p><strong>Category:</strong> {item.category}</p>
+              <p><strong>Description:</strong> {item.description}</p>
+              <p><strong>Status:</strong> {item.status}</p>
+              <div className="flex justify-between mt-3">
+                <button className="bg-gray-500 text-white px-3 py-1 rounded-md hover:bg-gray-700 transition"
+                  onClick={() => handleEdit(item)}>
+                  Edit
+                </button>
+                <button className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition"
+                  onClick={() => handleViewDetails(item)}>
+                  View
+                </button>
+              </div>
+            </div>
+    ))}
+  </div>
+
       {/* Create & Edit Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50 p-4">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg md:max-w-2xl">
             <div className="flex justify-between items-center border-b pb-2">
               <h2 className="text-xl font-bold text-black">
                 {editMode ? "Edit CONNEQ Page" : "CONNEQ PAGE FORM"}
