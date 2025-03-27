@@ -107,11 +107,16 @@ export default function EditUser() {
   // Handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Here you would normally save the data via an API call or similar.
-    // For this example, we'll just log the formData.
-    console.log("Form submitted", formData);
-    // You can also navigate or show a success message.
+    console.log("🚀 Form submitted!", formData); // For debugging
+  
+    // Save to localStorage
+    localStorage.setItem("userFormData", JSON.stringify(formData));
+  
+    // Redirect to MY CARDS page
+    router.push("/my-cards");
   };
+  
+  
 
 
   return (
@@ -221,7 +226,7 @@ export default function EditUser() {
                 >
                   Next
                 </button>
-                <button
+                  <button
                   type="submit"
                   className="px-4 py-2 bg-[#145C5B] text-white rounded"
                 >
