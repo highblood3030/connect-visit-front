@@ -29,10 +29,9 @@ export default function Layout({ children }: LayoutProps) {
       {/* Sidebar */}
 
       <div
-    className={`fixed top-0 left-0 h-screen w-64 sm:w-80 bg-[#D7F0ED] shadow-xl overflow-y-auto z-50 
-      transform transition-transform duration-500 ease-in-out 
-      ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
-      } sm:translate-x-0 sm:relative}`}
+        className={`fixed top-0 left-0 h-screen w-64 sm:w-80 bg-[#D7F0ED] shadow-xl overflow-y-auto transform transition-transform duration-500 z-50
+        ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+	 }`}
       >
         {/* Sidebar Header */}
        

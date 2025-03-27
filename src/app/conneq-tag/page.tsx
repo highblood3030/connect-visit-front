@@ -54,34 +54,28 @@ export default function ConneqTag() {
   // Handle Form Submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // Create a new item with an ID and dateCreated
+  
     const newItem: DataItem = {
-      id: dataList.length + 1,
+      id: Date.now(), // use timestamp as unique ID
       textTag: formData.textTag,
       name: formData.name,
       description: formData.description,
       status: formData.status,
-      dateCreated: new Date().toLocaleString(), // or .toLocaleDateString()
+      dateCreated: new Date().toLocaleString(),
     };
-
-    // Push the new item into the list
-    setDataList([...dataList, newItem]);
-
-    // Clear the form (optional)
+  
+    setDataList(prevList => [...prevList, newItem]); // ✅ Fix: use updater function
+  
     setFormData({
       textTag: "",
       name: "",
       description: "",
       status: "Active",
     });
-
-    // Close the create modal
+  
     setModalOpen(false);
-
-    // Open the success modal
     setSuccessModalOpen(true);
-  };
+  };  
 
   // Handle View Details Button
   const handleViewDetails = (item: DataItem) => {
@@ -134,13 +128,13 @@ export default function ConneqTag() {
 
   return (
     <Layout>
-      <div className="max-w-7xl mx-auto h-[calc(100vh-4rem)] overflow-auto">
+  <div className="max-w-7xl mx-auto px-4 h-[calc(100vh-4rem)] overflow-auto">
         <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-[#145C5B] mb-2">
           CONNEQ TAG
         </h1>
 
         {/* Actions Section */}
-        <div className="flex gap-4 mb-4">
+        <div className="flex flex-wrap gap-4 mb-4">
           <button
             className="bg-[#145C5B] text-white px-6 py-2 rounded-lg shadow-md hover:bg-[#0e4b4b] transition"
             onClick={() => setModalOpen(true)}
@@ -166,101 +160,124 @@ export default function ConneqTag() {
         </div>
 
         {/* Filters & Search */}
-        <div className="bg-white p-2 rounded-lg shadow-md flex gap-2 mb-2">
-          <input
+        <div className="bg-white p-2 rounded-lg shadow-md grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-2 mb-2">
+           <input
             type="text"
             placeholder="Name filter"
-            className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B]"
+            className="flex-1 min-w-[150px] border border-gray-300 ..."
           />
           <input
             type="text"
             placeholder="Tag filter"
-            className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B]"
+            className="flex-1 min-w-[150px] border border-gray-300 ..."
           />
           <input
             type="text"
             placeholder="Description filter"
-            className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B]"
+            className="flex-1 min-w-[150px] border border-gray-300 ..."
           />
           <input
-            type="date"
+            type="text"
             placeholder="Date filter"
-            className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B]"
+            className="flex-1 min-w-[150px] border border-gray-300 ..."
           />
           <div className="flex items-center bg-white border border-gray-300 rounded-lg px-3 py-2 shadow-md">
             <input
-              type="text"
-              placeholder="Search"
-              className="outline-none bg-transparent text-gray-700 placeholder-gray-400"
-            />
+            type="text"
+            placeholder="Search"
+            className="flex-1 min-w-[150px] border border-gray-300 ..."
+          />
             <FiSearch className="text-xl text-gray-500 cursor-pointer" />
           </div>
         </div>
 
-        {/* Table Section */}
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-          <table className="w-full border-collapse">
-            <thead className="bg-gray-200 text-gray-700">
-              <tr>
-                <th className="py-3 px-4 text-left">
-                  <input type="checkbox" />
-                </th>
-                <th className="py-3 px-4 text-left">ID</th>
-                <th className="py-3 px-4 text-left">Name</th>
-                <th className="py-3 px-4 text-left">Text Tag</th>
-                <th className="py-3 px-4 text-left">Description</th>
-                <th className="py-3 px-4 text-left">Status</th>
-                <th className="py-3 px-4 text-left">Date Created</th>
-                <th className="py-3 px-4 text-left">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dataList.length === 0 ? (
-                <tr>
-                  <td colSpan={8} className="text-center text-gray-500 py-6">
-                    No data available
-                  </td>
-                </tr>
-              ) : (
-                dataList.map((item) => (
-                  <tr key={item.id}>
-                    <td className="py-3 px-4 text-left">
-                      <input type="checkbox" />
-                    </td>
-                    <td className="py-3 px-4">{item.id}</td>
-                    <td className="py-3 px-4">{item.name}</td>
-                    <td className="py-3 px-4">{item.textTag}</td>
-                    <td className="py-3 px-4">{item.description}</td>
-                    <td className="py-3 px-4">{item.status}</td>
-                    <td className="py-3 px-4">{item.dateCreated}</td>
-                    <td className="py-3 px-4">
-                      {/* View Details Button */}
-                      <button
-                        className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition"
-                        onClick={() => handleViewDetails(item)}
-                      >
-                        View Details
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-
-          {/* Pagination */}
-          <div className="flex justify-center items-center p-1 bg-gray-100">
-            <button className="px-4 py-2 border rounded bg-gray-200 text-gray-500 cursor-not-allowed">
-              ◀
-            </button>
-            <span className="mx-4 text-gray-600">Page 1 of 1</span>
-            <button className="px-4 py-2 border rounded bg-gray-200 text-gray-500 cursor-not-allowed">
-              ▶
-            </button>
-          </div>
+        {/* Responsive Card View (Mobile) */}
+<div className="block sm:hidden space-y-4">
+  {dataList.length === 0 ? (
+    <p className="text-center text-gray-500">No data available</p>
+  ) : (
+    dataList.map((item) => (
+      <div key={item.id} className="bg-white shadow-md rounded-md p-4">
+        <div className="flex justify-between items-center mb-2">
+          <p className="font-bold text-[#145C5B]">#{item.id}</p>
+          <span className="text-sm text-gray-600">{item.dateCreated}</span>
         </div>
+        <p><strong>Name:</strong> {item.name}</p>
+        <p><strong>Text Tag:</strong> {item.textTag}</p>
+        <p><strong>Description:</strong> {item.description}</p>
+        <p><strong>Status:</strong> {item.status}</p>
+        <button
+          className="mt-3 bg-[#145C5B] text-white px-4 py-1 rounded-md hover:bg-[#0e4b4b] transition"
+          onClick={() => handleViewDetails(item)}
+        >
+          View Details
+        </button>
       </div>
+    ))
+  )}
+</div>
 
+{/* Table View (Desktop) */}
+<div className="hidden sm:block overflow-x-auto">
+  <table className="min-w-full border-collapse text-sm sm:text-base">
+    <thead className="bg-gray-200 text-gray-700">
+      <tr>
+        <th className="py-3 px-4 text-left">
+          <input type="checkbox" />
+        </th>
+        <th className="py-3 px-4 text-left">ID</th>
+        <th className="py-3 px-4 text-left">Name</th>
+        <th className="py-3 px-4 text-left">Text Tag</th>
+        <th className="py-3 px-4 text-left">Description</th>
+        <th className="py-3 px-4 text-left">Status</th>
+        <th className="py-3 px-4 text-left">Date Created</th>
+        <th className="py-3 px-4 text-left">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {dataList.length === 0 ? (
+        <tr>
+          <td colSpan={8} className="text-center text-gray-500 py-6">
+            No data available
+          </td>
+        </tr>
+      ) : (
+        dataList.map((item) => (
+          <tr key={item.id}>
+            <td className="py-3 px-4">
+              <input type="checkbox" />
+            </td>
+            <td className="py-3 px-4">{item.id}</td>
+            <td className="py-3 px-4">{item.name}</td>
+            <td className="py-3 px-4">{item.textTag}</td>
+            <td className="py-3 px-4">{item.description}</td>
+            <td className="py-3 px-4">{item.status}</td>
+            <td className="py-3 px-4">{item.dateCreated}</td>
+            <td className="py-3 px-4">
+              <button
+                className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition"
+                onClick={() => handleViewDetails(item)}
+              >
+                View Details
+              </button>
+            </td>
+          </tr>
+        ))
+      )}
+    </tbody>
+  </table>
+</div>
+    {/* Pagination */}
+    <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center p-3 bg-gray-100 gap-2">
+      <button className="px-4 py-2 border rounded bg-gray-200 text-gray-500 cursor-not-allowed">
+        ◀
+      </button>
+      <span className="text-gray-600">Page 1 of 1</span>
+      <button className="px-4 py-2 border rounded bg-gray-200 text-gray-500 cursor-not-allowed">
+        ▶
+      </button>
+    </div>
+  </div>
       {/* Create Modal */}
       {modalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50 overflow-auto">
@@ -408,7 +425,7 @@ export default function ConneqTag() {
         Details Successfully Saved
       </h2>
       {/* Action buttons */}
-      <div className="flex gap-4 mt-4">
+      <div className="flex flex-wrap gap-2 mb-4">
         <button
           onClick={handleDownloadPDF}
           className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition"
