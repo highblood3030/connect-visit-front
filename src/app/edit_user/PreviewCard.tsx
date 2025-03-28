@@ -28,7 +28,7 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
 
       {/* Card */}
       <div
-        className={`relative w-[360px] ${title === "Business Card" ? "min-h-[216px]" : "h-[200px]"}  rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-105 duration-300 mt-6`}
+        className={`relative w-[360px] ${title === "Business Card" ? "min-h-[216px]" : "h-[200px]"}  rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-105 duration-300 mt-0`}
       >
         <img
           src="/Background-ESign.png"
