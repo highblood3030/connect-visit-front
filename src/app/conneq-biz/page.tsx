@@ -63,77 +63,78 @@ ${userData.company}
       alert("❌ Error: Could not find the email signature section.");
       return;
     }
-    try {
-      const images = signatureElement.getElementsByTagName("img");
+    try{
+      const images = signatureElement.getElementsByTagName('img');
       const loadPromises = Array.from(images).map((img) => {
         return new Promise((resolve, reject) => {
           if (img.complete) {
             resolve(true);
           } else {
-            img.onload = () => resolve(true);
+            img.onload = () => resolve(true)
             img.onerror = () => reject(`Error loading image: ${img.src}`);
           }
         });
       });
-
+      
       await Promise.all(loadPromises);
 
-      const canvas = await html2canvas(signatureElement, {
-        useCORS: true,
-        scale: 2,
-      });
-
-      const image = canvas.toDataURL("image/png");
-      const link = document.createElement("a");
-      link.href = image;
-      link.download = "signatureElement.png";
-      link.click();
-
-      alert("✔️ Business Card Downloaded!");
-    } catch (error) {
-      console.error("Error capturing signature email: error");
-      alert("❌ Error: Failed to download business card.");
-    }
-  };
-
-  const handleDownloadBuinesscard = async () => {
-    const businessCardElement = document.getElementById("business-card");
-    if (!businessCardElement) {
-      alert("❌ Error: Could not find the business card section.");
-      return;
-    }
-    try {
-      const images = businessCardElement.getElementsByTagName("img");
-      const loadPromises = Array.from(images).map((img) => {
-        return new Promise((resolve, reject) => {
-          if (img.complete) {
-            resolve(true);
-          } else {
-            img.onload = () => resolve(true);
-            img.onerror = () => reject(`Error loading image: ${img.src}`);
-          }
+        const canvas =await html2canvas(signatureElement, {
+          useCORS: true,
+          scale: 2,
         });
-      });
 
-      await Promise.all(loadPromises);
+        const image = canvas.toDataURL('image/png');
+        const link = document.createElement("a");
+        link.href = image
+        link.download = 'signatureElement.png'
+        link.click();
 
-      const canvas = await html2canvas(businessCardElement, {
-        useCORS: true,
-        scale: 2,
-      });
+        alert("✔️ Business Card Downloaded!")
+      }catch (error) {
+        console.error('Error capturing signature email: error');
+        alert("❌ Error: Failed to download business card.");
+      }
+    };
+    
+    const handleDownloadBuinesscard = async () => {
+      const businessCardElement = document.getElementById('business-card')
+      if (!businessCardElement) {
+        alert("❌ Error: Could not find the business card section.");
+        return;
+      }
+      try{
+        const images = businessCardElement.getElementsByTagName('img');
+        const loadPromises = Array.from(images).map((img) => {
+          return new Promise((resolve, reject) => {
+            if (img.complete) {
+              resolve(true);
+            } else {
+              img.onload = () => resolve(true)
+              img.onerror = () => reject(`Error loading image: ${img.src}`);
+            }
+          });
+        });
 
-      const image = canvas.toDataURL("image/png");
-      const link = document.createElement("a");
-      link.href = image;
-      link.download = "Business_Card.png";
-      link.click();
+        await Promise.all(loadPromises);
 
-      alert("✔️ Business Card Downloaded!");
-    } catch (error) {
-      console.error("Error capturing business card:", error);
-      alert("❌ Error: Failed to download business card.");
-    }
-  };
+        const canvas = await html2canvas(businessCardElement, {
+          useCORS: true,
+          scale: 2,
+        });
+
+        const image = canvas.toDataURL("image/png");
+        const link = document.createElement("a");
+        link.href = image
+        link.download = "Business_Card.png"
+        link.click();
+
+        alert("✔️ Business Card Downloaded!")
+      } catch (error) {
+        console.error("Error capturing business card:", error);
+        alert("❌ Error: Failed to download business card.");
+      }
+    };
+
 
   const handleRefresh = () => {
     alert("✔️ Signature refreshed. Please reload the page to see changes.");
@@ -160,11 +161,7 @@ ${userData.company}
   };
 
   if (!userData) {
-    return (
-      <div className="p-10 text-center">
-        .......Business cards will be displayed in here........
-      </div>
-    );
+    return <div className="p-10 text-center">.......Business cards will be displayed in here........</div>;
   }
 
   return (
@@ -198,9 +195,9 @@ ${userData.company}
           <button
             onClick={handleDownloadBuinesscard}
             className="flex items-center bg-gray-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-gray-700 transition"
-          >
-            <FiDownload className="mt-1 text-xs" /> Business download
-          </button>
+            >
+              <FiDownload className="mt-1 text-xs" /> Business download
+            </button>
           <button
             onClick={handleRefresh}
             className="flex items-center bg-[#91C8C4] text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-[#78B0AC] transition"
@@ -227,10 +224,7 @@ ${userData.company}
 
           {/* Email Signature Section */}
           <div className="flex flex-col items-center w-full max-w-lg">
-            <div
-              id="email-signature-card"
-              className="w-full overflow-hidden p-4 rounded-lg"
-            >
+            <div id="email-signature-card" className="w-full overflow-hidden p-4 rounded-lg">
               <PreviewCard
                 title="Email Signature"
                 profileImage={userData.logo || "/Default.jpeg"}
