@@ -116,11 +116,6 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
               {formData.street}, {formData.city}, {formData.state},{" "}
               {formData.postalCode}, {formData.country}
             </p>
-
-            <button className="bg-[#198754] text-white px-3 py-1 rounded-md mt-1 text-xs">
-              Save Contact
-            </button>
-
             <img
               src="/DNL-BC.png"
               alt="D&L Logo"
