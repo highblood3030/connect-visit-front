@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Layout from "../../components/Layout";
 import PreviewCard from "../edit_user/PreviewCard";
@@ -14,6 +13,8 @@ import {
 } from "react-icons/fi";
 import html2canvas from "html2canvas";
 import QRCode from "qrcode";
+import { img } from "framer-motion/client";
+import { rejects } from "assert";
 
 const sampleUserData = {
   firstname: "this",
@@ -21,7 +22,6 @@ const sampleUserData = {
   lastname: "user",
   honorificprefix: "Mr.",
   honorificsuffix: "",
-
   jobtitle: "Kanal Inspector",
   company: "Sample Construction Co.",
   logo: "/profile-placeholder.jpeg",
@@ -33,6 +33,7 @@ const sampleUserData = {
 
 export default function ConneqBizCards() {
   const [userData, setUserData] = useState<any>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const savedData = localStorage.getItem("userFormData");
@@ -40,8 +41,6 @@ export default function ConneqBizCards() {
       setUserData(JSON.parse(savedData));
     }
   }, []);
-
-  const router = useRouter();
 
   const handleEdit = () => router.push("/edit_user");
 
@@ -58,18 +57,84 @@ ${userData.company}
     });
   };
 
-  const handleDownloadSignature = () => {
+  const handleDownloadSignature = async () => {
     const signatureElement = document.getElementById("email-signature-card");
-    if (!signatureElement) return;
+    if (!signatureElement) {
+      alert("❌ Error: Could not find the email signature section.");
+      return;
+    }
+    try{
+      const images = signatureElement.getElementsByTagName('img');
+      const loadPromises = Array.from(images).map((img) => {
+        return new Promise((resolve, reject) => {
+          if (img.complete) {
+            resolve(true);
+          } else {
+            img.onload = () => resolve(true)
+            img.onerror = () => reject(`Error loading image: ${img.src}`);
+          }
+        });
+      });
+      
+      await Promise.all(loadPromises);
 
-    html2canvas(signatureElement).then((canvas) => {
-      const link = document.createElement("a");
-      link.href = canvas.toDataURL("image/png");
-      link.download = "Email_Signature.png";
-      link.click();
-      alert("✔️ Email Signature Downloaded!");
-    });
-  };
+        const canvas =await html2canvas(signatureElement, {
+          useCORS: true,
+          scale: 2,
+        });
+
+        const image = canvas.toDataURL('image/png');
+        const link = document.createElement("a");
+        link.href = image
+        link.download = 'signatureElement.png'
+        link.click();
+
+        alert("✔️ Business Card Downloaded!")
+      }catch (error) {
+        console.error('Error capturing signature email: error');
+        alert("❌ Error: Failed to download business card.");
+      }
+    };
+    
+    const handleDownloadBuinesscard = async () => {
+      const businessCardElement = document.getElementById('business-card')
+      if (!businessCardElement) {
+        alert("❌ Error: Could not find the business card section.");
+        return;
+      }
+      try{
+        const images = businessCardElement.getElementsByTagName('img');
+        const loadPromises = Array.from(images).map((img) => {
+          return new Promise((resolve, reject) => {
+            if (img.complete) {
+              resolve(true);
+            } else {
+              img.onload = () => resolve(true)
+              img.onerror = () => reject(`Error loading image: ${img.src}`);
+            }
+          });
+        });
+
+        await Promise.all(loadPromises);
+
+        const canvas = await html2canvas(businessCardElement, {
+          useCORS: true,
+          scale: 2,
+        });
+
+        const image = canvas.toDataURL("image/png");
+        const link = document.createElement("a");
+        link.href = image
+        link.download = "Business_Card.png"
+        link.click();
+
+        alert("✔️ Business Card Downloaded!")
+      } catch (error) {
+        console.error("Error capturing business card:", error);
+        alert("❌ Error: Failed to download business card.");
+      }
+    };
+
 
   const handleRefresh = () => {
     alert("✔️ Signature refreshed. Please reload the page to see changes.");
@@ -96,16 +161,14 @@ ${userData.company}
   };
 
   if (!userData) {
-    return (
-      <div className="p-10 text-center">Loading your business cards...</div>
-    );
+    return <div className="p-10 text-center">.......Business cards will be displayed in here........</div>;
   }
 
   return (
     <Layout>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8  min-h-[90vh]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[90vh]">
         <div className="mb-4 text-center md:text-left">
-          <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-black break-words mt-7">
+          <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-black break-words mt-8">
             MY CARDS
           </h1>
         </div>
@@ -130,6 +193,12 @@ ${userData.company}
             <FiDownload className="mr-1 text-xs" /> Signature
           </button>
           <button
+            onClick={handleDownloadBuinesscard}
+            className="flex items-center bg-gray-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-gray-700 transition"
+            >
+              <FiDownload className="mt-1 text-xs" /> Business download
+            </button>
+          <button
             onClick={handleRefresh}
             className="flex items-center bg-[#91C8C4] text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-[#78B0AC] transition"
           >
@@ -143,7 +212,7 @@ ${userData.company}
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start w-full min-h-[500px]  px-4 py-6 rounded-lg shadow-lg mt-0 overflow-hidden">
+        <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start w-full min-h-[500px] px-4 py-6 rounded-lg shadow-lg overflow-hidden">
           {/* Business Card Section */}
           <div className="flex flex-col items-center w-full max-w-lg">
             <PreviewCard
@@ -155,7 +224,7 @@ ${userData.company}
 
           {/* Email Signature Section */}
           <div className="flex flex-col items-center w-full max-w-lg">
-            <div id="email-signature-card" className="w-full  overflow-hidden">
+            <div id="email-signature-card" className="w-full overflow-hidden p-4 rounded-lg">
               <PreviewCard
                 title="Email Signature"
                 profileImage={userData.logo || "/Default.jpeg"}
