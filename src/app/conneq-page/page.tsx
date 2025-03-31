@@ -258,7 +258,7 @@ export default function ConneqPage() {
 
       {/* Create & Edit Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50 p-4">
+        <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-sm z-50 p-4">
           <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg md:max-w-2xl">
             <div className="flex justify-between items-center border-b pb-2">
               <h2 className="text-xl font-bold text-black">
@@ -367,7 +367,7 @@ export default function ConneqPage() {
 
       {/* View Details Modal */}
       {viewModalOpen && selectedItem && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 backdrop-blur-sm z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-xl">
             {/* Close Icon */}
             <div className="flex justify-end">

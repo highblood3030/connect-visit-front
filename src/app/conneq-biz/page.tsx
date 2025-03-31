@@ -13,25 +13,12 @@ import {
 } from "react-icons/fi";
 import html2canvas from "html2canvas";
 import QRCode from "qrcode";
-import { img } from "framer-motion/client";
-import { rejects } from "assert";
+import {IoMdClose } from "react-icons/io";
 
-const sampleUserData = {
-  firstname: "this",
-  middlename: "is",
-  lastname: "user",
-  honorificprefix: "Mr.",
-  honorificsuffix: "",
-  jobtitle: "Kanal Inspector",
-  company: "Sample Construction Co.",
-  logo: "/profile-placeholder.jpeg",
-  website: "https://example.com",
-  cellphone: "091223421111",
-  workemail: "user@example.com",
-  address: "123 Sample Street, City",
-};
 
 export default function ConneqBizCards() {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [businessModalOpen, setBusinessModalOpen] = useState(false);
   const [userData, setUserData] = useState<any>(null);
   const router = useRouter();
 
@@ -43,6 +30,9 @@ export default function ConneqBizCards() {
   }, []);
 
   const handleEdit = () => router.push("/edit_user");
+
+  const handleSendEmail = () =>
+    setErrorMessage("❌ Error: Failed to send email.");
 
   const handleCopySignature = () => {
     const signatureText = `
@@ -58,83 +48,47 @@ ${userData.company}
   };
 
   const handleDownloadSignature = async () => {
-    const signatureElement = document.getElementById("email-signature-card");
+    const signatureElement = document.getElementById("");
     if (!signatureElement) {
       alert("❌ Error: Could not find the email signature section.");
       return;
     }
-    try{
-      const images = signatureElement.getElementsByTagName('img');
+    try {
+      const images = signatureElement.getElementsByTagName("img");
       const loadPromises = Array.from(images).map((img) => {
         return new Promise((resolve, reject) => {
           if (img.complete) {
             resolve(true);
           } else {
-            img.onload = () => resolve(true)
+            img.onload = () => resolve(true);
             img.onerror = () => reject(`Error loading image: ${img.src}`);
           }
         });
       });
-      
+
       await Promise.all(loadPromises);
 
-        const canvas =await html2canvas(signatureElement, {
-          useCORS: true,
-          scale: 2,
-        });
+      const canvas = await html2canvas(signatureElement, {
+        useCORS: true,
+        scale: 2,
+      });
 
-        const image = canvas.toDataURL('image/png');
-        const link = document.createElement("a");
-        link.href = image
-        link.download = 'signatureElement.png'
-        link.click();
+      const image = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = image;
+      link.download = "signatureElement.png";
+      link.click();
 
-        alert("✔️ Business Card Downloaded!")
-      }catch (error) {
-        console.error('Error capturing signature email: error');
-        alert("❌ Error: Failed to download business card.");
-      }
-    };
-    
-    const handleDownloadBuinesscard = async () => {
-      const businessCardElement = document.getElementById('business-card')
-      if (!businessCardElement) {
-        alert("❌ Error: Could not find the business card section.");
-        return;
-      }
-      try{
-        const images = businessCardElement.getElementsByTagName('img');
-        const loadPromises = Array.from(images).map((img) => {
-          return new Promise((resolve, reject) => {
-            if (img.complete) {
-              resolve(true);
-            } else {
-              img.onload = () => resolve(true)
-              img.onerror = () => reject(`Error loading image: ${img.src}`);
-            }
-          });
-        });
+      alert("✔️ Business Card Downloaded!");
+    } catch (error) {
+      console.error("Error capturing signature email: error");
+      alert("❌ Error: Failed to download business card.");
+    }
+  };
 
-        await Promise.all(loadPromises);
-
-        const canvas = await html2canvas(businessCardElement, {
-          useCORS: true,
-          scale: 2,
-        });
-
-        const image = canvas.toDataURL("image/png");
-        const link = document.createElement("a");
-        link.href = image
-        link.download = "Business_Card.png"
-        link.click();
-
-        alert("✔️ Business Card Downloaded!")
-      } catch (error) {
-        console.error("Error capturing business card:", error);
-        alert("❌ Error: Failed to download business card.");
-      }
-    };
-
+  const handleDownloadBuinesscard = async () => {
+    setBusinessModalOpen(true);
+  };
 
   const handleRefresh = () => {
     alert("✔️ Signature refreshed. Please reload the page to see changes.");
@@ -161,7 +115,11 @@ ${userData.company}
   };
 
   if (!userData) {
-    return <div className="p-10 text-center">.......Business cards will be displayed in here........</div>;
+    return (
+      <div className="p-10 text-center">
+        .......Business cards will be displayed in here........
+      </div>
+    );
   }
 
   return (
@@ -181,12 +139,6 @@ ${userData.company}
             <FiEdit className="mr-1 text-xs" /> Edit
           </button>
           <button
-            onClick={handleCopySignature}
-            className="flex items-center bg-green-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-green-700 transition"
-          >
-            <FiMail className="mr-1 text-xs" /> Vcard
-          </button>
-          <button
             onClick={handleDownloadSignature}
             className="flex items-center bg-gray-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-gray-700 transition"
           >
@@ -194,10 +146,10 @@ ${userData.company}
           </button>
           <button
             onClick={handleDownloadBuinesscard}
-            className="flex items-center bg-gray-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-gray-700 transition"
-            >
-              <FiDownload className="mt-1 text-xs" /> Business download
-            </button>
+            className="flex items-center bg-green-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-green-700 transition"
+          >
+            <FiMail className="mr-1 text-xs" /> Send Vcard via email
+          </button>
           <button
             onClick={handleRefresh}
             className="flex items-center bg-[#91C8C4] text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-[#78B0AC] transition"
@@ -224,7 +176,10 @@ ${userData.company}
 
           {/* Email Signature Section */}
           <div className="flex flex-col items-center w-full max-w-lg">
-            <div id="email-signature-card" className="w-full overflow-hidden p-4 rounded-lg">
+            <div
+              id="email-signature-card"
+              className="w-full overflow-hidden p-4 rounded-lg"
+            >
               <PreviewCard
                 title="Email Signature"
                 profileImage={userData.logo || "/Default.jpeg"}
@@ -234,6 +189,68 @@ ${userData.company}
           </div>
         </div>
       </div>
+
+      {businessModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center  backdrop-blur-sm z-50 p-4">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg md:max-w-2xl">
+            <h2 className="text-xl font-bold text-blac mb-6">Test</h2>
+            <div className="flex justify-between items-center border-b pb-2">
+              <button
+                onClick={() => setBusinessModalOpen(false)}
+                className="absolute-right text-3xl text-gray-700 focus:outline-none"
+              >
+                <IoMdClose />
+              </button>
+            </div>
+
+            <div>
+              <input
+                type="text"
+                name="Name"
+                placeholder="Fullname"
+                className="w-full border p-2 rounded-ms text-black mt-8"
+              />
+              <div>
+                <input
+                  type="text"
+                  name="Email"
+                  placeholder="Email Address"
+                  className="w-full border p-2 rounded-ms text-black mt-8"
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="Description"
+                  placeholder="Description"
+                  className="w-full border p-6 rounded-md text-black mt-8"
+                />
+                <div className="flex justify-center mt-4">
+                  
+                  <button className="flex items-center gap-2 bg-teal-700 text-white px-4 rounded-md hover:bg-black"
+                  onClick={handleSendEmail}
+                  >
+                    Send Email
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {errorMessage && (
+        <div className="fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-md text-white text-center py-3 px-4 rounded-md z-50">
+          <div className="bg-white text-white p-6 rounded-lg shadow-lg text-center max-w-sm">
+            <p className="text-lg">{errorMessage}</p>
+            <button
+              onClick={() => setErrorMessage(null)}
+              className="mt-4 bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-600"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </Layout>
   );
 }

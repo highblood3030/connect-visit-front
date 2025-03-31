@@ -109,7 +109,7 @@ export default function Layout({ children }: LayoutProps) {
         {/* Logout Button */}
         <div className="px-6 py-4">
           <button
-            onClick={() => router.push("/logout")}
+            onClick={() => router.push("/Log-in")}
             className="flex items-center space-x-3 px-4 py-3 cursor-pointer text-red-600 hover:bg-red-100 rounded-lg transition w-full"
           >
             <FiLogOut className="text-2xl" />
