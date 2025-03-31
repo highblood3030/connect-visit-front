@@ -45,7 +45,7 @@ export default function ConneqPage() {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+    >
   ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -80,7 +80,7 @@ export default function ConneqPage() {
     if (editMode && selectedItem) {
       // Update existing item
       const updatedDataList = dataList.map((item) =>
-        item.id === selectedItem.id ? { ...item, ...formData } : item,
+        item.id === selectedItem.id ? { ...item, ...formData } : item
       );
       setDataList(updatedDataList);
     } else {
@@ -213,6 +213,17 @@ export default function ConneqPage() {
               )}
             </tbody>
           </table>
+
+          {/* Pagination */}
+          <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center p-3 bg-gray-100 gap-2">
+            <button className="px-4 py-2 border rounded bg-gray-200 text-gray-500 cursor-not-allowed">
+              ◀
+            </button>
+            <span className="text-gray-600">Page 1 of 1</span>
+            <button className="px-4 py-2 border rounded bg-gray-200 text-gray-500 cursor-not-allowed">
+              ▶
+            </button>
+          </div>
         </div>
       </div>
 
