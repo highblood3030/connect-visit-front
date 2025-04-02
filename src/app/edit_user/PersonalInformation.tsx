@@ -27,7 +27,6 @@ const isValidWebsite = (value: string) =>
 const isValidHonorific = (value: string) => /^[A-Za-z\s.,-]{0,20}$/.test(value);
 
 export default function PersonalInformation({
-  profileImage,
   formData,
   setFormData,
 }: Props) {

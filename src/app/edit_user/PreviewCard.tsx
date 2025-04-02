@@ -8,7 +8,7 @@ type Props = {
   formData: any;
 };
 
-export default function PreviewCard({ title, profileImage, formData }: Props) {
+export default function PreviewCard({ title,  formData }: Props) {
   const fullName =
     `${formData.honorificprefix} ${formData.firstname} ${formData.lastname} ${formData.honorificsuffix}`.toUpperCase();
 
@@ -51,7 +51,7 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
             />
 
             <div className="absolute top-4 right-8 text-right leading-tight">
-              <p className="font-bold">{fullName}</p>
+              <p className="font-bold text-green-700">{fullName}</p>
               <p className="font-bold text-green-700 text-sm capitalize">
                 {jobTitleCapitalized}
               </p>
@@ -92,8 +92,8 @@ export default function PreviewCard({ title, profileImage, formData }: Props) {
                 className="object-cover w-full h-full rounded-full"
               />
             </div>
-            <p className="font-bold text-md text-center">{fullName}</p>
-            <p className="text-xs capitalize text-center text-gray-700">
+            <p className="font-bold text-md text-center text-green-700">{fullName}</p>
+            <p className="text-xs capitalize text-center text-green-700">
               {jobTitleCapitalized}
             </p>
 

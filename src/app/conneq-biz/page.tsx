@@ -13,8 +13,6 @@ import {
 } from "react-icons/fi";
 import html2canvas from "html2canvas";
 import QRCode from "qrcode";
-import {IoMdClose } from "react-icons/io";
-
 
 export default function ConneqBizCards() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -80,7 +78,7 @@ ${userData.company}
       link.click();
 
       alert("✔️ Business Card Downloaded!");
-    } catch (error) {
+    } catch {
       console.error("Error capturing signature email: error");
       alert("❌ Error: Failed to download business card.");
     }
@@ -191,16 +189,18 @@ ${userData.company}
       </div>
 
       {businessModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center  backdrop-blur-sm z-50 p-4">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg md:max-w-2xl">
-            <h2 className="text-xl font-bold text-blac mb-6">Test</h2>
+        <div
+          className="fixed inset-0 flex items-center justify-center  backdrop-blur-sm z-50 p-4"
+          onClick={() => setBusinessModalOpen(false)}
+        >
+          <div
+            className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg md:max-w-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-xl text-center font-bold text-black mb-6">
+              Send Business Card
+            </h2>
             <div className="flex justify-between items-center border-b pb-2">
-              <button
-                onClick={() => setBusinessModalOpen(false)}
-                className="absolute-right text-3xl text-gray-700 focus:outline-none"
-              >
-                <IoMdClose />
-              </button>
             </div>
 
             <div>
@@ -226,9 +226,9 @@ ${userData.company}
                   className="w-full border p-6 rounded-md text-black mt-8"
                 />
                 <div className="flex justify-center mt-4">
-                  
-                  <button className="flex items-center gap-2 bg-teal-700 text-white px-4 rounded-md hover:bg-black"
-                  onClick={handleSendEmail}
+                  <button
+                    className="flex items-center gap-2 bg-teal-700 text-white px-4 rounded-md hover:bg-black"
+                    onClick={handleSendEmail}
                   >
                     Send Email
                   </button>

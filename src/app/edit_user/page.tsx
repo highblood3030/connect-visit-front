@@ -41,7 +41,6 @@ export default function EditUser() {
   const formRef = useRef<HTMLFormElement>(null!);
 
   // Sidebar + Tabs
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
 
   // Profile Image

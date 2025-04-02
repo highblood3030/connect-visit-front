@@ -2,7 +2,7 @@
 
 import Layout from "../../components/Layout";
 import { useRouter } from "next/navigation";
-import { MdSpaceDashboard, MdOutlineSell } from "react-icons/md";
+import { MdOutlineSell } from "react-icons/md";
 import { HiOutlineCreditCard } from "react-icons/hi";
 import { RiFileSearchLine } from "react-icons/ri";
 import { FiUsers } from "react-icons/fi";
