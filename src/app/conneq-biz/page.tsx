@@ -200,8 +200,7 @@ ${userData.company}
             <h2 className="text-xl text-center font-bold text-black mb-6">
               Send Business Card
             </h2>
-            <div className="flex justify-between items-center border-b pb-2">
-            </div>
+            <div className="flex justify-between items-center border-b pb-2"></div>
 
             <div>
               <input
@@ -240,7 +239,7 @@ ${userData.company}
       )}
       {errorMessage && (
         <div className="fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-md text-white text-center py-3 px-4 rounded-md z-50">
-          <div className="bg-white text-white p-6 rounded-lg shadow-lg text-center max-w-sm">
+          <div className="bg-white text-black p-6 rounded-lg shadow-lg text-center max-w-sm">
             <p className="text-lg">{errorMessage}</p>
             <button
               onClick={() => setErrorMessage(null)}
