@@ -106,7 +106,7 @@ export default function PersonalInformation({
   return (
     <div className="space-y-4">
       <div className="flex items-center space-x-6">
-        <div className="w-28 h-28 rounded-full border border-gray-300 overflow-hidden">
+        <div className="w-28 h-28 rounded-full border border-gray-300 overflow-hidden relative top-2">
           <img
             src={formData.profileImage || "/profile-placeholder.jpeg"}
             className="object-cover w-full h-full"

@@ -137,7 +137,7 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
 
   return (
     <div className="space-y-4">
-      <div className="relative">
+      <div className="relative relative top-2">
         <label htmlFor="address">Address</label>
         {showAsterisk.address && <span className="ml-1 text-red-500">*</span>}
         <select

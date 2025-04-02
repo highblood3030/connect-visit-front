@@ -292,7 +292,7 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
 
   return (
     <div className="space-y-4">
-      <div className="relative w-full">
+      <div className="relative w-full relative top-2">
         <label htmlFor="cellphone">Cellphone</label>
         <input
           type="text"
