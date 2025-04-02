@@ -191,7 +191,7 @@ export default function ConneqTag() {
             <input
               type="text"
               placeholder="Search"
-              className="flex-1 min-w-[150px] border border-gray-300 ..."
+              className="flex-1 min-w-[150px]  border-gray-300 ..."
             />
             <FiSearch className="text-xl text-gray-500 cursor-pointer" />
           </div>

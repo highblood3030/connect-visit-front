@@ -51,8 +51,8 @@ export default function PreviewCard({ title,  formData }: Props) {
             />
 
             <div className="absolute top-4 right-8 text-right leading-tight">
-              <p className="font-bold text-green-700">{fullName}</p>
-              <p className="font-bold text-green-700 text-sm capitalize">
+              <p className="font-bold text-Black">{fullName}</p>
+              <p className="font-bold text-[#23927a] text-sm capitalize">
                 {jobTitleCapitalized}
               </p>
             </div>
@@ -92,8 +92,8 @@ export default function PreviewCard({ title,  formData }: Props) {
                 className="object-cover w-full h-full rounded-full"
               />
             </div>
-            <p className="font-bold text-md text-center text-green-700">{fullName}</p>
-            <p className="text-xs capitalize text-center text-green-700">
+            <p className="font-bold text-md text-center Black">{fullName}</p>
+            <p className="font-bold text-base capitalize text-center text-[#23927a]">
               {jobTitleCapitalized}
             </p>
 

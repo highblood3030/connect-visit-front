@@ -129,7 +129,7 @@ ${userData.company}
           </h1>
         </div>
 
-        <div className="flex flex-wrap justify-end gap-2 mb-6">
+        <div className="flex flex-wrap justify-end gap-2 mb-6 mt-0">
           <button
             onClick={handleEdit}
             className="flex items-center bg-blue-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-blue-700 transition"
@@ -162,9 +162,9 @@ ${userData.company}
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start w-full min-h-[500px] px-4 py-6 rounded-lg overflow-hidden">
+        <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start w-full min-h-[500px] px-4 py-6 rounded-lg overflow-hidden mt-0">
           {/* Business Card Section */}
-          <div className="flex flex-col items-center w-full max-w-lg">
+          <div className="flex flex-col items-center w-full max-w-lg mt-4">
             <PreviewCard
               title="Business Card"
               profileImage={userData.logo || "/Default.jpeg"}
