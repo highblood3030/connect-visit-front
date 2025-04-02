@@ -38,21 +38,6 @@ body {
   background-color: #91c8c4;
 }
 
-/* Ensure text remains black for all common elements */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-span,
-a,
-div,
-label {
-  color: black !important;
-}
-
 /* Float Animation (Smooth bounce for hints and icons) */
 @keyframes float {
   0%,
