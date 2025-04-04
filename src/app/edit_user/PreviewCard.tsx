@@ -8,7 +8,7 @@ type Props = {
   formData: any;
 };
 
-export default function PreviewCard({ title,  formData }: Props) {
+export default function PreviewCard({ title, formData }: Props) {
   const fullName =
     `${formData.honorificprefix} ${formData.firstname} ${formData.lastname} ${formData.honorificsuffix}`.toUpperCase();
 
@@ -16,7 +16,7 @@ export default function PreviewCard({ title,  formData }: Props) {
     .split(" ")
     .map(
       (word: string) =>
-        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
+        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
     )
     .join(" ");
 
@@ -85,7 +85,7 @@ export default function PreviewCard({ title,  formData }: Props) {
 
         {/* BUSINESS CARD */}
         {title === "Business Card" && (
-          <div className="relative w-full max-w-sm mx-auto flex flex-col items-center justify-start px-4 py-3 space-y-3">
+          <div className="relative w-full max-w-[360px] mx-auto flex flex-col items-center justify-start px-4 py-3 space-y-3">
             <div className="w-24 h-24 rounded-full border-4 border-[#145C5B] overflow-hidden">
               <img
                 src={formData.profileImage || "/profile-placeholder.jpeg"}

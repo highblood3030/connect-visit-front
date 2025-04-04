@@ -27,14 +27,14 @@ export default function Layout({ children }: LayoutProps) {
     <div className="h-screen flex bg-gradient-to-br from-[#FAE7C9] to-[#b4f6ff]">
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-screen w-64 sm:w-80 bg-[#D7F0ED] shadow-xl overflow-y-auto transform transition-transform duration-500 z-50
+        className={`fixed top-0 left-0 h-screen w-64 sm:w-80 bg-[#D7F0ED] shadow-xl overflow-y-auto transform transition-transform duration-500 z-50 
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         {/* Sidebar Header */}
         <div className="flex flex-col justify-center items-center px-6 py-6 relative text-center">
           <button
             onClick={() => setSidebarOpen(false)}
-            className="absolute top-4 right-4 text-3xl text-gray-700 focus:outline-none"
+            className="absolute top-4 right-4 text-3xl text-gray-700 focus:outline-none cursor-pointer"
           >
             <IoMdClose />
           </button>
@@ -121,11 +121,11 @@ export default function Layout({ children }: LayoutProps) {
       {/* Main Content Wrapper */}
       <div className="flex flex-col flex-grow h-screen overflow-auto">
         {/* Navbar */}
-        <nav className="bg-[#91C8C4] text-white flex items-center h-16 px-6 shadow-md fixed top-0 left-0 w-full z-40">
+        <nav className="bg-[#78bfbd] text-white flex items-center h-16 px-6 fixed top-0 left-0 w-full z-40">
           {/* Sidebar Toggle Button (Always Visible) */}
           <button
             onClick={() => setSidebarOpen(true)}
-            className="text-3xl text-white focus:outline-none"
+            className="text-3xl text-white focus:outline-none cursor-pointer"
           >
             <FiMenu />
           </button>
@@ -135,7 +135,7 @@ export default function Layout({ children }: LayoutProps) {
             <img
               src="/QR-Logo.png"
               alt="QR-Logo Logo"
-              className="w-16 h-12 object-contain shadow-md"
+              className="w-16 h-12 object-contain"
             />
           </div>
         </nav>

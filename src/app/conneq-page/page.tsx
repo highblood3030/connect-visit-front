@@ -130,14 +130,14 @@ export default function ConneqPage() {
   return (
     <Layout>
       <div className="w-full min-h-screen overflow-hidden">
-        <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-[#145C5B] mb-6">
+        <h1 className="text-lg md:text-xl lg:text-xl font-bold text-[#145C5B] mt-8">
           CONNEQ PAGE
         </h1>
 
         {/* Create & Search Section */}
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 space-y-2 md:space-y-0 gap-2">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 space-y-2 md:space-y-0 gap-2 mt-2">
           <button
-            className="bg-[#145C5B] text-white px-6 py-2 rounded-lg shadow-md hover:bg-[#0e4b4b] transition"
+            className="bg-[#145C5B] text-white px-6 py-2 rounded-lg shadow-md hover:bg-[#0e4b4b] transition cursor-pointer"
             onClick={() => {
               // Reset form for new entry
               setFormData({
@@ -196,13 +196,13 @@ export default function ConneqPage() {
                     </td>
                     <td className="py-3 px-4 flex space-x-2">
                       <button
-                        className="bg-gray-500 text-white px-3 py-1 rounded-md hover:bg-gray-700 transition"
+                        className="bg-gray-500 text-white px-3 py-1 rounded-md hover:bg-gray-700 transition cursor-pointer"
                         onClick={() => handleEdit(item)}
                       >
                         Edit
                       </button>
                       <button
-                        className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition"
+                        className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition cursor-pointer"
                         onClick={() => handleViewDetails(item)}
                       >
                         View Details
@@ -213,17 +213,16 @@ export default function ConneqPage() {
               )}
             </tbody>
           </table>
-
-          {/* Pagination */}
-          <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center p-3 bg-gray-100 gap-2">
-            <button className="px-4 py-2 border rounded bg-gray-200 text-gray-500 cursor-not-allowed">
-              ◀
-            </button>
-            <span className="text-gray-600">Page 1 of 1</span>
-            <button className="px-4 py-2 border rounded bg-gray-200 text-gray-500 cursor-not-allowed">
-              ▶
-            </button>
-          </div>
+        </div>
+        {/* Pagination */}
+        <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center p-3 bg-gray-100 gap-2">
+          <button className="px-4 py-2 border rounded bg-gray-200 text-gray-500 cursor-cursor-pointer">
+            ◀
+          </button>
+          <span className="text-gray-600">Page 1 of 1</span>
+          <button className="px-4 py-2 border rounded bg-gray-200 text-gray-500 cursor-cursor-pointer">
+            ▶
+          </button>
         </div>
       </div>
 
@@ -251,13 +250,13 @@ export default function ConneqPage() {
             </p>
             <div className="flex justify-between mt-3">
               <button
-                className="bg-gray-500 text-white px-3 py-1 rounded-md hover:bg-gray-700 transition"
+                className="bg-gray-500 text-white px-3 py-1 rounded-md hover:bg-gray-700 transition cursor-pointer"
                 onClick={() => handleEdit(item)}
               >
                 Edit
               </button>
               <button
-                className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition"
+                className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition cursor-pointer"
                 onClick={() => handleViewDetails(item)}
               >
                 View
@@ -276,7 +275,7 @@ export default function ConneqPage() {
                 {editMode ? "Edit CONNEQ Page" : "CONNEQ PAGE FORM"}
               </h2>
               <FiX
-                className="text-xl cursor-pointer text-black hover:text-black"
+                className="text-xl cursor-pointer text-black hover:text-black cursor-pointer"
                 onClick={() => setModalOpen(false)}
               />
             </div>
@@ -367,7 +366,7 @@ export default function ConneqPage() {
               {/* Save Button */}
               <button
                 type="submit"
-                className="w-full bg-[#145C5B] text-white py-2 rounded-md mt-2"
+                className="w-full bg-[#145C5B] text-white py-2 rounded-md mt-2 cursor-pointer"
               >
                 Save
               </button>
@@ -383,7 +382,7 @@ export default function ConneqPage() {
             {/* Close Icon */}
             <div className="flex justify-end">
               <FiX
-                className="text-xl cursor-pointer text-gray-600 hover:text-gray-800"
+                className="text-xl cursor-pointer text-gray-600 hover:text-gray-800 cursor-pointer"
                 onClick={() => setViewModalOpen(false)}
               />
             </div>
@@ -462,7 +461,7 @@ export default function ConneqPage() {
                   setViewModalOpen(false);
                   handleEdit(selectedItem);
                 }}
-                className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+                className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition cursor-pointer"
               >
                 <FiEdit className="mr-2" />
                 Edit

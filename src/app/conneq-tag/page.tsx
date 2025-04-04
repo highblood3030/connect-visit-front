@@ -135,21 +135,21 @@ export default function ConneqTag() {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 h-[calc(100vh-4rem)] overflow-auto">
-        <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-[#145C5B] mb-2">
+        <h1 className="text-lg md:text-xl lg:text-xl font-bold text-[#145C5B] mt-8">
           CONNEQ TAG
         </h1>
 
         {/* Actions Section */}
-        <div className="flex flex-wrap gap-4 mb-4">
+        <div className="flex flex-wrap gap-4 mt-2">
           <button
-            className="bg-[#145C5B] text-white px-6 py-2 rounded-lg shadow-md hover:bg-[#0e4b4b] transition"
+            className="bg-[#145C5B] text-white px-6 py-2 rounded-lg shadow-md hover:bg-[#0e4b4b] transition cursor-pointer"
             onClick={() => setModalOpen(true)}
           >
             + Create
           </button>
 
           <button
-            className="bg-green-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-green-600 transition flex items-center"
+            className="bg-green-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-green-600 transition flex items-center cursor-pointer"
             onClick={() => alert("Upload Tags File Clicked")}
           >
             <FiUpload className="mr-2" />
@@ -157,7 +157,7 @@ export default function ConneqTag() {
           </button>
 
           <button
-            className="bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition flex items-center"
+            className="bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition flex items-center cursor-pointer"
             onClick={() => alert("Batch Print Clicked")}
           >
             <BsPrinter className="mr-2" />
@@ -166,34 +166,45 @@ export default function ConneqTag() {
         </div>
 
         {/* Filters & Search */}
-        <div className="bg-white p-2 rounded-lg shadow-md grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-2 mb-2">
-          <input
-            type="text"
-            placeholder="Name filter"
-            className="flex-1 min-w-[150px] border border-gray-300 ..."
-          />
-          <input
-            type="text"
-            placeholder="Tag filter"
-            className="flex-1 min-w-[150px] border border-gray-300 ..."
-          />
-          <input
-            type="text"
-            placeholder="Description filter"
-            className="flex-1 min-w-[150px] border border-gray-300 ..."
-          />
-          <input
-            type="text"
-            placeholder="Date filter"
-            className="flex-1 min-w-[150px] border border-gray-300 ..."
-          />
-          <div className="flex items-center bg-white border border-gray-300 rounded-lg px-3 py-2 shadow-md">
+        <div className="bg-white p-2 rounded-lg shadow-md grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-2 mt-2">
+          <div className="flex items-center bg-white border border-gray-300 rounded-lg px-3 py-2">
+            <input
+              type="text"
+              placeholder="Name filter"
+              className="flex-1 min-w-[150px] outline-none bg-transparent text-gray-700 placeholder-gray-400"
+            />
+          </div>
+
+          <div className="flex items-center bg-white border border-gray-300 rounded-lg px-3 py-2">
+            <input
+              type="text"
+              placeholder="Tag filter"
+              className="flex-1 min-w-[150px] outline-none bg-transparent text-gray-700 placeholder-gray-400"
+            />
+          </div>
+
+          <div className="flex items-center bg-white border border-gray-300 rounded-lg px-3 py-2">
+            <input
+              type="text"
+              placeholder="Description filter"
+              className="flex-1 min-w-[150px] outline-none bg-transparent text-gray-700 placeholder-gray-400"
+            />
+          </div>
+
+          <div className="flex items-center bg-white border border-gray-300 rounded-lg px-3 py-2">
+            <input
+              type="text"
+              placeholder="Date filter"
+              className="flex-1 min-w-[150px] outline-none bg-transparent text-gray-700 placeholder-gray-400"
+            />
+          </div>
+          <div className="flex items-center bg-white border border-gray-300 rounded-lg px-3 py-2">
             <input
               type="text"
               placeholder="Search"
-              className="flex-1 min-w-[150px]  border-gray-300 ..."
+              className="flex-1 min-w-[150px] outline-none bg-transparent text-gray-700 placeholder-gray-400"
             />
-            <FiSearch className="text-xl text-gray-500 cursor-pointer" />
+            <FiSearch className="text-xl text-gray-500 cursor-pointer hover:bg-blue-50" />
           </div>
         </div>
 
@@ -223,7 +234,7 @@ export default function ConneqTag() {
                   <strong>Status:</strong> {item.status}
                 </p>
                 <button
-                  className="mt-3 bg-[#145C5B] text-white px-4 py-1 rounded-md hover:bg-[#0e4b4b] transition"
+                  className="mt-3 bg-[#145C5B] text-white px-4 py-1 rounded-md hover:bg-[#0e4b4b] transition cursor-pointer"
                   onClick={() => handleViewDetails(item)}
                 >
                   View Details
@@ -234,7 +245,7 @@ export default function ConneqTag() {
         </div>
 
         {/* Table View (Desktop) */}
-        <div className="hidden sm:block overflow-x-auto">
+        <div className="hidden sm:block overflow-x-auto mt-2">
           <table className="min-w-full border-collapse text-sm sm:text-base">
             <thead className="bg-gray-200 text-gray-700">
               <tr>
@@ -271,7 +282,7 @@ export default function ConneqTag() {
                     <td className="py-3 px-4">{item.dateCreated}</td>
                     <td className="py-3 px-4">
                       <button
-                        className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition"
+                        className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition cursor-pointer"
                         onClick={() => handleViewDetails(item)}
                       >
                         View Details
@@ -304,7 +315,7 @@ export default function ConneqTag() {
                 CONNEQ TAG FORM
               </h2>
               <FiX
-                className="text-xl cursor-pointer text-gray-600 hover:text-gray-800"
+                className="text-xl cursor-pointer text-gray-600 hover:text-gray-800 cursor-pointer"
                 onClick={() => setModalOpen(false)}
               />
             </div>
@@ -372,7 +383,7 @@ export default function ConneqTag() {
               {/* Save Button */}
               <button
                 type="submit"
-                className="bg-[#145C5B] text-white px-6 py-2 rounded-md w-full mt-2 hover:bg-[#0e4b4b] transition-all"
+                className="bg-[#145C5B] text-white px-6 py-2 rounded-md w-full mt-2 hover:bg-[#0e4b4b] transition-all cursor-pointer"
               >
                 Save
               </button>
@@ -403,7 +414,7 @@ export default function ConneqTag() {
 
               {/* Download QR Button */}
               <button
-                className="flex items-center bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition"
+                className="flex items-center bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition cursor-pointer"
                 onClick={handleDownloadQR}
               >
                 <FiDownload className="mr-2" />
@@ -445,13 +456,13 @@ export default function ConneqTag() {
             <div className="flex flex-wrap gap-2 mb-4">
               <button
                 onClick={handleDownloadPDF}
-                className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition"
+                className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition cursor-pointer"
               >
                 Download PDF
               </button>
               <button
                 onClick={() => setSuccessModalOpen(false)}
-                className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition"
+                className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition cursor-pointer"
               >
                 Close
               </button>

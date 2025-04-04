@@ -132,37 +132,37 @@ ${userData.company}
         <div className="flex flex-wrap justify-end gap-2 mb-6 mt-0">
           <button
             onClick={handleEdit}
-            className="flex items-center bg-blue-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-blue-700 transition"
+            className="flex items-center bg-blue-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-blue-700 transition cursor-pointer"
           >
             <FiEdit className="mr-1 text-xs" /> Edit
           </button>
           <button
             onClick={handleDownloadSignature}
-            className="flex items-center bg-gray-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-gray-700 transition"
+            className="flex items-center bg-gray-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-gray-700 transition cursor-pointer"
           >
             <FiDownload className="mr-1 text-xs" /> Signature
           </button>
           <button
             onClick={handleDownloadBuinesscard}
-            className="flex items-center bg-green-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-green-700 transition"
+            className="flex items-center bg-green-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-green-700 transition cursor-pointer"
           >
             <FiMail className="mr-1 text-xs" /> Send Vcard via email
           </button>
           <button
             onClick={handleRefresh}
-            className="flex items-center bg-[#91C8C4] text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-[#78B0AC] transition"
+            className="flex items-center bg-[#91C8C4] text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-[#78B0AC] transition cursor-pointer"
           >
             <FiRefreshCw className="mr-1 text-xs" /> Refresh
           </button>
           <button
             onClick={handleDownloadQR}
-            className="flex items-center bg-[#91C8C4] text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-[#78B0AC] transition"
+            className="flex items-center bg-[#91C8C4] text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-[#78B0AC] transition cursor-pointer"
           >
             <FiGrid className="mr-1 text-xs" /> QR
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start w-full min-h-[500px] px-4 py-6 rounded-lg overflow-hidden mt-0">
+        <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start w-full min-h-[500px] px-4 py-6 rounded-lg overflow-hidden mt-0 m-auto">
           {/* Business Card Section */}
           <div className="flex flex-col items-center w-full max-w-lg mt-4">
             <PreviewCard
@@ -173,7 +173,7 @@ ${userData.company}
           </div>
 
           {/* Email Signature Section */}
-          <div className="flex flex-col items-center w-full max-w-lg">
+          <div className="flex flex-col items-center w-full max-w-lg m-auto">
             <div
               id="email-signature-card"
               className="w-full overflow-hidden p-4 rounded-lg"
@@ -226,7 +226,7 @@ ${userData.company}
                 />
                 <div className="flex justify-center mt-4">
                   <button
-                    className="flex items-center gap-2 bg-teal-700 text-white px-4 rounded-md hover:bg-black"
+                    className="flex items-center gap-2 bg-teal-700 text-white px-4 rounded-md hover:bg-black cursor-pointer"
                     onClick={handleSendEmail}
                   >
                     Send Email
@@ -243,7 +243,7 @@ ${userData.company}
             <p className="text-lg">{errorMessage}</p>
             <button
               onClick={() => setErrorMessage(null)}
-              className="mt-4 bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-600"
+              className="mt-4 bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-600 cursor-pointer"
             >
               OK
             </button>
