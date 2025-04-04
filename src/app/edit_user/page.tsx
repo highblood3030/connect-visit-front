@@ -41,6 +41,7 @@ export default function EditUser() {
   const formRef = useRef<HTMLFormElement>(null!);
 
   // Sidebar + Tabs
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
 
   // Profile Image
@@ -49,8 +50,8 @@ export default function EditUser() {
   // Checkbox for Privacy Notice
   const [isChecked, setIsChecked] = useState(false);
 
-  // Main form data
-  const [formData, setFormData] = useState<UserFormData>({
+  // Default form data
+  const defaultFormData: UserFormData = {
     firstname: "",
     middlename: "",
     lastname: "",
@@ -72,7 +73,18 @@ export default function EditUser() {
     linkedin: "",
     facebook: "",
     note: "",
-  });
+  };
+
+  // Load saved data from localStorage on mount
+  useEffect(() => {
+    const storedData = localStorage.getItem("userFormData");
+    if (storedData) {
+      setFormData(JSON.parse(storedData));
+    }
+  }, []);
+
+  // Main form data
+  const [formData, setFormData] = useState<UserFormData>(defaultFormData);
 
   // Tabs
   const tabs = [
@@ -85,10 +97,14 @@ export default function EditUser() {
 
   // Handle text input changes
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev: UserFormData) => ({ ...prev, [name]: value }));
+    setFormData((prev: UserFormData) => {
+      const updatedFormData = { ...prev, [name]: value };
+      localStorage.setItem("userFormData", JSON.stringify(updatedFormData));
+      return updatedFormData;
+    });
   };
 
   // Handle profile image upload
@@ -103,7 +119,7 @@ export default function EditUser() {
   // Handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("🚀 Form submitted!", formData); // For debugging
+    console.log("🚀 Form submitted!", formData); // Debugging
 
     // Save to localStorage
     localStorage.setItem("userFormData", JSON.stringify(formData));
