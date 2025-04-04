@@ -2,7 +2,7 @@
 
 import Layout from "../../components/Layout";
 import { useRouter } from "next/navigation";
-import { MdOutlineSell } from "react-icons/md";
+import { MdSpaceDashboard, MdOutlineSell } from "react-icons/md";
 import { HiOutlineCreditCard } from "react-icons/hi";
 import { RiFileSearchLine } from "react-icons/ri";
 import { FiUsers } from "react-icons/fi";
@@ -22,10 +22,11 @@ export default function Dashboard() {
   return (
     <Layout>
       {/* Responsive Dashboard Cards */}
-      <div className="translate-x-9 font-bold text-xl mt-9">
+      {/* Responsive Dashboard Cards */}
+      <div className="font-bold text-xl mt-9">
         <p>Welcome back Lakers Fan &#9996;&#127998;</p>
-      </div>
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-7">
+        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-grow mt-6">
         {sidebarItems.map((card, idx) => (
           <div
             key={idx}
@@ -40,3 +41,5 @@ export default function Dashboard() {
     </Layout>
   );
 }
+
+  
