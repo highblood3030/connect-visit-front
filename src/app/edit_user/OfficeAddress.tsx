@@ -12,43 +12,24 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
   setFormData,
 }) => {
   const [showAsterisk, setShowAsterisk] = useState({
-    address: !formData.address,
     location: !formData.location,
+    factoryLocation: !formData.factoryLocation,
   });
-
-  useEffect(() => {
-    console.log("OfficeAddress component mounted");
-    console.log("formData:", formData);
-  }, [formData]);
 
   const isPlaceholderSelected = (value: string) => value === "";
 
-  const locationOptions: { [key: string]: string[] } = {
-    Office: [
-      "Mercury Office",
-      "BVFO Office",
-      "LBL Main Office",
-      "LBL-South Plant",
-      "Laguna Plant",
-      "MRI Plant",
-      "FIT",
-      "Bauan Office",
-      "CCPI Office",
-      "CTI Davao Branch",
-    ],
-    Factory: [
-      "Mercury Office",
-      "BVFO Office",
-      "LBL Main Office",
-      "LBL-South Plant",
-      "Laguna Plant",
-      "MRI Plant",
-      "FIT",
-      "Bauan Office",
-      "CCPI Office",
-      "CTI Davao Branch",
-    ],
-  };
+  const locationOptions = [
+    "Mercury Office",
+    "BVFO Office",
+    "LBL Main Office",
+    "LBL-South Plant",
+    "Laguna Plant",
+    "MRI Plant",
+    "FIT",
+    "Bauan Office",
+    "CCPI Office",
+    "CTI Davao Branch",
+  ];
 
   const addressDetails: {
     [key: string]: {
@@ -60,31 +41,31 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
     };
   } = {
     "Mercury Office": {
-      street: "#5 Mercury Avenue, Bagumbayan #5 Mercury Avenue, Bagumbayan",
+      street: "#5 Mercury Avenue, Bagumbayan",
       city: "Quezon City",
       state: "Metro Manila",
-      postalCode: "1110 ",
+      postalCode: "1110",
       country: "Philippines",
     },
     "BVFO Office": {
       street: "#62 Calle Industria",
       city: "Quezon City",
       state: "Metro Manila",
-      postalCode: "1110 ",
+      postalCode: "1110",
       country: "Philippines",
     },
     "LBL Main Office": {
       street: "#65 Calle Industria",
       city: "Quezon City",
       state: "Metro Manila",
-      postalCode: "1110 ",
+      postalCode: "1110",
       country: "Philippines",
     },
     "LBL-South Plant": {
       street: "#66 Calle Industria",
       city: "Quezon City",
       state: "Metro Manila",
-      postalCode: "1110 ",
+      postalCode: "1110",
       country: "Philippines",
     },
     "Laguna Plant": {
@@ -136,108 +117,168 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
   };
 
   return (
-    <div className="space-y-4">
-      <div className="relative relative top-2">
-        <label htmlFor="address">Address</label>
-        {showAsterisk.address && <span className="ml-1 text-red-500">*</span>}
-        <select
-          className={`input-field appearance-none w-full pr-6 ${isPlaceholderSelected(formData.address)}`}
-          value={formData.address}
-          onChange={(e) => {
-            const selectedAddress = e.target.value;
-            setFormData({
-              ...formData,
-              address: selectedAddress,
-              location: "",
-              street: "",
-              city: "",
-              state: "",
-              postalCode: "",
-              country: "",
-            });
-            setShowAsterisk({
-              address: selectedAddress === "",
-              location: true,
-            });
-          }}
-        >
-          <option value="Office">Office</option>
-        </select>
-      </div>
+    <div className="space-y-6">
 
-      <div className="relative">
-        <label htmlFor="location">Location</label>
-        {showAsterisk.location && <span className="ml-1 text-red-500">*</span>}
-        <select
-          className={`input-field appearance-none w-full pr-6 ${isPlaceholderSelected(formData.location)}`}
-          value={formData.location}
-          onChange={(e) => {
-            const selectedLocation = e.target.value;
-            setFormData({
-              ...formData,
-              location: selectedLocation,
-              ...(selectedLocation
-                ? addressDetails[selectedLocation]
-                : {
-                    street: "",
-                    city: "",
-                    state: "",
-                    postalCode: "",
-                    country: "",
-                  }),
-            });
-            setShowAsterisk((prev) => ({
-              ...prev,
-              location: selectedLocation === "",
-            }));
-          }}
-          disabled={!formData.address}
-          required
-        >
-          <option value=""></option>
-          {formData.address &&
-            locationOptions[formData.address]?.map((loc) => (
+{/* Displayed Address */}
+<div className="relative top-2">
+  <label htmlFor="address" className="font-semibold block mb-1">
+    Displayed Address <span className="text-red-500">*</span>
+  </label>
+  <select
+    className="input-field appearance-none w-full pr-6"
+    value="Office"
+    disabled
+    required
+  >
+    <option value="Office">Office</option>
+  </select>
+</div>
+
+      {/* Office Address Section */}
+      <div>
+        <h2 className="text-lg font-bold mt-4 mb-2">Office Address</h2>
+        <div className="relative">
+          <label htmlFor="location" className="block mb-1">
+            Office Location
+            {showAsterisk.location && (
+              <span className="ml-1 text-red-500">*</span>
+            )}
+          </label>
+          <select
+            className={`input-field appearance-none w-full pr-6 ${isPlaceholderSelected(
+              formData.location
+            )}`}
+            value={formData.location}
+            onChange={(e) => {
+              const selected = e.target.value;
+              setFormData({
+                ...formData,
+                location: selected,
+                ...(selected
+                  ? addressDetails[selected]
+                  : {
+                      street: "",
+                      city: "",
+                      state: "",
+                      postalCode: "",
+                      country: "",
+                    }),
+              });
+              setShowAsterisk((prev) => ({
+                ...prev,
+                location: selected === "",
+              }));
+            }}
+            required
+          >
+            <option value="">Select Office Location</option>
+            {locationOptions.map((loc) => (
               <option key={loc} value={loc}>
                 {loc}
               </option>
             ))}
-        </select>
+          </select>
+        </div>
+
+
+        {/* Auto-filled Fields */}
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          <div className="col-span-2">
+            <label className="block mb-1">Street</label>
+            <input type="text" className="input-field" value={formData.street || ""} readOnly />
+          </div>
+          <div>
+            <label className="block mb-1">City</label>
+            <input type="text" className="input-field" value={formData.city || ""} readOnly />
+          </div>
+          <div>
+            <label className="block mb-1">State/Province</label>
+            <input type="text" className="input-field" value={formData.state || ""} readOnly />
+          </div>
+          <div>
+            <label className="block mb-1">Postal Code</label>
+            <input type="text" className="input-field" value={formData.postalCode || ""} readOnly />
+          </div>
+          <div>
+            <label className="block mb-1">Country</label>
+            <input type="text" className="input-field" value={formData.country || ""} readOnly />
+          </div>
+        </div>
       </div>
-      <input
-        type="text"
-        className="input-field"
-        placeholder="Street"
-        value={formData.street || ""}
-        readOnly
-      />
-      <input
-        type="text"
-        className="input-field"
-        placeholder="City"
-        value={formData.city || ""}
-        readOnly
-      />
-      <input
-        type="text"
-        className="input-field"
-        placeholder="State/Province"
-        value={formData.state || ""}
-        readOnly
-      />
-      <input
-        type="text"
-        className="input-field"
-        placeholder="Postal Code"
-        value={formData.postalCode || ""}
-        readOnly
-      />
-      <input
-        type="text"
-        className="input-field"
-        placeholder="Country"
-        value={formData.country || ""}
-        readOnly
-      />
+
+      {/* Factory Address Section */}
+      <div>
+        <h2 className="text-lg font-bold mt-6 mb-2">Factory Address</h2>
+        <div className="relative">
+          <label htmlFor="factoryLocation" className="block mb-1">
+            Factory Location
+            {showAsterisk.factoryLocation && (
+              <span className="ml-1 text-red-500">*</span>
+            )}
+          </label>
+          <select
+            className="input-field appearance-none w-full pr-6"
+            value={formData.factoryLocation || ""}
+            onChange={(e) => {
+              const selected = e.target.value;
+              setFormData({
+                ...formData,
+                factoryLocation: selected,
+                ...(selected
+                  ? {
+                      factoryStreet: addressDetails[selected].street,
+                      factoryCity: addressDetails[selected].city,
+                      factoryState: addressDetails[selected].state,
+                      factoryPostalCode: addressDetails[selected].postalCode,
+                      factoryCountry: addressDetails[selected].country,
+                    }
+                  : {
+                      factoryStreet: "",
+                      factoryCity: "",
+                      factoryState: "",
+                      factoryPostalCode: "",
+                      factoryCountry: "",
+                    }),
+              });
+              setShowAsterisk((prev) => ({
+                ...prev,
+                factoryLocation: selected === "",
+              }));
+            }}
+          >
+            <option value="">Select Factory Location</option>
+            {locationOptions.map((loc) => (
+              <option key={loc} value={loc}>
+                {loc}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Auto-filled Fields */}
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          <div className="col-span-2">
+            <label className="block mb-1">Street</label>
+            <input type="text" className="input-field" value={formData.factoryStreet || ""} readOnly />
+          </div>
+          <div>
+            <label className="block mb-1">City</label>
+            <input type="text" className="input-field" value={formData.factoryCity || ""} readOnly />
+          </div>
+          <div>
+            <label className="block mb-1">State/Province</label>
+            <input type="text" className="input-field" value={formData.factoryState || ""} readOnly />
+          </div>
+          <div>
+            <label className="block mb-1">Postal Code</label>
+            <input type="text" className="input-field" value={formData.factoryPostalCode || ""} readOnly />
+          </div>
+          <div>
+            <label className="block mb-1">Country</label>
+            <input type="text" className="input-field" value={formData.factoryCountry || ""} readOnly />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

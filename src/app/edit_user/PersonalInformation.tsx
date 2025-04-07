@@ -181,7 +181,6 @@ export default function PersonalInformation({
               onChange={(e) =>
                 handleInputChange("honorificprefix", e.target.value)
               }
-              required
             />
           </div>
 
