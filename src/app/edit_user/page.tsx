@@ -109,34 +109,6 @@ export default function EditUser() {
     });
   };
 
-  const validateFormFields = () => {
-    // Check required fields — adjust as needed!
-    const requiredFields = [
-      "firstname",
-      "lastname",
-      "jobtitle",
-      "company",
-      "logo",
-      "workemail",
-      "address",
-      "location",
-    ];
-
-    for (const field of requiredFields) {
-      if (!formData[field as keyof UserFormData]) {
-        alert("Please fill out all required fields before proceeding.");
-        return false;
-      }
-    }
-
-    if (!isChecked) {
-      alert("Please confirm the Privacy Notice before proceeding.");
-      return false;
-    }
-
-    return true;
-  };
-
   // Handle profile image upload
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -269,9 +241,7 @@ export default function EditUser() {
                 <button
                   type="button"
                   onClick={() => {
-                    if (validateFormFields()) {
-                      setActiveTab((prev) => prev + 1);
-                    }
+                    setActiveTab((prev) => prev + 1);
                   }}
                   disabled={activeTab === tabs.length - 1}
                   className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"

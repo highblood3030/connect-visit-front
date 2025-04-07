@@ -194,6 +194,7 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
             }));
           }}
           disabled={!formData.address}
+          required
         >
           <option value=""></option>
           {formData.address &&

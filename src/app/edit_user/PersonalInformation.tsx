@@ -141,6 +141,7 @@ export default function PersonalInformation({
             className="input-field pr-6"
             value={formData.firstname}
             onChange={(e) => handleInputChange("firstname", e.target.value)}
+            required
           />
         </div>
 
@@ -164,6 +165,7 @@ export default function PersonalInformation({
             className="input-field pr-6"
             value={formData.lastname}
             onChange={(e) => handleInputChange("lastname", e.target.value)}
+            required
           />
         </div>
       </div>
@@ -204,6 +206,7 @@ export default function PersonalInformation({
           className={'input-field pr-6 "text-black" : "text-green"'}
           value={formData.jobtitle}
           onChange={(e) => handleInputChange("jobtitle", e.target.value)}
+          required
         />
       </div>
 
@@ -216,8 +219,9 @@ export default function PersonalInformation({
           onChange={(e) => {
             const value = e.target.value;
             setFormData({ ...formData, company: value });
-            setShowAsterisk((prev) => ({ ...prev, company: value === "" }));
+            setShowAsterisk((prev) => ({ ...prev, company: value === "" }));  
           }}
+          required
         >
           <option value=""></option>
           {Object.keys(logoOptionsMap).map((key) => (
@@ -242,6 +246,7 @@ export default function PersonalInformation({
           disabled={
             !formData.company || logoOptionsMap[formData.company]?.length === 1
           }
+          required
         >
           <option value=""></option>
           {getLogoOptions(formData.company).map((option) => (
