@@ -1,12 +1,12 @@
 "use client";
 
-import { ReactNode, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { ReactNode, useState, useEffect, useRef } from "react";
+import { useRouter, usePathname } from "next/navigation"; 
 import { FiUsers, FiMenu, FiLogOut } from "react-icons/fi";
 import { MdSpaceDashboard, MdOutlineSell } from "react-icons/md";
 import { HiOutlineCreditCard } from "react-icons/hi";
 import { RiFileSearchLine } from "react-icons/ri";
-import { IoIosArrowDown, IoMdClose } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
 
 // Define the type for Layout props
 interface LayoutProps {
@@ -16,36 +16,53 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const pathname = usePathname(); 
   const [bizDropdownOpen, setBizDropdownOpen] = useState(false);
-  const [, setIsClient] = useState(false);
+  const [userData, setUserData] = useState<any>(null); // Local state for user data
+
+  // Create a ref for the sidebar element
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    const savedData = localStorage.getItem("userFormData");
+    if (savedData) {
+      setUserData(JSON.parse(savedData));
+    }
+  }, [pathname]);
+
+  // Add click-outside listener when sidebar is open
+  useEffect(() => {
+    if (!sidebarOpen) return; // Only when sidebar is open
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+        setSidebarOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [sidebarOpen]);
 
   return (
     <div className="h-screen flex bg-gradient-to-br from-[#FAE7C9] to-[#b4f6ff]">
-      {/* Sidebar */}
       <div
+        ref={sidebarRef} // attach ref here
         className={`fixed top-0 left-0 h-screen w-64 sm:w-80 bg-[#D7F0ED] shadow-xl overflow-y-auto transform transition-transform duration-500 z-50 
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         {/* Sidebar Header */}
-        <div className="flex flex-col justify-center items-center px-6 py-6 relative text-center">
-          <button
-            onClick={() => setSidebarOpen(false)}
-            className="absolute top-4 right-4 text-3xl text-gray-700 focus:outline-none cursor-pointer"
-          >
-            <IoMdClose />
-          </button>
+        <div className="flex flex-col justify-center items-center px-6 py-6 text-center">
           <img
-            src="/profile-placeholder.jpeg"
+            src={userData?.profileImage || "/profile-placeholder.jpeg"}
             alt="Profile"
-            className="w-24 h-24 rounded-full border-4 border-[#145C5B] shadow-md"
+            className="w-24 h-24 rounded-full border-4 border-[#145C5B] shadow-md object-cover"
           />
-          <h2 className="text-lg font-bold text-gray-700">tester user</h2>
-
-          <p className="text-sm text-gray-600">lakersfan@yahoo.com</p>
+          <h2 className="text-lg font-bold text-gray-700">
+            {userData?.firstname || "Your Name"} {userData?.lastname || ""}
+          </h2>
+          <p className="text-sm text-gray-600">
+            {userData?.workemail || "your.email@example.com"}
+          </p>
         </div>
 
         {/* Sidebar Items */}
