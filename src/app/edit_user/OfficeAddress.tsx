@@ -161,9 +161,7 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
             });
           }}
         >
-          <option value=""></option>
           <option value="Office">Office</option>
-          <option value="Factory">Factory</option>
         </select>
       </div>
 

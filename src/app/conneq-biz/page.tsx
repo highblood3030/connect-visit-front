@@ -184,7 +184,7 @@ ${userData.company}
           </div>
 
           {/* Email Signature Section */}
-          <div className="flex flex-col items-center w-full max-w-lg m-auto">
+          <div className="flex flex-col items-center w-full max-w-lg m-auto mt-10">
             <div
               id="email-signature-card"
               className="w-full overflow-hidden p-4 rounded-lg"
