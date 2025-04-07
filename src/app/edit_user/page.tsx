@@ -119,12 +119,14 @@ export default function EditUser() {
   // Handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("🚀 Form submitted!", formData); // Debugging
-
-    // Save to localStorage
+  
+    if (!isChecked) {
+      alert("Please confirm the Privacy Notice before saving.");
+      return;
+    }
+  
+    console.log("🚀 Form submitted!", formData);
     localStorage.setItem("userFormData", JSON.stringify(formData));
-
-    // Redirect to MY CARDS page
     router.push("/conneq-biz");
   };
 
