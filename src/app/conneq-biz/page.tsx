@@ -112,13 +112,24 @@ ${userData.company}
     });
   };
 
-  if (!userData) {
-    return (
-      <div className="p-10 text-center">
-        .......Business cards will be displayed in here........
-      </div>
-    );
-  }
+  useEffect(() => {
+    const savedData = localStorage.getItem("userFormData");
+    if (savedData) {
+      setUserData(JSON.parse(savedData));
+    }
+  }, []);
+  
+  useEffect(() => {
+    if (!userData) {
+      const timer = setTimeout(() => {
+        router.push("/edit_user");
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [userData]);
+  
+  if (!userData) return null; // 👈 Prevent rendering before redirection
+  
 
   return (
     <Layout>
