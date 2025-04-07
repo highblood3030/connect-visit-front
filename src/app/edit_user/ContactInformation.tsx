@@ -371,17 +371,18 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
         <label htmlFor="workemail">Work Email</label>
         {showAsterisk && <span className="ml-1 text-red-500">*</span>}
         <input
-          type="text"
+          type="email"
           placeholder="user@dnl.com.ph"
           name="workemail"
           value={formData?.workemail || ""}
           onChange={handleWorkEmailChange}
           className="w-full border px-3 py-2 rounded-md"
-        />
-        {emailError && (
-          <p className="text-red-500 text-sm mt-1">{emailError}</p>
-        )}
-      </div>
+          required // This makes it required
+          />
+          {emailError && (
+            <p className="text-red-500 text-sm mt-1">{emailError}</p>
+          )}
+        </div>
 
       <div className="relative w-full">
         <label htmlFor="workfax">Work Fax</label>
