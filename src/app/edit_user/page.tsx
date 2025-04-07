@@ -102,9 +102,39 @@ export default function EditUser() {
     const { name, value } = e.target;
     setFormData((prev: UserFormData) => {
       const updatedFormData = { ...prev, [name]: value };
-      localStorage.setItem("userFormData", JSON.stringify(updatedFormData));
+      if (isChecked) {
+        localStorage.setItem("userFormData", JSON.stringify(updatedFormData));
+      }
       return updatedFormData;
     });
+  };
+
+  const validateFormFields = () => {
+    // Check required fields — adjust as needed!
+    const requiredFields = [
+      "firstname",
+      "lastname",
+      "jobtitle",
+      "company",
+      "logo",
+      "workemail",
+      "address",
+      "location",
+    ];
+
+    for (const field of requiredFields) {
+      if (!formData[field as keyof UserFormData]) {
+        alert("Please fill out all required fields before proceeding.");
+        return false;
+      }
+    }
+
+    if (!isChecked) {
+      alert("Please confirm the Privacy Notice before proceeding.");
+      return false;
+    }
+
+    return true;
   };
 
   // Handle profile image upload
@@ -238,7 +268,11 @@ export default function EditUser() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setActiveTab((prev) => prev + 1)}
+                  onClick={() => {
+                    if (validateFormFields()) {
+                      setActiveTab((prev) => prev + 1);
+                    }
+                  }}
                   disabled={activeTab === tabs.length - 1}
                   className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
                 >
