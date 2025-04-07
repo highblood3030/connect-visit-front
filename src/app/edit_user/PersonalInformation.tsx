@@ -222,6 +222,7 @@ export default function PersonalInformation({
             setFormData({ ...formData, company: value });
             setShowAsterisk((prev) => ({ ...prev, company: value === "" }));
           }}
+          required
         >
           <option value=""></option>
           {Object.keys(logoOptionsMap).map((key) => (
