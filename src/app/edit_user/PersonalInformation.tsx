@@ -181,7 +181,6 @@ export default function PersonalInformation({
               onChange={(e) =>
                 handleInputChange("honorificprefix", e.target.value)
               }
-              required
             />
           </div>
 
@@ -222,6 +221,7 @@ export default function PersonalInformation({
             setFormData({ ...formData, company: value });
             setShowAsterisk((prev) => ({ ...prev, company: value === "" }));
           }}
+          required
         >
           <option value=""></option>
           {Object.keys(logoOptionsMap).map((key) => (
