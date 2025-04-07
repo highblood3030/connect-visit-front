@@ -181,6 +181,7 @@ export default function PersonalInformation({
               onChange={(e) =>
                 handleInputChange("honorificprefix", e.target.value)
               }
+              required
             />
           </div>
 
@@ -219,9 +220,8 @@ export default function PersonalInformation({
           onChange={(e) => {
             const value = e.target.value;
             setFormData({ ...formData, company: value });
-            setShowAsterisk((prev) => ({ ...prev, company: value === "" }));  
+            setShowAsterisk((prev) => ({ ...prev, company: value === "" }));
           }}
-          required
         >
           <option value=""></option>
           {Object.keys(logoOptionsMap).map((key) => (
@@ -246,7 +246,6 @@ export default function PersonalInformation({
           disabled={
             !formData.company || logoOptionsMap[formData.company]?.length === 1
           }
-          required
         >
           <option value=""></option>
           {getLogoOptions(formData.company).map((option) => (

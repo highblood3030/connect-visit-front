@@ -102,9 +102,7 @@ export default function EditUser() {
     const { name, value } = e.target;
     setFormData((prev: UserFormData) => {
       const updatedFormData = { ...prev, [name]: value };
-      if (isChecked) {
-        localStorage.setItem("userFormData", JSON.stringify(updatedFormData));
-      }
+      localStorage.setItem("userFormData", JSON.stringify(updatedFormData));
       return updatedFormData;
     });
   };
@@ -118,16 +116,15 @@ export default function EditUser() {
     }
   };
 
+  // Handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log("🚀 Form submitted!", formData); // Debugging
 
-    if (!isChecked) {
-      alert("Please confirm the Privacy Notice before saving.");
-      return;
-    }
-
-    console.log("🚀 Form submitted!", formData);
+    // Save to localStorage
     localStorage.setItem("userFormData", JSON.stringify(formData));
+
+    // Redirect to MY CARDS page
     router.push("/conneq-biz");
   };
 
@@ -241,6 +238,12 @@ export default function EditUser() {
                 <button
                   type="button"
                   onClick={() => {
+                    // This forces the form to check all 'required' fields
+                    if (formRef.current && !formRef.current.reportValidity()) {
+                      // If validation fails, stop here so user sees the native error
+                      return;
+                    }
+                    // Otherwise, move to the next tab
                     setActiveTab((prev) => prev + 1);
                   }}
                   disabled={activeTab === tabs.length - 1}
@@ -248,6 +251,7 @@ export default function EditUser() {
                 >
                   Next
                 </button>
+
                 <button
                   type="submit"
                   className="px-4 py-2 bg-[#145C5B] text-white rounded"
