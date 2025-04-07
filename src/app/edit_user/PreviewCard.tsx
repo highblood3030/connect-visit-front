@@ -38,26 +38,26 @@ export default function PreviewCard({ title, formData }: Props) {
 
         {/* EMAIL SIGNATURE */}
         {title === "Email Signature" && (
-          <>
+          <div className="relative w-full max-w-[300px] mx-auto flex flex-col items-center justify-start">
             <img
               src="/qr.png"
               alt="QR Code"
-              className="absolute top-3 left-7 w-12 h-12 object-contain"
+              className="absolute top-3 left-3 w-12 h-12 object-contain"
             />
             <img
               src="/DNL-BC.png"
               alt="D&L Logo"
-              className="absolute bottom-3 right-6 w-12 h-6 object-contain"
+              className="absolute bottom-3 right-5 w-12 h-6 object-contain"
             />
 
-            <div className="absolute top-4 right-8 text-right leading-tight">
+            <div className="absolute top-4 right-5 text-right leading-tight">
               <p className="font-bold text-Black">{fullName}</p>
               <p className="font-bold text-[#23927a] text-sm capitalize">
                 {jobTitleCapitalized}
               </p>
             </div>
 
-            <div className="absolute top-17 left-8 text-left leading-tight">
+            <div className="absolute top-17 left-3 text-left leading-tight">
               <p className="text-xs flex items-center">
                 <FaPhone className="mr-1 text-green-700" />
                 {formData.cellphone}
@@ -80,7 +80,7 @@ export default function PreviewCard({ title, formData }: Props) {
                 </p>
               </div>
             </div>
-          </>
+            </div>
         )}
 
         {/* BUSINESS CARD */}

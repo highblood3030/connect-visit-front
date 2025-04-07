@@ -162,7 +162,7 @@ ${userData.company}
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start w-full min-h-[500px] px-4 py-6 rounded-lg overflow-hidden mt-0 m-auto">
+        <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start w-full min-h-[500px] px-4 py-6 rounded-lg overflow-hidden mt-0">
           {/* Business Card Section */}
           <div className="flex flex-col items-center w-full max-w-lg mt-4">
             <PreviewCard
