@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 type Props = {
   profileImage: string;
@@ -30,29 +30,18 @@ export default function PersonalInformation({
   formData,
   setFormData,
 }: Props) {
-  const [showAsterisk, setShowAsterisk] = useState({
-    firstname: !formData.firstname,
-    lastname: !formData.lastname,
-    jobtitle: !formData.jobtitle,
-    company: !formData.company,
-    logo: !formData.logo,
-  });
-
-  const [websiteError, setWebsiteError] = useState(false);
+  const [websiteError, setWebsiteError] = React.useState(false);
 
   useEffect(() => {
     if (formData.company) {
       const logos = logoOptionsMap[formData.company] || [];
       if (logos.length === 1) {
         setFormData((prevData: any) => ({ ...prevData, logo: logos[0] }));
-        setShowAsterisk((prev) => ({ ...prev, logo: false }));
       } else {
         setFormData((prevData: any) => ({ ...prevData, logo: "" }));
-        setShowAsterisk((prev) => ({ ...prev, logo: true }));
       }
     } else {
       setFormData((prevData: any) => ({ ...prevData, logo: "" }));
-      setShowAsterisk((prev) => ({ ...prev, logo: true }));
     }
   }, [formData.company]);
 
@@ -90,10 +79,6 @@ export default function PersonalInformation({
       value === ""
     ) {
       setFormData((prevData: any) => ({ ...prevData, [field]: value }));
-      setShowAsterisk((prevAsterisk) => ({
-        ...prevAsterisk,
-        [field]: value === "",
-      }));
     }
   };
 
@@ -132,10 +117,9 @@ export default function PersonalInformation({
 
       <div className="grid grid-cols-3 gap-4">
         <div className="relative">
-          <label htmlFor="firstname">First Name</label>
-          {showAsterisk.firstname && (
-            <span className="ml-1 text-red-500">*</span>
-          )}
+          <label htmlFor="firstname">
+            First Name<span className="ml-1 text-red-500">*</span>
+          </label>
           <input
             type="text"
             className="input-field pr-6"
@@ -156,10 +140,9 @@ export default function PersonalInformation({
         </div>
 
         <div className="relative">
-          <label htmlFor="lastname">Last Name</label>
-          {showAsterisk.lastname && (
-            <span className="ml-1 text-red-500">*</span>
-          )}
+          <label htmlFor="lastname">
+            Last Name<span className="ml-1 text-red-500">*</span>
+          </label>
           <input
             type="text"
             className="input-field pr-6"
@@ -199,11 +182,12 @@ export default function PersonalInformation({
       </div>
 
       <div className="relative">
-        <label htmlFor="jobtitle">Job Title</label>
-        {showAsterisk.jobtitle && <span className="ml-1 text-red-500">*</span>}
+        <label htmlFor="jobtitle">
+          Job Title<span className="ml-1 text-red-500">*</span>
+        </label>
         <input
           type="text"
-          className={'input-field pr-6 "text-black" : "text-green"'}
+          className="input-field pr-6"
           value={formData.jobtitle}
           onChange={(e) => handleInputChange("jobtitle", e.target.value)}
           required
@@ -211,15 +195,15 @@ export default function PersonalInformation({
       </div>
 
       <div className="relative">
-        <label htmlFor="company">Company</label>
-        {showAsterisk.company && <span className="ml-1 text-red-500">*</span>}
+        <label htmlFor="company">
+          Company<span className="ml-1 text-red-500">*</span>
+        </label>
         <select
-          className={`input-field appearance-none ${isPlaceholderSelected(formData.company)}`}
+          className={`input-field appearance-none`}
           value={formData.company}
           onChange={(e) => {
             const value = e.target.value;
             setFormData({ ...formData, company: value });
-            setShowAsterisk((prev) => ({ ...prev, company: value === "" }));
           }}
           required
         >
@@ -233,16 +217,15 @@ export default function PersonalInformation({
       </div>
 
       <div className="relative">
-        <label htmlFor="logo">Logo</label>
-        {showAsterisk.logo && <span className="ml-1 text-red-500">*</span>}
+        <label htmlFor="logo">
+          Logo<span className="ml-1 text-red-500">*</span>
+        </label>
         <select
-          className={`input-field appearance-none ${isPlaceholderSelected(formData.logo)}`}
+          className="input-field appearance-none"
           value={formData.logo}
-          onChange={(e) => {
-            const value = e.target.value;
-            setFormData({ ...formData, logo: value });
-            setShowAsterisk((prev) => ({ ...prev, logo: value === "" }));
-          }}
+          onChange={(e) =>
+            setFormData({ ...formData, logo: e.target.value })
+          }
           disabled={
             !formData.company || logoOptionsMap[formData.company]?.length === 1
           }

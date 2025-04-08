@@ -11,11 +11,6 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
   handleInputChange,
   setFormData,
 }) => {
-  const [showAsterisk, setShowAsterisk] = useState({
-    location: !formData.location,
-    factoryLocation: !formData.factoryLocation,
-  });
-
   const isPlaceholderSelected = (value: string) => value === "";
 
   const locationOptions = [
@@ -91,14 +86,14 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
       postalCode: "4232",
       country: "Philippines",
     },
-    "Bauan Office": {
+    BauanOffice: {
       street: "Barangay Balayong",
       city: "Bauan",
       state: "Batangas",
       postalCode: "4201",
       country: "Philippines",
     },
-    "CCPI Office": {
+    CCPIOffice: {
       street:
         "Consumer Care Bldg. Manggahan Light Industrial Park A Rodriguez Avenue Santolan",
       city: "Pasig City",
@@ -106,7 +101,7 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
       postalCode: "1610",
       country: "Philippines",
     },
-    "CTI Davao Branch": {
+    CTIDavaoBranch: {
       street:
         "Door 2C & 2D, Main Building, Amina Way Business Park, Diversion Road, Sasa",
       city: "Davao City",
@@ -119,30 +114,27 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
   return (
     <div className="space-y-6">
 
-{/* Displayed Address */}
-<div className="relative top-2">
-  <label htmlFor="address" className="font-semibold block mb-1">
-    Displayed Address <span className="text-red-500">*</span>
-  </label>
-  <select
-    className="input-field appearance-none w-full pr-6"
-    value="Office"
-    disabled
-    required
-  >
-    <option value="Office">Office</option>
-  </select>
-</div>
+      {/* Displayed Address */}
+      <div className="relative top-2">
+        <label htmlFor="address" className="font-semibold block mb-1">
+          Displayed Address
+        </label>
+        <select
+          className="input-field appearance-none w-full pr-6"
+          value="Office"
+          disabled
+          required
+        >
+          <option value="Office">Office</option>
+        </select>
+      </div>
 
       {/* Office Address Section */}
       <div>
         <h2 className="text-lg font-bold mt-4 mb-2">Office Address</h2>
         <div className="relative">
           <label htmlFor="location" className="block mb-1">
-            Office Location
-            {showAsterisk.location && (
-              <span className="ml-1 text-red-500">*</span>
-            )}
+            Office Location <span className="text-red-500">*</span>
           </label>
           <select
             className={`input-field appearance-none w-full pr-6 ${isPlaceholderSelected(
@@ -164,14 +156,10 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
                       country: "",
                     }),
               });
-              setShowAsterisk((prev) => ({
-                ...prev,
-                location: selected === "",
-              }));
             }}
             required
           >
-            <option value="">Select Office Location</option>
+            <option value=""></option>
             {locationOptions.map((loc) => (
               <option key={loc} value={loc}>
                 {loc}
@@ -179,7 +167,6 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
             ))}
           </select>
         </div>
-
 
         {/* Auto-filled Fields */}
         <div className="grid grid-cols-2 gap-4 mt-4">
@@ -211,10 +198,7 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
         <h2 className="text-lg font-bold mt-6 mb-2">Factory Address</h2>
         <div className="relative">
           <label htmlFor="factoryLocation" className="block mb-1">
-            Factory Location
-            {showAsterisk.factoryLocation && (
-              <span className="ml-1 text-red-500">*</span>
-            )}
+            Factory Location <span className="text-red-500">*</span>
           </label>
           <select
             className="input-field appearance-none w-full pr-6"
@@ -240,13 +224,9 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
                       factoryCountry: "",
                     }),
               });
-              setShowAsterisk((prev) => ({
-                ...prev,
-                factoryLocation: selected === "",
-              }));
             }}
           >
-            <option value="">Select Factory Location</option>
+            <option value=""></option>
             {locationOptions.map((loc) => (
               <option key={loc} value={loc}>
                 {loc}
