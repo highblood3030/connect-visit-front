@@ -10,15 +10,12 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
   formData,
   handleInputChange,
 }) => {
-  const [showAsterisk, setShowAsterisk] = useState(!formData?.workemail);
   const [emailError, setEmailError] = useState("");
   const [cellphoneError, setCellphoneError] = useState("");
   const [whatsappError, setWhatsappError] = useState("");
   const [viberError, setViberError] = useState("");
   const [wechatError, setWechatError] = useState("");
-  const [workphoneError, setWorkphoneError] = useState("");
-  const [workfaxError, setWorkfaxError] = useState("");
-
+  
   useEffect(() => {
     console.log("ContactInformation component mounted");
     console.log("formData:", formData);
@@ -204,89 +201,14 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
     }
   };
 
-  const handleWorkphoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/[^\d()\s]/g, "");
-
-    if (value === "") {
-      handleInputChange({
-        target: { name: e.target.name, value: "" },
-      } as React.ChangeEvent<HTMLInputElement>);
-      setWorkphoneError("");
-      return;
-    }
-
-    const match = value.match(/\((\d+)\)/);
-    const digitsInsideParentheses = match ? match[1] : "";
-
-    const maxLength = digitsInsideParentheses.length === 2 ? 13 : 14;
-    value = value.slice(0, maxLength);
-
-    let formattedValue = value;
-    if (value.length > 6) {
-      formattedValue = `${value.slice(0, value.length - 4)}-${value.slice(value.length - 4)}`;
-    }
-
-    handleInputChange({
-      target: { name: e.target.name, value: formattedValue },
-    } as React.ChangeEvent<HTMLInputElement>);
-
-    const numericValue = value.replace(/\(\d+\)/g, "").replace(/[^\d]/g, "");
-
-    if (numericValue.length === 0) {
-      setWorkphoneError("");
-    } else if (numericValue.length < 7) {
-      setWorkphoneError("Insufficient number length");
-    } else {
-      setWorkphoneError("");
-    }
-  };
-
   const handleWorkEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleInputChange(e);
-    setShowAsterisk(!e.target.value);
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (e.target.value && !emailRegex.test(e.target.value)) {
       setEmailError("Invalid email format");
     } else {
       setEmailError("");
-    }
-  };
-
-  const handleWorkfaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/[^\d()\s]/g, "");
-
-    if (value === "") {
-      handleInputChange({
-        target: { name: e.target.name, value: "" },
-      } as React.ChangeEvent<HTMLInputElement>);
-      setWorkfaxError("");
-      return;
-    }
-
-    const match = value.match(/\((\d+)\)/);
-    const digitsInsideParentheses = match ? match[1] : "";
-
-    const maxLength = digitsInsideParentheses.length === 2 ? 13 : 14;
-    value = value.slice(0, maxLength);
-
-    let formattedValue = value;
-    if (value.length > 6) {
-      formattedValue = `${value.slice(0, value.length - 4)}-${value.slice(value.length - 4)}`;
-    }
-
-    handleInputChange({
-      target: { name: e.target.name, value: formattedValue },
-    } as React.ChangeEvent<HTMLInputElement>);
-
-    const numericValue = value.replace(/\(\d+\)/g, "").replace(/[^\d]/g, "");
-
-    if (numericValue.length === 0) {
-      setWorkfaxError("");
-    } else if (numericValue.length < 7) {
-      setWorkfaxError("Insufficient number length");
-    } else {
-      setWorkfaxError("");
     }
   };
 
@@ -359,17 +281,15 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           placeholder="(XX/X)X/XXX-XXXX"
           name="workphone"
           value={formData?.workphone || ""}
-          onChange={handleWorkphoneChange}
+          onChange={handleInputChange}
           className="w-full border px-3 py-2 rounded-md"
         />
-        {workphoneError && (
-          <p className="text-red-500 text-sm mt-1">{workphoneError}</p>
-        )}
       </div>
 
       <div className="relative w-full">
-        <label htmlFor="workemail">Work Email</label>
-        {showAsterisk && <span className="ml-1 text-red-500">*</span>}
+        <label htmlFor="workemail">
+          Work Email <span className="text-red-500">*</span>
+        </label>
         <input
           type="email"
           placeholder="user@dnl.com.ph"
@@ -377,12 +297,12 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           value={formData?.workemail || ""}
           onChange={handleWorkEmailChange}
           className="w-full border px-3 py-2 rounded-md"
-          required // This makes it required
-          />
-          {emailError && (
-            <p className="text-red-500 text-sm mt-1">{emailError}</p>
-          )}
-        </div>
+          required
+        />
+        {emailError && (
+          <p className="text-red-500 text-sm mt-1">{emailError}</p>
+        )}
+      </div>
 
       <div className="relative w-full">
         <label htmlFor="workfax">Work Fax</label>
@@ -391,12 +311,9 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           placeholder="(XX/X)X/XXX-XXXX"
           name="workfax"
           value={formData?.workfax || ""}
-          onChange={handleWorkfaxChange}
+          onChange={handleInputChange}
           className="w-full border px-3 py-2 rounded-md"
         />
-        {workfaxError && (
-          <p className="text-red-500 text-sm mt-1">{workfaxError}</p>
-        )}
       </div>
     </div>
   );
