@@ -99,8 +99,9 @@ export default function EditUser() {
 
   // Handle text input changes
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
+  
     const { name, value } = e.target;
     setFormData((prev: UserFormData) => {
       const updatedFormData = { ...prev, [name]: value };
