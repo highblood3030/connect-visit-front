@@ -36,9 +36,9 @@ export default function ConneqBizCards() {
     const signatureText = `
 ${userData.firstname} ${userData.lastname} - ${userData.jobtitle}
 ${userData.company}
-📧 ${userData.workemail}
-📍 ${userData.address}
-📞 ${userData.cellphone}
+ ${userData.workemail}
+ ${userData.address}
+${userData.cellphone}
     `;
     navigator.clipboard.writeText(signatureText).then(() => {
       alert("✔️ Copy Success!\nSignature copied to clipboard.");

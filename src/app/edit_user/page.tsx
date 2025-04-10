@@ -133,7 +133,7 @@ export default function EditUser() {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto text-black">
-        <h1 className="text-3xl font-extrabold text-[#145C5B] mb-6">
+        <h1 className="text-3xl font-extrabold text-[#145C5B] mt-8">
           MY INFORMATION
         </h1>
 
