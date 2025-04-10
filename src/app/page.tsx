@@ -92,11 +92,34 @@ const LandingPage = () => {
             className="flex h-screen w-screen flex-col px-4 pt-16 pb-12"
           >
             <div className="flex flex-grow flex-col items-center justify-center text-center">
-              <img
-                src={frame}
-                alt={`Frame ${idx + 1}`}
-                className="max-h-[50vh] w-full max-w-[90%] object-contain mb-6 md:max-w-[500px]"
-              />
+            <img
+              src={frame}
+              alt={`Frame ${idx + 1}`}
+              className="w-[80vw] max-w-sm h-auto object-contain mx-auto mb-6 lg:w-[500px] lg:max-w-none"
+            />
+
+            {/* Responsive hand1.png image */}
+              <div
+                className="
+                  absolute 
+                  bottom-4 
+                  left-1/2 
+                  transform 
+                  -translate-x-1/2 
+                  md:left-auto 
+                  md:right-4 
+                  md:translate-x-0
+                  z-20
+                "
+              >
+                <img
+                  src="/hand1.png"
+                  alt="Hand Graphic"
+                  className="h-56 w-auto md:h-124 lg:h-128 object-contain"
+                />
+              </div>
+
+
               <button
                 onClick={handleButtonClick}
                 className="bg-green-700 text-white px-6 py-3 rounded-full font-semibold shadow-md transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500"
