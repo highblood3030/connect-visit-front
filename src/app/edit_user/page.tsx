@@ -50,6 +50,8 @@ export default function EditUser() {
   // Checkbox for Privacy Notice
   const [isChecked, setIsChecked] = useState(false);
 
+  const [showError, setShowError] = useState(false);
+
   // Default form data
   const defaultFormData: UserFormData = {
     firstname: "",
@@ -121,14 +123,15 @@ export default function EditUser() {
     e.preventDefault();
   
     if (!isChecked) {
-      alert("Please confirm the Privacy Notice before saving.");
+      setShowError(true);
       return;
     }
   
+    setShowError(false);
     console.log("🚀 Form submitted!", formData);
     localStorage.setItem("userFormData", JSON.stringify(formData));
     router.push("/conneq-biz");
-  };
+  };  
 
   return (
     <Layout>
@@ -207,25 +210,33 @@ export default function EditUser() {
               </div>
 
               {/* Checkbox Confirmation */}
-              <div className="relative flex items-start space-x-2 mt-4">
-                <input
-                  type="checkbox"
-                  checked={isChecked}
-                  onChange={() => setIsChecked(!isChecked)}
-                />
-                {!isChecked && <span className="text-red-500">*</span>}
-                <p className="text-gray-700 text-justify">
-                  I confirm that I have read, understood, and agree with the
-                  Privacy Notice of {formData.company || "(company name)"}. I
-                  understand that some of my personal information, such as my
-                  personal mobile number, will be used for as part of my email
-                  signature, business card and virtual card. I understand that
-                  my consent does not preclude the existence of other criteria
-                  for lawful processing of personal data, and does not waive any
-                  of my rights under the Data Privacy Act of 2012 and other
-                  applicable laws.
-                </p>
-              </div>
+            <div className="relative flex flex-col space-y-2 mt-4">
+            <div className="flex items-start space-x-2">
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={() => setIsChecked(!isChecked)}
+              />
+              {!isChecked && <span className="text-red-500">*</span>}
+              <p className="text-gray-700 text-justify">
+                I confirm that I have read, understood, and agree with the Privacy Notice
+                of {formData.company || "(company name)"}. I understand that some of my
+                personal information, such as my personal mobile number, will be used for
+                as part of my email signature, business card and virtual card. I
+                understand that my consent does not preclude the existence of other
+                criteria for lawful processing of personal data, and does not waive any of
+                my rights under the Data Privacy Act of 2012 and other applicable laws.
+              </p>
+            </div>
+
+            {showError && (
+             <p className="bg-red-600 text-white text-sm font-medium px-4 py-2 rounded-md shadow-sm">
+             Kindly confirm the data privacy policy to enable saving.
+           </p>
+                      
+            )}
+          </div>
+
 
               {/* Navigation Buttons */}
               <div className="flex justify-end space-x-4 mt-6">
