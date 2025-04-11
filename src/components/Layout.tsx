@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode, useState, useEffect, useRef } from "react";
-import { useRouter, usePathname } from "next/navigation"; 
+import { useRouter, usePathname } from "next/navigation";
 import { FiUsers, FiMenu, FiLogOut } from "react-icons/fi";
 import { MdSpaceDashboard, MdOutlineSell } from "react-icons/md";
 import { HiOutlineCreditCard } from "react-icons/hi";
@@ -16,7 +16,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const pathname = usePathname(); 
+  const pathname = usePathname();
   const [bizDropdownOpen, setBizDropdownOpen] = useState(false);
   const [userData, setUserData] = useState<any>(null); // Local state for user data
 
@@ -34,7 +34,10 @@ export default function Layout({ children }: LayoutProps) {
   useEffect(() => {
     if (!sidebarOpen) return; // Only when sidebar is open
     const handleClickOutside = (event: MouseEvent) => {
-      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target as Node)
+      ) {
         setSidebarOpen(false);
       }
     };

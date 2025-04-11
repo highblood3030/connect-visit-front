@@ -15,7 +15,7 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
   const [whatsappError, setWhatsappError] = useState("");
   const [viberError, setViberError] = useState("");
   const [wechatError, setWechatError] = useState("");
-  
+
   useEffect(() => {
     console.log("ContactInformation component mounted");
     console.log("formData:", formData);

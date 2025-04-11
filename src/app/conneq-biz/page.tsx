@@ -118,7 +118,7 @@ ${userData.cellphone}
       setUserData(JSON.parse(savedData));
     }
   }, []);
-  
+
   useEffect(() => {
     if (!userData) {
       const timer = setTimeout(() => {
@@ -127,9 +127,8 @@ ${userData.cellphone}
       return () => clearTimeout(timer);
     }
   }, [userData]);
-  
+
   if (!userData) return null; // 👈 Prevent rendering before redirection
-  
 
   return (
     <Layout>

@@ -40,12 +40,11 @@ export default function ConneqTag() {
     description: "",
     status: "Active",
   });
-  
- const [dataList, setDataList] = useState<DataItem[]>([]);
+
+  const [dataList, setDataList] = useState<DataItem[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   // List of items to render in the table
-
 
   // Ref for QR code container in the View Details modal (for downloading QR)
   const qrRef = useRef<HTMLDivElement>(null);
@@ -54,7 +53,7 @@ export default function ConneqTag() {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -275,35 +274,42 @@ export default function ConneqTag() {
                 </tr>
               ) : (
                 dataList
-                .filter(
-                  (item) =>
-                    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    item.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    item.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    item.dateCreated.toLowerCase().includes(searchTerm.toLowerCase())
-                )
-            .map((item) => (
-
-                  <tr key={item.id}>
-                    <td className="py-3 px-4">
-                      <input type="checkbox" />
-                    </td>
-                    <td className="py-3 px-4">{item.id}</td>
-                    <td className="py-3 px-4">{item.name}</td>
-                    <td className="py-3 px-4">{item.textTag}</td>
-                    <td className="py-3 px-4">{item.description}</td>
-                    <td className="py-3 px-4">{item.status}</td>
-                    <td className="py-3 px-4">{item.dateCreated}</td>
-                    <td className="py-3 px-4">
-                      <button
-                        className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition cursor-pointer"
-                        onClick={() => handleViewDetails(item)}
-                      >
-                        View Details
-                      </button>
-                    </td>
-                  </tr>
-                ))
+                  .filter(
+                    (item) =>
+                      item.name
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()) ||
+                      item.status
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()) ||
+                      item.description
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()) ||
+                      item.dateCreated
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()),
+                  )
+                  .map((item) => (
+                    <tr key={item.id}>
+                      <td className="py-3 px-4">
+                        <input type="checkbox" />
+                      </td>
+                      <td className="py-3 px-4">{item.id}</td>
+                      <td className="py-3 px-4">{item.name}</td>
+                      <td className="py-3 px-4">{item.textTag}</td>
+                      <td className="py-3 px-4">{item.description}</td>
+                      <td className="py-3 px-4">{item.status}</td>
+                      <td className="py-3 px-4">{item.dateCreated}</td>
+                      <td className="py-3 px-4">
+                        <button
+                          className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition cursor-pointer"
+                          onClick={() => handleViewDetails(item)}
+                        >
+                          View Details
+                        </button>
+                      </td>
+                    </tr>
+                  ))
               )}
             </tbody>
           </table>

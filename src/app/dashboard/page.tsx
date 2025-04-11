@@ -25,7 +25,7 @@ export default function Dashboard() {
       {/* Responsive Dashboard Cards */}
       <div className="font-bold text-xl mt-9">
         <p>Welcome back Lakers Fan &#9996;&#127998;</p>
-        </div>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 flex-grow mt-6">
         {sidebarItems.map((card, idx) => (
           <div
@@ -41,5 +41,3 @@ export default function Dashboard() {
     </Layout>
   );
 }
-
-  

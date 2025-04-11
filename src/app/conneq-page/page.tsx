@@ -46,7 +46,7 @@ export default function ConneqPage() {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -81,7 +81,7 @@ export default function ConneqPage() {
     if (editMode && selectedItem) {
       // Update existing item
       const updatedDataList = dataList.map((item) =>
-        item.id === selectedItem.id ? { ...item, ...formData } : item
+        item.id === selectedItem.id ? { ...item, ...formData } : item,
       );
       setDataList(updatedDataList);
     } else {
@@ -199,7 +199,7 @@ export default function ConneqPage() {
                         .includes(searchTerm.toLowerCase()) ||
                       item.description
                         .toLowerCase()
-                        .includes(searchTerm.toLowerCase())
+                        .includes(searchTerm.toLowerCase()),
                   )
                   .map((item) => (
                     <tr key={item.id} className="border-t hover:bg-gray-100">
@@ -251,7 +251,7 @@ export default function ConneqPage() {
             (item) =>
               item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
               item.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-              item.description.toLowerCase().includes(searchTerm.toLowerCase())
+              item.description.toLowerCase().includes(searchTerm.toLowerCase()),
           )
           .map((item) => (
             <div

@@ -16,7 +16,7 @@ export default function PreviewCard({ title, formData }: Props) {
     .split(" ")
     .map(
       (word: string) =>
-        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
     )
     .join(" ");
 
@@ -80,7 +80,7 @@ export default function PreviewCard({ title, formData }: Props) {
                 </p>
               </div>
             </div>
-            </div>
+          </div>
         )}
 
         {/* BUSINESS CARD */}

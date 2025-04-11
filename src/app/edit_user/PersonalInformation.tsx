@@ -26,10 +26,7 @@ const isValidWebsite = (value: string) =>
   /^(https?:\/\/)?([a-zA-Z0-9.-]+)\.[a-zA-Z]{2,}([\/\w .-]*)?$/.test(value);
 const isValidHonorific = (value: string) => /^[A-Za-z\s.,-]{0,20}$/.test(value);
 
-export default function PersonalInformation({
-  formData,
-  setFormData,
-}: Props) {
+export default function PersonalInformation({ formData, setFormData }: Props) {
   const [websiteError, setWebsiteError] = React.useState(false);
 
   useEffect(() => {
@@ -223,9 +220,7 @@ export default function PersonalInformation({
         <select
           className="input-field appearance-none"
           value={formData.logo}
-          onChange={(e) =>
-            setFormData({ ...formData, logo: e.target.value })
-          }
+          onChange={(e) => setFormData({ ...formData, logo: e.target.value })}
           disabled={
             !formData.company || logoOptionsMap[formData.company]?.length === 1
           }
