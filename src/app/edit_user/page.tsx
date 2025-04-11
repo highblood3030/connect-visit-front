@@ -107,6 +107,7 @@ export default function EditUser() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!isChecked) {
       setShowError(true);
       return;
@@ -192,7 +193,9 @@ export default function EditUser() {
                 </a>
               </div>
 
+
               {/* Checkbox + Error */}
+
               <div className="relative flex flex-col space-y-2 mt-4">
                 <div className="flex items-start space-x-2">
                   <input
@@ -205,10 +208,16 @@ export default function EditUser() {
                     I confirm that I have read, understood, and agree with the
                     Privacy Notice of {formData.company || "(company name)"}. I
                     understand that some of my personal information, such as my
-                    personal mobile number, will be used for my email signature,
-                    business card and virtual card.
+
+                    personal mobile number, will be used for as part of my email
+                    signature, business card and virtual card. I understand that
+                    my consent does not preclude the existence of other criteria
+                    for lawful processing of personal data, and does not waive
+                    any of my rights under the Data Privacy Act of 2012 and
+                    other applicable laws.
                   </p>
                 </div>
+
                 {showError && (
                   <p className="bg-red-600 text-white text-sm font-medium px-4 py-2 rounded-md shadow-sm">
                     Kindly confirm the data privacy policy to enable saving.

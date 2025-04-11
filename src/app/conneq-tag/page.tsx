@@ -41,8 +41,10 @@ export default function ConneqTag() {
     status: "Active",
   });
 
-  // List of items to render in the table
   const [dataList, setDataList] = useState<DataItem[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // List of items to render in the table
 
   // Ref for QR code container in the View Details modal (for downloading QR)
   const qrRef = useRef<HTMLDivElement>(null);
@@ -202,6 +204,8 @@ export default function ConneqTag() {
             <input
               type="text"
               placeholder="Search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="flex-1 min-w-[150px] outline-none bg-transparent text-gray-700 placeholder-gray-400"
             />
             <FiSearch className="text-xl text-gray-500 cursor-pointer hover:bg-blue-50" />
@@ -269,27 +273,43 @@ export default function ConneqTag() {
                   </td>
                 </tr>
               ) : (
-                dataList.map((item) => (
-                  <tr key={item.id}>
-                    <td className="py-3 px-4">
-                      <input type="checkbox" />
-                    </td>
-                    <td className="py-3 px-4">{item.id}</td>
-                    <td className="py-3 px-4">{item.name}</td>
-                    <td className="py-3 px-4">{item.textTag}</td>
-                    <td className="py-3 px-4">{item.description}</td>
-                    <td className="py-3 px-4">{item.status}</td>
-                    <td className="py-3 px-4">{item.dateCreated}</td>
-                    <td className="py-3 px-4">
-                      <button
-                        className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition cursor-pointer"
-                        onClick={() => handleViewDetails(item)}
-                      >
-                        View Details
-                      </button>
-                    </td>
-                  </tr>
-                ))
+                dataList
+                  .filter(
+                    (item) =>
+                      item.name
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()) ||
+                      item.status
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()) ||
+                      item.description
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()) ||
+                      item.dateCreated
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()),
+                  )
+                  .map((item) => (
+                    <tr key={item.id}>
+                      <td className="py-3 px-4">
+                        <input type="checkbox" />
+                      </td>
+                      <td className="py-3 px-4">{item.id}</td>
+                      <td className="py-3 px-4">{item.name}</td>
+                      <td className="py-3 px-4">{item.textTag}</td>
+                      <td className="py-3 px-4">{item.description}</td>
+                      <td className="py-3 px-4">{item.status}</td>
+                      <td className="py-3 px-4">{item.dateCreated}</td>
+                      <td className="py-3 px-4">
+                        <button
+                          className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition cursor-pointer"
+                          onClick={() => handleViewDetails(item)}
+                        >
+                          View Details
+                        </button>
+                      </td>
+                    </tr>
+                  ))
               )}
             </tbody>
           </table>
@@ -307,7 +327,7 @@ export default function ConneqTag() {
       </div>
       {/* Create Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50 overflow-auto">
+        <div className="fixed inset-0 flex items-center justify-center bg-blur bg-opacity-50 backdrop-blur-sm z-50 overflow-auto">
           <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
             {/* Modal Header */}
             <div className="flex justify-between items-center border-b pb-2">

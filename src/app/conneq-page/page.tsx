@@ -40,6 +40,7 @@ export default function ConneqPage() {
   });
 
   const [dataList, setDataList] = useState<DataItem[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Handle text & select changes
   const handleChange = (
@@ -157,6 +158,8 @@ export default function ConneqPage() {
             <input
               type="text"
               placeholder="Search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               className="outline-none bg-transparent text-gray-700 placeholder-gray-400"
             />
             <FiSearch className="text-xl text-gray-500 cursor-pointer" />
@@ -185,31 +188,46 @@ export default function ConneqPage() {
                   </td>
                 </tr>
               ) : (
-                dataList.map((item) => (
-                  <tr key={item.id} className="border-t hover:bg-gray-100">
-                    <td className="py-3 px-4 text-black">{item.id}</td>
-                    <td className="py-3 px-4 text-black">{item.name}</td>
-                    <td className="py-3 px-4 text-black">{item.category}</td>
-                    <td className="py-3 px-4 text-black">{item.description}</td>
-                    <td className="py-3 px-4 font-semibold text-black">
-                      {item.status}
-                    </td>
-                    <td className="py-3 px-4 flex space-x-2">
-                      <button
-                        className="bg-gray-500 text-white px-3 py-1 rounded-md hover:bg-gray-700 transition cursor-pointer"
-                        onClick={() => handleEdit(item)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition cursor-pointer"
-                        onClick={() => handleViewDetails(item)}
-                      >
-                        View Details
-                      </button>
-                    </td>
-                  </tr>
-                ))
+                dataList
+                  .filter(
+                    (item) =>
+                      item.name
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()) ||
+                      item.category
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()) ||
+                      item.description
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()),
+                  )
+                  .map((item) => (
+                    <tr key={item.id} className="border-t hover:bg-gray-100">
+                      <td className="py-3 px-4 text-black">{item.id}</td>
+                      <td className="py-3 px-4 text-black">{item.name}</td>
+                      <td className="py-3 px-4 text-black">{item.category}</td>
+                      <td className="py-3 px-4 text-black">
+                        {item.description}
+                      </td>
+                      <td className="py-3 px-4 font-semibold text-black">
+                        {item.status}
+                      </td>
+                      <td className="py-3 px-4 flex space-x-2">
+                        <button
+                          className="bg-gray-500 text-white px-3 py-1 rounded-md hover:bg-gray-700 transition cursor-pointer"
+                          onClick={() => handleEdit(item)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition cursor-pointer"
+                          onClick={() => handleViewDetails(item)}
+                        >
+                          View Details
+                        </button>
+                      </td>
+                    </tr>
+                  ))
               )}
             </tbody>
           </table>
@@ -228,42 +246,49 @@ export default function ConneqPage() {
 
       {/* Mobile View: Cards Layout */}
       <div className="block md:hidden space-y-4">
-        {dataList.map((item) => (
-          <div
-            key={item.id}
-            className="border p-4 rounded-md shadow-md bg-white"
-          >
-            <p>
-              <strong>ID:</strong> {item.id}
-            </p>
-            <p>
-              <strong>Name:</strong> {item.name}
-            </p>
-            <p>
-              <strong>Category:</strong> {item.category}
-            </p>
-            <p>
-              <strong>Description:</strong> {item.description}
-            </p>
-            <p>
-              <strong>Status:</strong> {item.status}
-            </p>
-            <div className="flex justify-between mt-3">
-              <button
-                className="bg-gray-500 text-white px-3 py-1 rounded-md hover:bg-gray-700 transition cursor-pointer"
-                onClick={() => handleEdit(item)}
-              >
-                Edit
-              </button>
-              <button
-                className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition cursor-pointer"
-                onClick={() => handleViewDetails(item)}
-              >
-                View
-              </button>
+        {dataList
+          .filter(
+            (item) =>
+              item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              item.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              item.description.toLowerCase().includes(searchTerm.toLowerCase()),
+          )
+          .map((item) => (
+            <div
+              key={item.id}
+              className="border p-4 rounded-md shadow-md bg-white"
+            >
+              <p>
+                <strong>ID:</strong> {item.id}
+              </p>
+              <p>
+                <strong>Name:</strong> {item.name}
+              </p>
+              <p>
+                <strong>Category:</strong> {item.category}
+              </p>
+              <p>
+                <strong>Description:</strong> {item.description}
+              </p>
+              <p>
+                <strong>Status:</strong> {item.status}
+              </p>
+              <div className="flex justify-between mt-3">
+                <button
+                  className="bg-gray-500 text-white px-3 py-1 rounded-md hover:bg-gray-700 transition cursor-pointer"
+                  onClick={() => handleEdit(item)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition cursor-pointer"
+                  onClick={() => handleViewDetails(item)}
+                >
+                  View
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
 
       {/* Create & Edit Modal */}

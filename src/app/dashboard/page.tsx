@@ -15,6 +15,7 @@ export default function Dashboard() {
 
   return (
     <Layout>
+
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-xl tracking-wide mt-0 lg:mt-16">
           <p>Welcome back Lakers Fan ✌🏾</p>
@@ -36,6 +37,7 @@ export default function Dashboard() {
             </div>
           ))}
         </div>
+
       </div>
     </Layout>
   );

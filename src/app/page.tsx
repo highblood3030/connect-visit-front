@@ -120,6 +120,7 @@ const LandingPage = () => {
     pointer-events-none
   "
       >
+
         <img
           src="/hand1.png"
           alt="Hand Graphic"
