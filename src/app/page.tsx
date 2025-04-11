@@ -91,42 +91,45 @@ const LandingPage = () => {
             key={idx}
             className="flex h-screen w-screen flex-col px-4 pt-16 pb-12"
           >
-         
-         <div className="flex flex-col items-center text-center mt-[15vh]">
-          <img
-            src={frame}
-            alt={`Frame ${idx + 1}`}
-            className="w-[80vw] max-w-[90%] h-auto object-contain mx-auto mb-6 
+            <div className="flex flex-col items-center text-center mt-[15vh]">
+              <img
+                src={frame}
+                alt={`Frame ${idx + 1}`}
+                className="w-[80vw] max-w-[90%] h-auto object-contain mx-auto mb-6 
                       md:w-[300px] md:max-w-none 
                       lg:w-[350px]"
-          />
+              />
 
-          <button
-            onClick={handleButtonClick}
-            className="bg-green-700 text-white px-6 py-3 rounded-full font-semibold shadow-md transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-          >
-            Login using Corporate Email
-          </button>
-        </div>
-
+              <button
+                onClick={handleButtonClick}
+                className="bg-green-700 text-white px-6 py-3 rounded-full font-semibold shadow-md transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+              >
+                Login using Corporate Email
+              </button>
+            </div>
           </div>
         ))}
       </Slider>
-      {/* Fixed container at bottom */}
-        <div className="absolute inset-x-0 bottom-0 z-20 flex justify-center md:justify-end px-6 pointer-events-none">
-          <img
-            src="/hand1.png"
-            alt="Hand Graphic"
-            className="
-              h-[26rem] md:h-[34rem] lg:h-[38rem]
-               translate-y-[10%] md:translate-y-0
-              object-contain 
-              pointer-events-none
-              transition-transform duration-300 ease-in-out
-            "
-          />
-        </div>
-
+      {/* Hand image pinned even further bottom-right */}
+      <div
+        className="
+    absolute 
+    bottom-[-10px] sm:bottom-[-20px] 
+    right-[-10px] sm:right-[-20px] 
+    z-20 
+    pointer-events-none
+  "
+      >
+        <img
+          src="/hand1.png"
+          alt="Hand Graphic"
+          className="
+      h-[20rem] sm:h-[26rem] md:h-[32rem] lg:h-[36rem]
+      object-contain
+      transition-transform duration-300 ease-in-out
+    "
+        />
+      </div>
     </div>
   );
 };

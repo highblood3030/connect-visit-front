@@ -41,7 +41,7 @@ const SocialMediaAccount: React.FC<SocialMediaProps> = ({
           >
             <option value=""></option>
             <option value="link1">
-            linkedin.com/company/d&l-industries-inc.
+              linkedin.com/company/d&l-industries-inc.
             </option>
           </select>
         </div>

@@ -16,7 +16,7 @@ export default function PreviewCard({ title, formData }: Props) {
     .split(" ")
     .map(
       (word: string) =>
-        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
     )
     .join(" ");
 
@@ -28,12 +28,14 @@ export default function PreviewCard({ title, formData }: Props) {
 
       {/* Card */}
       <div
-        className={`relative w-[360px] ${title === "Business Card" ? "min-h-[216px]" : "h-[200px]"}  rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-105 duration-300 mt-0`}
+        className={`relative w-full max-w-[360px] ${
+          title === "Business Card" ? "min-h-[216px]" : "h-[200px]"
+        } rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-105 duration-300 mt-0`}
       >
         <img
           src="/Background-ESign.png"
           alt={`${title} background`}
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover rounded-inherit"
         />
 
         {/* EMAIL SIGNATURE */}
@@ -80,7 +82,7 @@ export default function PreviewCard({ title, formData }: Props) {
                 </p>
               </div>
             </div>
-            </div>
+          </div>
         )}
 
         {/* BUSINESS CARD */}

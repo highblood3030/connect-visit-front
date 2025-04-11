@@ -36,8 +36,8 @@ export default function ConneqBizCards() {
     const signatureText = `
 ${userData.firstname} ${userData.lastname} - ${userData.jobtitle}
 ${userData.company}
- ${userData.workemail}
- ${userData.address}
+${userData.workemail}
+${userData.address}
 ${userData.cellphone}
     `;
     navigator.clipboard.writeText(signatureText).then(() => {
@@ -55,9 +55,8 @@ ${userData.cellphone}
       const images = signatureElement.getElementsByTagName("img");
       const loadPromises = Array.from(images).map((img) => {
         return new Promise((resolve, reject) => {
-          if (img.complete) {
-            resolve(true);
-          } else {
+          if (img.complete) resolve(true);
+          else {
             img.onload = () => resolve(true);
             img.onerror = () => reject(`Error loading image: ${img.src}`);
           }
@@ -65,12 +64,10 @@ ${userData.cellphone}
       });
 
       await Promise.all(loadPromises);
-
       const canvas = await html2canvas(signatureElement, {
         useCORS: true,
         scale: 2,
       });
-
       const image = canvas.toDataURL("image/png");
       const link = document.createElement("a");
       link.href = image;
@@ -79,14 +76,12 @@ ${userData.cellphone}
 
       alert("✔️ Business Card Downloaded!");
     } catch {
-      console.error("Error capturing signature email: error");
+      console.error("Error capturing signature email");
       alert("❌ Error: Failed to download business card.");
     }
   };
 
-  const handleDownloadBuinesscard = async () => {
-    setBusinessModalOpen(true);
-  };
+  const handleDownloadBuinesscard = () => setBusinessModalOpen(true);
 
   const handleRefresh = () => {
     alert("✔️ Signature refreshed. Please reload the page to see changes.");
@@ -114,11 +109,9 @@ ${userData.cellphone}
 
   useEffect(() => {
     const savedData = localStorage.getItem("userFormData");
-    if (savedData) {
-      setUserData(JSON.parse(savedData));
-    }
+    if (savedData) setUserData(JSON.parse(savedData));
   }, []);
-  
+
   useEffect(() => {
     if (!userData) {
       const timer = setTimeout(() => {
@@ -127,54 +120,59 @@ ${userData.cellphone}
       return () => clearTimeout(timer);
     }
   }, [userData]);
-  
-  if (!userData) return null; // 👈 Prevent rendering before redirection
-  
+
+  if (!userData) return null;
 
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-[90vh]">
-        <div className="mb-4 text-center md:text-left">
-          <h1 className="text-lg md:text-xl lg:text-2xl font-bold text-black break-words mt-8">
-            MY CARDS
-          </h1>
+        <div className="mb-4 text-center md:text-left mt-8 md:mt-16">
+          <h1 className="text-2xl break-words font-bold">MY CARDS</h1>
         </div>
-
-        <div className="flex flex-wrap justify-end gap-2 mb-6 mt-0">
-          <button
-            onClick={handleEdit}
-            className="flex items-center bg-blue-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-blue-700 transition cursor-pointer"
-          >
-            <FiEdit className="mr-1 text-xs" /> Edit
-          </button>
-          <button
-            onClick={handleDownloadSignature}
-            className="flex items-center bg-gray-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-gray-700 transition cursor-pointer"
-          >
-            <FiDownload className="mr-1 text-xs" /> Signature
-          </button>
-          <button
-            onClick={handleDownloadBuinesscard}
-            className="flex items-center bg-green-600 text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-green-700 transition cursor-pointer"
-          >
-            <FiMail className="mr-1 text-xs" /> Send Vcard via email
-          </button>
-          <button
-            onClick={handleRefresh}
-            className="flex items-center bg-[#91C8C4] text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-[#78B0AC] transition cursor-pointer"
-          >
-            <FiRefreshCw className="mr-1 text-xs" /> Refresh
-          </button>
-          <button
-            onClick={handleDownloadQR}
-            className="flex items-center bg-[#91C8C4] text-white px-2 py-1 rounded-lg shadow-md text-xs hover:bg-[#78B0AC] transition cursor-pointer"
-          >
-            <FiGrid className="mr-1 text-xs" /> QR
-          </button>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 mb-6">
+          {[
+            {
+              onClick: handleEdit,
+              icon: <FiEdit className="text-sm" />,
+              label: "Edit Information",
+            },
+            {
+              onClick: handleDownloadBuinesscard,
+              icon: <FiMail className="text-sm" />,
+              label: "Send Vcard via Email",
+            },
+            {
+              onClick: handleDownloadSignature,
+              icon: <FiDownload className="text-sm" />,
+              label: "Download Email Signature",
+            },
+            {
+              onClick: handleRefresh,
+              icon: <FiRefreshCw className="text-sm" />,
+              label: "Refresh Email Signature",
+            },
+            {
+              onClick: handleDownloadQR,
+              icon: <FiGrid className="text-sm" />,
+              label: "Download My QR",
+            },
+          ].map(({ onClick, icon, label }, i) => (
+            <div
+              key={i}
+              className="bg-white/90 border border-cardHover rounded-md shadow p-1.5 hover:shadow transition"
+            >
+              <button
+                onClick={onClick}
+                className="flex items-center gap-0.5 text-primary hover:text-darkTeal font-bold text-xs"
+              >
+                {icon}
+                {label}
+              </button>
+            </div>
+          ))}
         </div>
 
         <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start w-full min-h-[500px] px-4 py-6 rounded-lg overflow-hidden mt-0">
-          {/* Business Card Section */}
           <div className="flex flex-col items-center w-full max-w-lg mt-4">
             <PreviewCard
               title="Business Card"
@@ -183,7 +181,6 @@ ${userData.cellphone}
             />
           </div>
 
-          {/* Email Signature Section */}
           <div className="flex flex-col items-center w-full max-w-lg m-auto mt-10">
             <div
               id="email-signature-card"
@@ -201,60 +198,51 @@ ${userData.cellphone}
 
       {businessModalOpen && (
         <div
-          className="fixed inset-0 flex items-center justify-center  backdrop-blur-sm z-50 p-4"
+          className="fixed inset-0 flex items-center justify-center backdrop-blur-sm z-50 p-4"
           onClick={() => setBusinessModalOpen(false)}
         >
           <div
-            className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg md:max-w-2xl"
+            className="bg-white text-primary p-6 rounded-lg shadow-xl w-full max-w-lg md:max-w-2xl border border-cardHover"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="text-xl text-center font-bold text-black mb-6">
-              Send Business Card
-            </h2>
-            <div className="flex justify-between items-center border-b pb-2"></div>
-
-            <div>
-              <input
-                type="text"
-                name="Name"
-                placeholder="Fullname"
-                className="w-full border p-2 rounded-ms text-black mt-8"
-              />
-              <div>
-                <input
-                  type="text"
-                  name="Email"
-                  placeholder="Email Address"
-                  className="w-full border p-2 rounded-ms text-black mt-8"
-                />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  name="Description"
-                  placeholder="Description"
-                  className="w-full border p-6 rounded-md text-black mt-8"
-                />
-                <div className="flex justify-center mt-4">
-                  <button
-                    className="flex items-center gap-2 bg-teal-700 text-white px-4 rounded-md hover:bg-black cursor-pointer"
-                    onClick={handleSendEmail}
-                  >
-                    Send Email
-                  </button>
-                </div>
-              </div>
+            <h2 className="text-xl text-center mb-6">Send Business Card</h2>
+            <input
+              type="text"
+              name="Name"
+              placeholder="Fullname"
+              className="input-field mt-8"
+            />
+            <input
+              type="text"
+              name="Email"
+              placeholder="Email Address"
+              className="input-field mt-4"
+            />
+            <input
+              type="text"
+              name="Description"
+              placeholder="Description"
+              className="input-field mt-4 p-6"
+            />
+            <div className="flex justify-center mt-6">
+              <button
+                className="bg-primary text-white px-4 py-2 rounded-md hover:bg-[#104745] transition cursor-pointer"
+                onClick={handleSendEmail}
+              >
+                Send Email
+              </button>
             </div>
           </div>
         </div>
       )}
+
       {errorMessage && (
-        <div className="fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-md text-white text-center py-3 px-4 rounded-md z-50">
-          <div className="bg-white text-black p-6 rounded-lg shadow-lg text-center max-w-sm">
+        <div className="fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-md text-center py-3 px-4 z-50">
+          <div className="bg-cardBg text-primary p-6 rounded-lg shadow-lg text-center max-w-sm">
             <p className="text-lg">{errorMessage}</p>
             <button
               onClick={() => setErrorMessage(null)}
-              className="mt-4 bg-blue-500 px-4 py-2 rounded-md hover:bg-blue-600 cursor-pointer"
+              className="mt-4 bg-primary px-4 py-2 rounded-md hover:bg-[#104745] transition cursor-pointer text-white"
             >
               OK
             </button>

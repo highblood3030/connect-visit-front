@@ -113,7 +113,6 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
 
   return (
     <div className="space-y-6">
-
       {/* Displayed Address */}
       <div className="relative top-2">
         <label htmlFor="address" className="font-semibold block mb-1">
@@ -138,7 +137,7 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
           </label>
           <select
             className={`input-field appearance-none w-full pr-6 ${isPlaceholderSelected(
-              formData.location
+              formData.location,
             )}`}
             value={formData.location}
             onChange={(e) => {
@@ -172,23 +171,48 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
         <div className="grid grid-cols-2 gap-4 mt-4">
           <div className="col-span-2">
             <label className="block mb-1">Street</label>
-            <input type="text" className="input-field" value={formData.street || ""} readOnly />
+            <input
+              type="text"
+              className="input-field"
+              value={formData.street || ""}
+              readOnly
+            />
           </div>
           <div>
             <label className="block mb-1">City</label>
-            <input type="text" className="input-field" value={formData.city || ""} readOnly />
+            <input
+              type="text"
+              className="input-field"
+              value={formData.city || ""}
+              readOnly
+            />
           </div>
           <div>
             <label className="block mb-1">State/Province</label>
-            <input type="text" className="input-field" value={formData.state || ""} readOnly />
+            <input
+              type="text"
+              className="input-field"
+              value={formData.state || ""}
+              readOnly
+            />
           </div>
           <div>
             <label className="block mb-1">Postal Code</label>
-            <input type="text" className="input-field" value={formData.postalCode || ""} readOnly />
+            <input
+              type="text"
+              className="input-field"
+              value={formData.postalCode || ""}
+              readOnly
+            />
           </div>
           <div>
             <label className="block mb-1">Country</label>
-            <input type="text" className="input-field" value={formData.country || ""} readOnly />
+            <input
+              type="text"
+              className="input-field"
+              value={formData.country || ""}
+              readOnly
+            />
           </div>
         </div>
       </div>
@@ -239,23 +263,48 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
         <div className="grid grid-cols-2 gap-4 mt-4">
           <div className="col-span-2">
             <label className="block mb-1">Street</label>
-            <input type="text" className="input-field" value={formData.factoryStreet || ""} readOnly />
+            <input
+              type="text"
+              className="input-field"
+              value={formData.factoryStreet || ""}
+              readOnly
+            />
           </div>
           <div>
             <label className="block mb-1">City</label>
-            <input type="text" className="input-field" value={formData.factoryCity || ""} readOnly />
+            <input
+              type="text"
+              className="input-field"
+              value={formData.factoryCity || ""}
+              readOnly
+            />
           </div>
           <div>
             <label className="block mb-1">State/Province</label>
-            <input type="text" className="input-field" value={formData.factoryState || ""} readOnly />
+            <input
+              type="text"
+              className="input-field"
+              value={formData.factoryState || ""}
+              readOnly
+            />
           </div>
           <div>
             <label className="block mb-1">Postal Code</label>
-            <input type="text" className="input-field" value={formData.factoryPostalCode || ""} readOnly />
+            <input
+              type="text"
+              className="input-field"
+              value={formData.factoryPostalCode || ""}
+              readOnly
+            />
           </div>
           <div>
             <label className="block mb-1">Country</label>
-            <input type="text" className="input-field" value={formData.factoryCountry || ""} readOnly />
+            <input
+              type="text"
+              className="input-field"
+              value={formData.factoryCountry || ""}
+              readOnly
+            />
           </div>
         </div>
       </div>

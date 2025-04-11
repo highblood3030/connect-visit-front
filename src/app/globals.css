@@ -1,44 +1,30 @@
-@import "tailwindcss/preflight";
-@tailwind utilities;
+/* 🌐 Import Google Font */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap");
+
+/* 🌀 Tailwind CSS Import */
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  --font-sans: var(--font-geist-sans, Arial, Helvetica, sans-serif);
-  --font-mono: var(--font-geist-mono, monospace);
+/* 🎨 Theme Variables */
+@theme {
+  --font-sans: "Montserrat", Arial, Helvetica, sans-serif;
+  --color-primary: #145c5b;
+  --color-dark-teal: #0f3e3d;
+  --color-card-bg: #d7f0ed;
+  --color-card-hover: #b7e0da;
 }
 
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-/* Global Body Styles */
+/* 🧼 Global Styles */
 body {
-  background: var(--color-background);
   font-family: var(--font-sans);
-  margin: 0;
-  padding: 0;
+  font-weight: 700;
+  color: var(--color-primary);
+  background-color: #91c8c4;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-
-  /* for background-color */
   min-height: 100vh;
-  margin: 0;
-  padding: 0;
   overflow-x: hidden;
-  background-color: #91c8c4;
 }
 
-/* Float Animation (Smooth bounce for hints and icons) */
 @keyframes float {
   0%,
   100% {
@@ -53,26 +39,36 @@ body {
   animation: float 3s ease-in-out infinite;
 }
 
-/* Optional: Button Reset and Rounded */
 .button-reset {
-  @apply appearance-none bg-transparent border-none p-0 m-0;
+  all: unset;
 }
 
-/* Optional: Utility class for responsive cards */
 .card {
-  @apply bg-white rounded-2xl shadow-xl p-8;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
 }
 
-/* Optional: Hide Scrollbar (if needed) */
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
-.hide-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+
+.input-field {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
 }
 
-/* Input Field Styling */
-.input-field {
-  @apply w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#145C5B] transition-all focus:border-[#145C5B];
+.input-field:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary);
 }
