@@ -46,7 +46,6 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
     const file = e.target.files?.[0];
     if (file) {
       const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
-
       if (!allowedTypes.includes(file.type)) {
         alert("Only JPG, JPEG, and PNG formats are allowed.");
         e.target.value = "";
@@ -79,8 +78,6 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
     }
   };
 
-  const isPlaceholderSelected = (value: string) => value === "";
-
   const getLogoOptions = (companyValue: string) => {
     return logoOptionsMap[companyValue] || [];
   };
@@ -91,17 +88,17 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
         <div className="w-28 h-28 rounded-full border border-gray-300 overflow-hidden relative top-2">
           <img
             src={formData.profileImage || "/profile-placeholder.jpeg"}
+            alt="Profile Preview"
             className="object-cover w-full h-full"
           />
         </div>
         <div>
           <label
             htmlFor="upload-photo"
-            className="cursor-pointer bg-[#1F7F7D] hover:bg-[#145C5B] text-white px-4 py-2 rounded-lg text-sm"
+            className="cursor-pointer bg-primary hover:bg-[#0d4746] text-white px-4 py-2 rounded-lg text-sm"
           >
             Choose a file
           </label>
-
           <input
             type="file"
             id="upload-photo"
@@ -113,7 +110,7 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        <div className="relative">
+        <div>
           <label htmlFor="firstname">
             First Name<span className="ml-1 text-red-500">*</span>
           </label>
@@ -126,7 +123,7 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
           />
         </div>
 
-        <div className="relative">
+        <div>
           <label htmlFor="middlename">Middle Name</label>
           <input
             type="text"
@@ -136,7 +133,7 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
           />
         </div>
 
-        <div className="relative">
+        <div>
           <label htmlFor="lastname">
             Last Name<span className="ml-1 text-red-500">*</span>
           </label>
@@ -150,35 +147,33 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
         </div>
       </div>
 
-      <div className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="flex flex-col w-full">
-            <label htmlFor="honorificprefix">Honorific Prefix</label>
-            <input
-              type="text"
-              className="input-field pr-6"
-              value={formData.honorificprefix}
-              onChange={(e) =>
-                handleInputChange("honorificprefix", e.target.value)
-              }
-            />
-          </div>
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="honorificprefix">Honorific Prefix</label>
+          <input
+            type="text"
+            className="input-field pr-6"
+            value={formData.honorificprefix}
+            onChange={(e) =>
+              handleInputChange("honorificprefix", e.target.value)
+            }
+          />
+        </div>
 
-          <div className="flex flex-col w-full">
-            <label htmlFor="honorificsuffix">Honorific Suffix</label>
-            <input
-              type="text"
-              className="input-field pr-6"
-              value={formData.honorificsuffix}
-              onChange={(e) =>
-                handleInputChange("honorificsuffix", e.target.value)
-              }
-            />
-          </div>
+        <div>
+          <label htmlFor="honorificsuffix">Honorific Suffix</label>
+          <input
+            type="text"
+            className="input-field pr-6"
+            value={formData.honorificsuffix}
+            onChange={(e) =>
+              handleInputChange("honorificsuffix", e.target.value)
+            }
+          />
         </div>
       </div>
 
-      <div className="relative">
+      <div>
         <label htmlFor="jobtitle">
           Job Title<span className="ml-1 text-red-500">*</span>
         </label>
@@ -191,17 +186,16 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
         />
       </div>
 
-      <div className="relative">
+      <div>
         <label htmlFor="company">
           Company<span className="ml-1 text-red-500">*</span>
         </label>
         <select
-          className={`input-field appearance-none`}
+          className="input-field appearance-none"
           value={formData.company}
-          onChange={(e) => {
-            const value = e.target.value;
-            setFormData({ ...formData, company: value });
-          }}
+          onChange={(e) =>
+            setFormData({ ...formData, company: e.target.value })
+          }
           required
         >
           <option value=""></option>
@@ -213,7 +207,7 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
         </select>
       </div>
 
-      <div className="relative">
+      <div>
         <label htmlFor="logo">
           Logo<span className="ml-1 text-red-500">*</span>
         </label>
@@ -234,14 +228,14 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
         </select>
       </div>
 
-      <div className="relative">
+      <div>
         <label htmlFor="website">Website</label>
         <input
           type="text"
           className="input-field"
           value={formData.website}
           onChange={(e) => {
-            let value = e.target.value.replace(/\/$/, "");
+            const value = e.target.value.replace(/\/$/, "");
             setFormData({ ...formData, website: value });
             setWebsiteError(value !== "" && !isValidWebsite(value));
           }}

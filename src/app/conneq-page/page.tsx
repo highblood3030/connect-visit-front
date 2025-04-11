@@ -130,8 +130,8 @@ export default function ConneqPage() {
 
   return (
     <Layout>
-      <div className="w-full min-h-screen overflow-hidden">
-        <h1 className="text-lg md:text-xl lg:text-xl font-bold text-[#145C5B] mt-8">
+      <div className="max-w-7xl mx-auto px-4 h-[calc(100vh-4rem)] overflow-auto">
+        <h1 className="text-lg md:text-xl lg:text-xl font-bold text-primary mt-8 md:mt-16 font-montserrat">
           CONNEQ PAGE
         </h1>
 

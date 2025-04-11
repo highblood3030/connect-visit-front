@@ -137,7 +137,7 @@ export default function ConneqTag() {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 h-[calc(100vh-4rem)] overflow-auto">
-        <h1 className="text-lg md:text-xl lg:text-xl font-bold text-[#145C5B] mt-8">
+        <h1 className="text-lg md:text-xl lg:text-xl font-bold text-primary mt-8 md:mt-16 font-montserrat">
           CONNEQ TAG
         </h1>
 

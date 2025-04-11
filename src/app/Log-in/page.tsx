@@ -110,24 +110,24 @@ const LandingPage = () => {
           </div>
         ))}
       </Slider>
-      {/* 🎯 Hand image pinned to bottom of screen */}
+      {/* Hand image pinned even further bottom-right */}
       <div
         className="
-          absolute 
-          bottom-0 
-          left-1/2 
-          transform 
-          -translate-x-1/2 
-          md:left-auto 
-          md:right-6 
-          md:translate-x-0 
-          z-20
-        "
+    absolute 
+    bottom-[-10px] sm:bottom-[-20px] 
+    right-[-10px] sm:right-[-20px] 
+    z-20 
+    pointer-events-none
+  "
       >
         <img
           src="/hand1.png"
           alt="Hand Graphic"
-          className="h-32 w-auto sm:h-40 md:h-48 lg:h-56 object-contain md:scale-125 transition-transform duration-300 ease-in-out"
+          className="
+      h-[20rem] sm:h-[26rem] md:h-[32rem] lg:h-[36rem]
+      object-contain
+      transition-transform duration-300 ease-in-out
+    "
         />
       </div>
     </div>

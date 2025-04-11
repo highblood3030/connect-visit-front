@@ -11,7 +11,6 @@ import SocialMediaAccount from "./SocialMediaAccounts";
 import Others from "./Others";
 import PreviewCard from "./PreviewCard";
 
-// Data interface
 export interface UserFormData {
   firstname: string;
   middlename?: string;
@@ -40,19 +39,12 @@ export default function EditUser() {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null!);
 
-  // Sidebar + Tabs
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
-
-  // Profile Image
   const [profileImage, setProfileImage] = useState("/profile-placeholder.jpeg");
-
-  // Checkbox for Privacy Notice
   const [isChecked, setIsChecked] = useState(false);
-
   const [showError, setShowError] = useState(false);
 
-  // Default form data
   const defaultFormData: UserFormData = {
     firstname: "",
     middlename: "",
@@ -77,18 +69,13 @@ export default function EditUser() {
     note: "",
   };
 
-  // Load saved data from localStorage on mount
   useEffect(() => {
     const storedData = localStorage.getItem("userFormData");
-    if (storedData) {
-      setFormData(JSON.parse(storedData));
-    }
+    if (storedData) setFormData(JSON.parse(storedData));
   }, []);
 
-  // Main form data
   const [formData, setFormData] = useState<UserFormData>(defaultFormData);
 
-  // Tabs
   const tabs = [
     "PERSONAL INFORMATION",
     "CONTACT INFORMATION",
@@ -97,7 +84,6 @@ export default function EditUser() {
     "OTHERS",
   ];
 
-  // Handle text input changes
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -111,7 +97,6 @@ export default function EditUser() {
     });
   };
 
-  // Handle profile image upload
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -120,7 +105,6 @@ export default function EditUser() {
     }
   };
 
-  // Handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -130,21 +114,19 @@ export default function EditUser() {
     }
 
     setShowError(false);
-    console.log("🚀 Form submitted!", formData);
     localStorage.setItem("userFormData", JSON.stringify(formData));
     router.push("/conneq-biz");
   };
 
   return (
     <Layout>
-      <div className="max-w-7xl mx-auto text-black">
-        <h1 className="text-3xl font-extrabold text-[#145C5B] mt-8">
+      <div className="max-w-7xl mx-auto px-4 font-montserrat text-primary">
+        <h1 className="text-3xl font-extrabold mt-8 md:mt-16 text-primary font-montserrat">
           MY INFORMATION
         </h1>
 
-        {/* Main content area: Tabs + Preview */}
-        <div className="flex flex-col lg:flex-row space-y-8 lg:space-x-8">
-          {/* Left side: Tabs + Form */}
+        <div className="flex flex-col lg:flex-row space-y-8 lg:space-x-8 mt-6">
+          {/* Left Panel */}
           <div className="w-full lg:w-2/3 bg-white rounded-xl shadow-xl p-6">
             <form ref={formRef} onSubmit={handleSubmit}>
               {/* Tabs */}
@@ -155,8 +137,8 @@ export default function EditUser() {
                     onClick={() => setActiveTab(idx)}
                     className={`cursor-pointer px-3 py-1 text-sm font-medium ${
                       idx === activeTab
-                        ? "text-[#145C5B] border-b-2 border-[#145C5B]"
-                        : "text-gray-500 hover:text-[#145C5B]"
+                        ? "text-primary border-b-2 border-primary"
+                        : "text-gray-500 hover:text-primary"
                     }`}
                   >
                     {tab}
@@ -199,7 +181,7 @@ export default function EditUser() {
                 />
               )}
 
-              {/* Privacy Policy Link */}
+              {/* Privacy Notice */}
               <div className="text-center mt-6">
                 <a
                   href="https://dnl.com.ph/privacy-policy/"
@@ -211,7 +193,9 @@ export default function EditUser() {
                 </a>
               </div>
 
-              {/* Checkbox Confirmation */}
+
+              {/* Checkbox + Error */}
+
               <div className="relative flex flex-col space-y-2 mt-4">
                 <div className="flex items-start space-x-2">
                   <input
@@ -224,6 +208,7 @@ export default function EditUser() {
                     I confirm that I have read, understood, and agree with the
                     Privacy Notice of {formData.company || "(company name)"}. I
                     understand that some of my personal information, such as my
+
                     personal mobile number, will be used for as part of my email
                     signature, business card and virtual card. I understand that
                     my consent does not preclude the existence of other criteria
@@ -240,7 +225,7 @@ export default function EditUser() {
                 )}
               </div>
 
-              {/* Navigation Buttons */}
+              {/* Buttons */}
               <div className="flex justify-end space-x-4 mt-6">
                 <button
                   type="button"
@@ -253,12 +238,8 @@ export default function EditUser() {
                 <button
                   type="button"
                   onClick={() => {
-                    // This forces the form to check all 'required' fields
-                    if (formRef.current && !formRef.current.reportValidity()) {
-                      // If validation fails, stop here so user sees the native error
+                    if (formRef.current && !formRef.current.reportValidity())
                       return;
-                    }
-                    // Otherwise, move to the next tab
                     setActiveTab((prev) => prev + 1);
                   }}
                   disabled={activeTab === tabs.length - 1}
@@ -266,10 +247,9 @@ export default function EditUser() {
                 >
                   Next
                 </button>
-
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-[#145C5B] text-white rounded"
+                  className="px-4 py-2 bg-primary text-white rounded hover:bg-darkTeal transition"
                 >
                   Save
                 </button>
@@ -277,9 +257,9 @@ export default function EditUser() {
             </form>
           </div>
 
-          {/* Right side: Preview Cards */}
+          {/* Right Panel: Preview */}
           <div className="w-full lg:w-1/3 flex flex-col">
-            <h2 className="text-2xl font-bold text-green mb-4">PREVIEW</h2>
+            <h2 className="text-2xl font-bold text-primary mb-4">PREVIEW</h2>
             <PreviewCard
               title="Email Signature"
               profileImage={profileImage}
