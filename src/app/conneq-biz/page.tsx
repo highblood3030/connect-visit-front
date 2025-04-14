@@ -131,7 +131,7 @@ ${userData.cellphone}
         <div className="mb-4 text-center md:text-left mt-8 md:mt-16">
           <h1 className="text-2xl break-words font-bold">MY CARDS</h1>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 mb-6 cursor-pointer">
           {[
             {
               onClick: handleEdit,
@@ -161,11 +161,11 @@ ${userData.cellphone}
           ].map(({ onClick, icon, label }, i) => (
             <div
               key={i}
-              className="bg-white/90 border border-cardHover rounded-md shadow p-1.5 hover:shadow transition"
+              className="bg-white/90 border border-cardHover rounded-md shadow p-1.5 hover:shadow transition cursor-pointer"
             >
               <button
                 onClick={onClick}
-                className="flex items-center gap-0.5 text-primary hover:text-darkTeal font-bold text-xs"
+                className="flex items-center gap-0.5 text-primary hover:text-darkTeal font-bold text-xs cursor-pointer"
               >
                 {icon}
                 {label}
@@ -240,7 +240,7 @@ ${userData.cellphone}
 
       {errorMessage && (
         <div className="fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-md text-center py-3 px-4 z-50">
-          <div className="bg-cardBg text-primary p-6 rounded-lg shadow-lg text-center max-w-sm">
+          <div className="bg-white text-primary p-6 rounded-lg shadow-lg text-center max-w-sm">
             <p className="text-lg">{errorMessage}</p>
             <button
               onClick={() => setErrorMessage(null)}

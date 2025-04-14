@@ -316,11 +316,11 @@ export default function ConneqTag() {
         </div>
         {/* Pagination */}
         <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center p-3 bg-gray-100 gap-2">
-          <button className="px-4 py-2 border rounded bg-gray-200 text-gray-500 cursor-not-allowed">
+          <button className="px-4 py-2 border rounded bg-gray-200 text-gray-500 cursor-pointer hover:bg-green-100">
             ◀
           </button>
           <span className="text-gray-600">Page 1 of 1</span>
-          <button className="px-4 py-2 border rounded bg-gray-200 text-gray-500 cursor-not-allowed">
+          <button className="px-4 py-2 border rounded bg-gray-200 text-gray-500 cursor-pointer hover:bg-green-100">
             ▶
           </button>
         </div>
