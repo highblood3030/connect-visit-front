@@ -309,18 +309,20 @@ export default function ConneqPage() {
               {/* Name */}
               <div>
                 <label className="block text-black font-semibold mb-1">
-                  Name
+                  Name<span className="ml-1 text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   name="name"
+                  maxLength={30}
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="e.g. Juan Dela Cruz"
+                  placeholder="Item Name"
                   required
                   className="w-full border p-2 rounded-md text-black"
                 />
               </div>
+
 
               {/* Description */}
               <div>
@@ -329,17 +331,19 @@ export default function ConneqPage() {
                 </label>
                 <textarea
                   name="description"
+                  maxLength={50}
                   value={formData.description}
                   onChange={handleChange}
-                  placeholder="Short description..."
+                  placeholder="Description"
                   className="w-full border p-2 rounded-md text-black"
                 ></textarea>
               </div>
 
+
               {/* Status */}
               <div>
                 <label className="block text-black font-semibold mb-1">
-                  Status
+                  Status<span className="ml-1 text-red-500">*</span>
                 </label>
                 <select
                   name="status"
@@ -355,23 +359,49 @@ export default function ConneqPage() {
               {/* File Upload */}
               <div>
                 <label className="block text-black font-semibold mb-1">
-                  Upload File(s)
+                  Upload File(s)<span className="ml-1 text-red-500">*</span>
                 </label>
                 <p className="text-sm text-gray-600 mb-2">
-                  Supports JPG, PNG, PDF up to 1MB
+                  Supports JPG, JPEG, GIF, PNG, HEIF, PDF.
                 </p>
                 <input
                   type="file"
-                  accept="image/*,application/pdf"
-                  onChange={handleFileChange}
+                  accept=".jpg,.jpeg,.gif,.png,.heif,.pdf,image/jpeg,image/jpg,image/gif,image/png,image/heif,application/pdf"
+                  onChange={(e) => {
+                    const files = e.target.files;
+                    if (!files || files.length === 0) {
+                      return;
+                    }
+
+                    const file = files[0];
+                    const allowedTypes = [
+                      "image/jpeg",
+                      "image/jpg",
+                      "image/png",
+                      "image/gif",
+                      "image/heif",
+                      "application/pdf"
+                    ];
+
+                    if (!allowedTypes.includes(file.type)) {
+                      alert("Invalid file type. Please upload JPG, JPEG, PNG, GIF, HEIF, or PDF.");
+                      e.target.value = "";
+                      return;
+                    }
+
+                    handleFileChange(e);
+                  }}
+                  required
                   className="w-full border p-2 rounded-md text-black"
                 />
+
                 {formData.file && (
                   <p className="text-sm text-gray-600 mt-1">
                     Selected file: {formData.file.name}
                   </p>
                 )}
               </div>
+
 
               {/* Category (Read-Only) */}
               {formData.file && (

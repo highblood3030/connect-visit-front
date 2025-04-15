@@ -30,7 +30,6 @@ const SocialMediaAccount: React.FC<SocialMediaProps> = ({
             className="appearance-none w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
           >
             <option value=""></option>
-            <option value="fb1">facebook.com/example</option>
           </select>
         </div>
 
@@ -45,7 +44,7 @@ const SocialMediaAccount: React.FC<SocialMediaProps> = ({
             className="appearance-none w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
           >
             <option value=""></option>
-            <option value="link1">
+            <option value="linkedin.com/company/d&l-industries-inc.">
               linkedin.com/company/d&l-industries-inc.
             </option>
           </select>

@@ -7,7 +7,7 @@ interface OthersProps {
 
 const Others: React.FC<OthersProps> = ({ formData, handleInputChange }) => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length <= 20) {
+    if (e.target.value.length <= 50) {
       handleInputChange(e);
     }
   };
@@ -24,9 +24,6 @@ const Others: React.FC<OthersProps> = ({ formData, handleInputChange }) => {
         onChange={handleChange}
         className="w-full h-32 border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-teal-500 resize-none"
       />
-      <p className="text-sm text-gray-500 mt-1 text-center">
-        {formData.note?.length || 0}/20 characters
-      </p>
     </div>
   );
 };

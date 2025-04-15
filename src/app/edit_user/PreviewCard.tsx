@@ -1,7 +1,5 @@
 "use client";
 
-import { FaPhone, FaGlobe, FaEnvelope } from "react-icons/fa";
-
 type Props = {
   title: string;
   profileImage: string;
@@ -16,7 +14,7 @@ export default function PreviewCard({ title, formData }: Props) {
     .split(" ")
     .map(
       (word: string) =>
-        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
+        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
     )
     .join(" ");
 
@@ -28,9 +26,8 @@ export default function PreviewCard({ title, formData }: Props) {
 
       {/* Card */}
       <div
-        className={`relative w-full max-w-[360px] ${
-          title === "Business Card" ? "min-h-[216px]" : "h-[200px]"
-        } rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-105 duration-300 mt-0`}
+        className={`relative w-full max-w-[360px] ${title === "Business Card" ? "min-h-[216px]" : "min-h-[210px]"
+          } rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-105 duration-300 mt-0`}
       >
         <img
           src="/Background-ESign.png"
@@ -40,7 +37,7 @@ export default function PreviewCard({ title, formData }: Props) {
 
         {/* EMAIL SIGNATURE */}
         {title === "Email Signature" && (
-          <div className="relative w-full max-w-[300px] mx-auto flex flex-col items-center justify-start">
+          <div className="relative w-full max-w-[360px] mx-auto flex flex-col items-center justify-start px-4 py-3 space-y-3">
             <img
               src="/qr.png"
               alt="QR Code"
@@ -59,28 +56,69 @@ export default function PreviewCard({ title, formData }: Props) {
               </p>
             </div>
 
-            <div className="absolute top-17 left-3 text-left leading-tight">
-              <p className="text-xs flex items-center">
-                <FaPhone className="mr-1 text-green-700" />
-                {formData.cellphone}
-              </p>
-              <p className="text-xs flex items-center">
-                <FaEnvelope className="mr-1 text-green-700" />
-                {formData.workemail}
-              </p>
-              <p className="italic text-xs text-gray-600 flex items-center">
-                <FaGlobe className="mr-1" />
-                {formData.website}
-              </p>
-              <div className="text-xs text-gray-600 mt-1">
-                <p>{formData.street}</p>
-                <p>
-                  {formData.city}, {formData.state}
-                </p>
-                <p>
-                  {formData.postalCode}, {formData.country}
-                </p>
-              </div>
+            <div className="absolute top-17 left-3 text-left leading-tight space-y-1">
+              {(formData.street || formData.city || formData.state || formData.postalCode || formData.country) && (
+                <div className="text-xs flex items-center">
+                  <img
+                    src="/Location.png"
+                    alt="Location Icon"
+                    className="w-10 h-6 mr-1"
+                  />
+                  <div className="text-xs text-gray-600 mt-1">
+                    {formData.street && <p>{formData.street}</p>}
+                    {(formData.city || formData.state) && (
+                      <p>{formData.city}{formData.city && formData.state ? ', ' : ''}{formData.state}</p>
+                    )}
+                    {(formData.postalCode || formData.country) && (
+                      <p>{formData.postalCode}{formData.postalCode && formData.country ? ', ' : ''}{formData.country}</p>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {formData.cellphone && (
+                <div className="italic text-xs text-gray-600 flex items-center">
+                  <img
+                    src="/Cellphone.png"
+                    alt="Cellphone Icon"
+                    className="w-10 h-6 mr-1"
+                  />
+                  {formData.cellphone}
+                </div>
+              )}
+
+              {formData.workphone && (
+                <div className="italic text-xs text-gray-600 flex items-center">
+                  <img
+                    src="/Workphone.png"
+                    alt="Workphone Icon"
+                    className="w-10 h-6 mr-1"
+                  />
+                  {formData.workphone}
+                </div>
+              )}
+
+              {formData.workemail && (
+                <div className="text-xs flex items-center">
+                  <img
+                    src="/Email.png"
+                    alt="Email Icon"
+                    className="w-10 h-6 mr-1"
+                  />
+                  {formData.workemail}
+                </div>
+              )}
+
+              {formData.personalemail && (
+                <div className="text-xs flex items-center">
+                  <img
+                    src="/Email.png"
+                    alt="Personal Email Icon"
+                    className="w-10 h-6 mr-1"
+                  />
+                  {formData.personalemail}
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -100,24 +138,153 @@ export default function PreviewCard({ title, formData }: Props) {
             </p>
 
             <div className="flex flex-col items-start w-full mt-1 space-y-1 px-4">
-              <p className="text-xs flex items-center">
-                <FaPhone className="mr-1 text-green-700" />
-                {formData.cellphone}
-              </p>
-              <p className="text-xs flex items-center">
-                <FaEnvelope className="mr-1 text-green-700" />
-                {formData.workemail}
-              </p>
-              <p className="text-xs flex items-center">
-                <FaGlobe className="mr-1 text-green-700" />
-                {formData.website}
-              </p>
+              {(formData.street || formData.city || formData.state || formData.postalCode || formData.country) && (
+                <div className="text-xs flex items-center">
+                  <img
+                    src="/Location.png"
+                    alt="Location Icon"
+                    className="w-10 h-6 mr-1"
+                  />
+                  <div className="text-xs text-gray-600 mt-1">
+                    {formData.street && <p>{formData.street}</p>}
+                    {(formData.city || formData.state) && (
+                      <p>{formData.city}{formData.city && formData.state ? ', ' : ''}{formData.state}</p>
+                    )}
+                    {(formData.postalCode || formData.country) && (
+                      <p>{formData.postalCode}{formData.postalCode && formData.country ? ', ' : ''}{formData.country}</p>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {formData.workemail && (
+                <div className="text-xs flex items-center">
+                  <img
+                    src="/Email.png"
+                    alt="Email Icon"
+                    className="w-10 h-6 mr-1"
+                  />
+                  {formData.workemail}
+                </div>
+              )}
+
+              {formData.personalemail && (
+                <div className="text-xs flex items-center">
+                  <img
+                    src="/Email.png"
+                    alt="Email Icon"
+                    className="w-10 h-6 mr-1"
+                  />
+                  {formData.personalemail}
+                </div>
+              )}
+
+              {(formData.cellphone || formData.whatsapp || formData.viber || formData.wechat) && (
+                <>
+                  {formData.cellphone && (
+                    <div className="text-xs flex items-center">
+                      <img
+                        src="/Cellphone.png"
+                        alt="Cellphone Icon"
+                        className="w-10 h-6 mr-1"
+                      />
+                      {formData.cellphone}
+
+                      <div className="flex items-center gap-[1px] ml-1">
+                        {formData.whatsapp === formData.cellphone && (
+                          <img
+                            src="/Whatsapp-Duplicate.png"
+                            alt="Whatsapp Icon"
+                            className="w-4 h-4"
+                          />
+                        )}
+                        {formData.viber === formData.cellphone && (
+                          <img
+                            src="/Viber-Duplicate.png"
+                            alt="Viber Icon"
+                            className="w-4 h-4"
+                          />
+                        )}
+                        {formData.wechat === formData.cellphone && (
+                          <img
+                            src="/Wechat-Duplicate.png"
+                            alt="Wechat Icon"
+                            className="w-4 h-4"
+                          />
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {formData.whatsapp && formData.whatsapp !== formData.cellphone && (
+                    <div className="text-xs flex items-center">
+                      <img
+                        src="/Whatsapp.png"
+                        alt="Whatsapp Icon"
+                        className="w-10 h-6 mr-1"
+                      />
+                      {formData.whatsapp}
+                    </div>
+                  )}
+
+                  {formData.viber && formData.viber !== formData.cellphone && (
+                    <div className="text-xs flex items-center">
+                      <img
+                        src="/Viber.png"
+                        alt="Viber Icon"
+                        className="w-10 h-6 mr-1"
+                      />
+                      {formData.viber}
+                    </div>
+                  )}
+
+                  {formData.wechat && formData.wechat !== formData.cellphone && (
+                    <div className="text-xs flex items-center">
+                      <img
+                        src="/Wechat.png"
+                        alt="Wechat Icon"
+                        className="w-10 h-6 mr-1"
+                      />
+                      {formData.wechat}
+                    </div>
+                  )}
+                </>
+              )}
+
+              {formData.workphone && (
+                <div className="text-xs flex items-center">
+                  <img
+                    src="/Workphone.png"
+                    alt="Workphone Icon"
+                    className="w-10 h-6 mr-1"
+                  />
+                  {formData.workphone}
+                </div>
+              )}
+
+              {formData.linkedin && (
+                <div className="text-xs flex items-center">
+                  <img
+                    src="/LinkedIn.png"
+                    alt="LinkedIn Icon"
+                    className="w-10 h-6 mr-1"
+                  />
+                  {formData.linkedin}
+                </div>
+              )}
+
+              {formData.website && (
+                <div className="text-xs flex items-center">
+                  <img
+                    src="/Website.png"
+                    alt="Website Icon"
+                    className="w-10 h-6 mr-1"
+                  />
+                  {formData.website}
+                </div>
+              )}
             </div>
 
-            <p className="text-xs text-center text-gray-600 mt-1">
-              {formData.street}, {formData.city}, {formData.state},{" "}
-              {formData.postalCode}, {formData.country}
-            </p>
             <img
               src="/DNL-BC.png"
               alt="D&L Logo"

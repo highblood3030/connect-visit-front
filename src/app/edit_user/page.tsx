@@ -134,16 +134,22 @@ export default function EditUser() {
                 {tabs.map((tab, idx) => (
                   <span
                     key={idx}
-                    onClick={() => setActiveTab(idx)}
-                    className={`cursor-pointer px-3 py-1 text-sm font-medium ${
-                      idx === activeTab
+                    onClick={() => {
+                      if (idx > activeTab) {
+                        // Moving forward: check validity before advancing
+                        if (formRef.current && !formRef.current.reportValidity()) return;
+                      }
+                      setActiveTab(idx);
+                    }}
+                    className={`cursor-pointer px-3 py-1 text-sm font-medium ${idx === activeTab
                         ? "text-primary border-b-2 border-primary"
                         : "text-gray-500 hover:text-primary"
-                    }`}
+                      }`}
                   >
                     {tab}
                   </span>
                 ))}
+
               </div>
 
               {/* Tab Content */}
