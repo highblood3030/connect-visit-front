@@ -22,13 +22,9 @@ const logoOptionsMap: Record<string, string[]> = {
 
 const isValidName = (value: string) => /^[A-Za-z\s-]{0,20}$/.test(value);
 const isValidJobtitle = (value: string) => /^[A-Za-z\s().-]{0,40}$/.test(value);
-const isValidWebsite = (value: string) =>
-  /^(https?:\/\/)?([a-zA-Z0-9.-]+)\.[a-zA-Z]{2,}([\/\w .-]*)?$/.test(value);
 const isValidHonorific = (value: string) => /^[A-Za-z\s.,-]{0,20}$/.test(value);
 
 export default function PersonalInformation({ formData, setFormData }: Props) {
-  const [websiteError, setWebsiteError] = React.useState(false);
-
   useEffect(() => {
     if (formData.company) {
       const logos = logoOptionsMap[formData.company] || [];
@@ -215,9 +211,8 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
           className="input-field appearance-none"
           value={formData.logo}
           onChange={(e) => setFormData({ ...formData, logo: e.target.value })}
-          disabled={
-            !formData.company || logoOptionsMap[formData.company]?.length === 1
-          }
+          disabled={formData.company && logoOptionsMap[formData.company]?.length === 1}
+          required
         >
           <option value=""></option>
           {getLogoOptions(formData.company).map((option) => (
@@ -231,20 +226,14 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
       <div>
         <label htmlFor="website">Website</label>
         <input
-          type="text"
+          type="url"
           className="input-field"
           value={formData.website}
           onChange={(e) => {
             const value = e.target.value.replace(/\/$/, "");
             setFormData({ ...formData, website: value });
-            setWebsiteError(value !== "" && !isValidWebsite(value));
           }}
         />
-        {websiteError && (
-          <p className="text-red-500 text-sm mt-1">
-            Invalid website URL format.
-          </p>
-        )}
       </div>
     </div>
   );

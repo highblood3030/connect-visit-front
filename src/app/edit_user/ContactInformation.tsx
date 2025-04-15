@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import type { UserFormData } from "./edituserdashboard";
 
 interface ContactInformationProps {
@@ -10,25 +10,18 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
   formData,
   handleInputChange,
 }) => {
-  const [emailError, setEmailError] = useState("");
-  const [cellphoneError, setCellphoneError] = useState("");
-  const [whatsappError, setWhatsappError] = useState("");
-  const [viberError, setViberError] = useState("");
-  const [wechatError, setWechatError] = useState("");
-
   useEffect(() => {
     console.log("ContactInformation component mounted");
     console.log("formData:", formData);
   }, [formData]);
 
-  const handleCellphoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const formatPhoneNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/[^\d]/g, "");
 
     if (value === "" || value === "63") {
       handleInputChange({
         target: { name: e.target.name, value: "" },
       } as React.ChangeEvent<HTMLInputElement>);
-      setCellphoneError("");
       return;
     }
 
@@ -56,160 +49,10 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
     handleInputChange({
       target: { name: e.target.name, value: formattedValue },
     } as React.ChangeEvent<HTMLInputElement>);
-
-    if (value.length === 0) {
-      setCellphoneError("");
-    } else if (value.length !== 10) {
-      setCellphoneError("The number should contain exactly 10 digits.");
-    } else {
-      setCellphoneError("");
-    }
-  };
-
-  const handleWhatsappChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/[^\d]/g, "");
-
-    if (value === "" || value === "63") {
-      handleInputChange({
-        target: { name: e.target.name, value: "" },
-      } as React.ChangeEvent<HTMLInputElement>);
-      setWhatsappError("");
-      return;
-    }
-
-    if (value.startsWith("63")) {
-      value = value.slice(2);
-    }
-
-    if (value.length > 0 && !value.startsWith("9")) {
-      return;
-    }
-
-    if (value.length > 10) {
-      value = value.slice(0, 10);
-    }
-
-    let formattedValue = "+63" + value;
-
-    if (value.length > 3) {
-      formattedValue = `+63${value.slice(0, 3)}-${value.slice(3, 6)}`;
-    }
-    if (value.length > 6) {
-      formattedValue = `+63${value.slice(0, 3)}-${value.slice(3, 6)}-${value.slice(6)}`;
-    }
-
-    handleInputChange({
-      target: { name: e.target.name, value: formattedValue },
-    } as React.ChangeEvent<HTMLInputElement>);
-
-    if (value.length === 0) {
-      setWhatsappError("");
-    } else if (value.length !== 10) {
-      setWhatsappError("The number should contain exactly 10 digits.");
-    } else {
-      setWhatsappError("");
-    }
-  };
-
-  const handleViberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/[^\d]/g, "");
-
-    if (value === "" || value === "63") {
-      handleInputChange({
-        target: { name: e.target.name, value: "" },
-      } as React.ChangeEvent<HTMLInputElement>);
-      setViberError("");
-      return;
-    }
-
-    if (value.startsWith("63")) {
-      value = value.slice(2);
-    }
-
-    if (value.length > 0 && !value.startsWith("9")) {
-      return;
-    }
-
-    if (value.length > 10) {
-      value = value.slice(0, 10);
-    }
-
-    let formattedValue = "+63" + value;
-
-    if (value.length > 3) {
-      formattedValue = `+63${value.slice(0, 3)}-${value.slice(3, 6)}`;
-    }
-    if (value.length > 6) {
-      formattedValue = `+63${value.slice(0, 3)}-${value.slice(3, 6)}-${value.slice(6)}`;
-    }
-
-    handleInputChange({
-      target: { name: e.target.name, value: formattedValue },
-    } as React.ChangeEvent<HTMLInputElement>);
-
-    if (value.length === 0) {
-      setViberError("");
-    } else if (value.length !== 10) {
-      setViberError("The number should contain exactly 10 digits.");
-    } else {
-      setViberError("");
-    }
-  };
-
-  const handleWechatChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/[^\d]/g, "");
-
-    if (value === "" || value === "63") {
-      handleInputChange({
-        target: { name: e.target.name, value: "" },
-      } as React.ChangeEvent<HTMLInputElement>);
-      setWechatError("");
-      return;
-    }
-
-    if (value.startsWith("63")) {
-      value = value.slice(2);
-    }
-
-    if (value.length > 0 && !value.startsWith("9")) {
-      return;
-    }
-
-    if (value.length > 10) {
-      value = value.slice(0, 10);
-    }
-
-    let formattedValue = "+63" + value;
-
-    if (value.length > 3) {
-      formattedValue = `+63${value.slice(0, 3)}-${value.slice(3, 6)}`;
-    }
-    if (value.length > 6) {
-      formattedValue = `+63${value.slice(0, 3)}-${value.slice(3, 6)}-${value.slice(6)}`;
-    }
-
-    handleInputChange({
-      target: { name: e.target.name, value: formattedValue },
-    } as React.ChangeEvent<HTMLInputElement>);
-
-    if (value.length === 0) {
-      setWechatError("");
-    } else if (value.length !== 10) {
-      setWechatError("The number should contain exactly 10 digits.");
-    } else {
-      setWechatError("");
-    }
   };
 
   const handleWorkEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleInputChange(e);
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (e.target.value && !emailRegex.test(e.target.value)) {
-      setEmailError("Invalid email format");
-    } else {
-      setEmailError("");
-    }
   };
 
   return (
@@ -221,12 +64,9 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           placeholder="+63XXX-XXX-XXXX"
           name="cellphone"
           value={formData?.cellphone || ""}
-          onChange={handleCellphoneChange}
+          onChange={formatPhoneNumber}
           className="w-full border px-3 py-2 rounded-md"
         />
-        {cellphoneError && (
-          <p className="text-red-500 text-sm mt-1">{cellphoneError}</p>
-        )}
       </div>
 
       <div className="relative w-full">
@@ -236,12 +76,9 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           placeholder="+63XXX-XXX-XXXX"
           name="whatsapp"
           value={formData?.whatsapp || ""}
-          onChange={handleWhatsappChange}
+          onChange={formatPhoneNumber}
           className="w-full border px-3 py-2 rounded-md"
         />
-        {whatsappError && (
-          <p className="text-red-500 text-sm mt-1">{whatsappError}</p>
-        )}
       </div>
 
       <div className="relative w-full">
@@ -251,12 +88,9 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           placeholder="+63XXX-XXX-XXXX"
           name="viber"
           value={formData?.viber || ""}
-          onChange={handleViberChange}
+          onChange={formatPhoneNumber}
           className="w-full border px-3 py-2 rounded-md"
         />
-        {viberError && (
-          <p className="text-red-500 text-sm mt-1">{viberError}</p>
-        )}
       </div>
 
       <div className="relative w-full">
@@ -266,19 +100,16 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           placeholder="+63XXX-XXX-XXXX"
           name="wechat"
           value={formData?.wechat || ""}
-          onChange={handleWechatChange}
+          onChange={formatPhoneNumber}
           className="w-full border px-3 py-2 rounded-md"
         />
-        {wechatError && (
-          <p className="text-red-500 text-sm mt-1">{wechatError}</p>
-        )}
       </div>
 
       <div className="relative w-full">
         <label htmlFor="workphone">Work Phone</label>
         <input
           type="text"
-          placeholder="(XX/X)X/XXX-XXXX"
+          placeholder="(XX) XXX-XXXX or local 123"
           name="workphone"
           value={formData?.workphone || ""}
           onChange={handleInputChange}
@@ -299,16 +130,13 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           className="w-full border px-3 py-2 rounded-md"
           required
         />
-        {emailError && (
-          <p className="text-red-500 text-sm mt-1">{emailError}</p>
-        )}
       </div>
 
       <div className="relative w-full">
         <label htmlFor="workfax">Work Fax</label>
         <input
-          type="text"
-          placeholder="(XX/X)X/XXX-XXXX"
+          type="tel"
+          placeholder="(XX)XXX-XXXX or local 123"
           name="workfax"
           value={formData?.workfax || ""}
           onChange={handleInputChange}
