@@ -54,9 +54,13 @@ export default function PreviewCard({ title, formData }: Props) {
               <p className="font-bold text-[#23927a] text-sm capitalize">
                 {jobTitleCapitalized}
               </p>
+              <p className="italic text-gray-500 text-sm">
+                {formData.website}
+              </p>
             </div>
 
-            <div className="absolute top-17 left-3 text-left leading-tight space-y-1">
+            {/* Adjusted vertical spacing here */}
+            <div className="absolute top-[5rem] left-3 text-left leading-tight space-y-1">
               {(formData.street || formData.city || formData.state || formData.postalCode || formData.country) && (
                 <div className="text-xs flex items-center">
                   <img
@@ -189,7 +193,6 @@ export default function PreviewCard({ title, formData }: Props) {
                         className="w-10 h-6 mr-1"
                       />
                       {formData.cellphone}
-
                       <div className="flex items-center gap-[1px] ml-1">
                         {formData.whatsapp === formData.cellphone && (
                           <img
