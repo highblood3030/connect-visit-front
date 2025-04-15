@@ -94,7 +94,7 @@ export default function Layout({ children }: LayoutProps) {
                     setSidebarOpen(false);
                   }
                 }}
-                className="flex items-center space-x-3 px-4 py-3 cursor-pointer hover:bg-cardHover rounded-lg transition"
+                className="flex items-center space-x-3 px-4 py-3 cursor-pointer hover:bg-gray-200 rounded-lg transition"
               >
                 <item.icon className="text-2xl" />
                 <span>{item.label}</span>
@@ -140,7 +140,7 @@ export default function Layout({ children }: LayoutProps) {
         <nav className="bg-[#78bfbd] text-white flex items-center h-16 px-6 fixed top-0 left-0 w-full z-40">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="text-3xl text-white focus:outline-none cursor-pointer"
+            className="text-3xl text-white focus:outline-none cursor-pointer hover:bg-[#D7F0ED]"
           >
             <FiMenu />
           </button>

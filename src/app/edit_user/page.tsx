@@ -39,7 +39,6 @@ export default function EditUser() {
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null!);
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [profileImage, setProfileImage] = useState("/profile-placeholder.jpeg");
   const [isChecked, setIsChecked] = useState(false);
@@ -237,7 +236,7 @@ export default function EditUser() {
                   type="button"
                   onClick={() => setActiveTab((prev) => prev - 1)}
                   disabled={activeTab === 0}
-                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded disabled:opacity-50"
+                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded disabled:opacity-50 cursor-pointer hover:bg-gray-500"
                 >
                   Back
                 </button>
@@ -249,13 +248,13 @@ export default function EditUser() {
                     setActiveTab((prev) => prev + 1);
                   }}
                   disabled={activeTab === tabs.length - 1}
-                  className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+                  className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50 cursor-pointer hover:bg-blue-700"
                 >
                   Next
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-primary text-white rounded hover:bg-darkTeal transition"
+                  className="px-4 py-2 bg-primary text-white rounded transition cursor-pointer hover:bg-green-800"
                 >
                   Save
                 </button>
