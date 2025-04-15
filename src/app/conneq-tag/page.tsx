@@ -1,6 +1,6 @@
 "use client";
 
-import Layout from "../../components/Layout"; // ✅ Ensure Layout is used
+import Layout from "../../components/Layout";
 import { useState, useRef } from "react";
 import {
   FiSearch,
@@ -12,7 +12,6 @@ import {
 import { BsPrinter } from "react-icons/bs";
 import QRCode from "react-qr-code";
 
-// Optional: Define a type/interface for clarity (TypeScript)
 interface DataItem {
   id: number;
   name: string;
@@ -345,13 +344,14 @@ export default function ConneqTag() {
               {/* Text Tag */}
               <div>
                 <label className="text-gray-700 font-semibold block mb-1">
-                  Text Tag *
+                  Text Tag<span className="ml-1 text-red-500">*</span>
                 </label>
                 <textarea
                   name="textTag"
                   className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B]"
                   placeholder="Text Tag"
                   rows={2}
+                  maxLength={50}
                   required
                   value={formData.textTag}
                   onChange={handleChange}
@@ -361,11 +361,12 @@ export default function ConneqTag() {
               {/* Name Input */}
               <div>
                 <label className="text-gray-700 font-semibold block mb-1">
-                  Name *
+                  Name<span className="ml-1 text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   name="name"
+                  maxLength={30}
                   className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B]"
                   placeholder="Item Name"
                   required
@@ -384,6 +385,7 @@ export default function ConneqTag() {
                   className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B]"
                   placeholder="Description"
                   rows={3}
+                  maxLength={50}
                   value={formData.description}
                   onChange={handleChange}
                 ></textarea>
