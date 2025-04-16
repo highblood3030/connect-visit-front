@@ -135,20 +135,19 @@ export default function EditUser() {
                     key={idx}
                     onClick={() => {
                       if (idx > activeTab) {
-                        // Moving forward: check validity before advancing
                         if (formRef.current && !formRef.current.reportValidity()) return;
                       }
                       setActiveTab(idx);
                     }}
-                    className={`cursor-pointer px-3 py-1 text-sm font-medium ${idx === activeTab
+                    className={`cursor-pointer px-3 py-1 text-sm font-medium ${
+                      idx === activeTab
                         ? "text-primary border-b-2 border-primary"
                         : "text-gray-500 hover:text-primary"
-                      }`}
+                    }`}
                   >
                     {tab}
                   </span>
                 ))}
-
               </div>
 
               {/* Tab Content */}
@@ -157,7 +156,7 @@ export default function EditUser() {
                   profileImage={profileImage}
                   handleImageChange={handleImageChange}
                   formData={formData}
-                  setFormData={setFormData}
+                  setFormDataAction={setFormData} // ✅ Fixed here
                 />
               )}
               {activeTab === 1 && (
@@ -198,9 +197,7 @@ export default function EditUser() {
                 </a>
               </div>
 
-
               {/* Checkbox + Error */}
-
               <div className="relative flex flex-col space-y-2 mt-4">
                 <div className="flex items-start space-x-2">
                   <input
@@ -213,7 +210,6 @@ export default function EditUser() {
                     I confirm that I have read, understood, and agree with the
                     Privacy Notice of {formData.company || "(company name)"}. I
                     understand that some of my personal information, such as my
-
                     personal mobile number, will be used for as part of my email
                     signature, business card and virtual card. I understand that
                     my consent does not preclude the existence of other criteria
@@ -243,8 +239,7 @@ export default function EditUser() {
                 <button
                   type="button"
                   onClick={() => {
-                    if (formRef.current && !formRef.current.reportValidity())
-                      return;
+                    if (formRef.current && !formRef.current.reportValidity()) return;
                     setActiveTab((prev) => prev + 1);
                   }}
                   disabled={activeTab === tabs.length - 1}

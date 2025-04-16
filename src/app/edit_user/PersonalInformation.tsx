@@ -1,11 +1,26 @@
 "use client";
 import React, { useEffect } from "react";
+import Image from "next/image";
+
+// Define proper types for form data
+interface FormData {
+  profileImage: string;
+  firstname: string;
+  middlename: string;
+  lastname: string;
+  honorificprefix: string;
+  honorificsuffix: string;
+  jobtitle: string;
+  company: string;
+  logo: string;
+  website: string;
+}
 
 type Props = {
   profileImage: string;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: FormData;
+  setFormDataAction: (data: FormData | ((prevData: FormData) => FormData)) => void;
 };
 
 const logoOptionsMap: Record<string, string[]> = {
@@ -21,22 +36,33 @@ const logoOptionsMap: Record<string, string[]> = {
 };
 
 const isValidName = (value: string) => /^[A-Za-z\s-]{0,20}$/.test(value);
-const isValidJobtitle = (value: string) => /^[A-Za-z\s().-]{0,40}$/.test(value);
-const isValidHonorific = (value: string) => /^[A-Za-z\s.,-]{0,20}$/.test(value);
+const isValidJobtitle = (value: string) =>
+  /^[A-Za-z\s().-]{0,40}$/.test(value);
+const isValidHonorific = (value: string) =>
+  /^[A-Za-z\s.,-]{0,20}$/.test(value);
 
-export default function PersonalInformation({ formData, setFormData }: Props) {
+export default function PersonalInformation({
+  formData,
+  setFormDataAction,
+}: Props) {
   useEffect(() => {
     if (formData.company) {
       const logos = logoOptionsMap[formData.company] || [];
       if (logos.length === 1) {
-        setFormData((prevData: any) => ({ ...prevData, logo: logos[0] }));
+        setFormDataAction((prevData) => ({
+          ...prevData,
+          logo: logos[0],
+        }));
       } else {
-        setFormData((prevData: any) => ({ ...prevData, logo: "" }));
+        setFormDataAction((prevData) => ({
+          ...prevData,
+          logo: "",
+        }));
       }
     } else {
-      setFormData((prevData: any) => ({ ...prevData, logo: "" }));
+      setFormDataAction((prevData) => ({ ...prevData, logo: "" }));
     }
-  }, [formData.company]);
+  }, [formData.company, setFormDataAction]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -50,16 +76,18 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
 
       const reader = new FileReader();
       reader.onload = () => {
-        setFormData((prevData: any) => ({
-          ...prevData,
-          profileImage: reader.result,
-        }));
+        if (typeof reader.result === 'string') {
+          setFormDataAction((prevData) => ({
+            ...prevData,
+            profileImage: reader.result as string,
+          }));
+        }
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: keyof FormData, value: string) => {
     if (
       (field === "jobtitle" && isValidJobtitle(value)) ||
       (field === "honorificprefix" && isValidHonorific(value)) ||
@@ -70,7 +98,7 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
         isValidName(value)) ||
       value === ""
     ) {
-      setFormData((prevData: any) => ({ ...prevData, [field]: value }));
+      setFormDataAction((prevData) => ({ ...prevData, [field]: value }));
     }
   };
 
@@ -82,10 +110,12 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
     <div className="space-y-4">
       <div className="flex items-center space-x-6">
         <div className="w-28 h-28 rounded-full border border-gray-300 overflow-hidden relative top-2">
-          <img
+          <Image
             src={formData.profileImage || "/profile-placeholder.jpeg"}
             alt="Profile Preview"
-            className="object-cover w-full h-full"
+            className="object-cover"
+            width={112}
+            height={112}
           />
         </div>
         <div>
@@ -190,7 +220,7 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
           className="input-field appearance-none"
           value={formData.company}
           onChange={(e) =>
-            setFormData({ ...formData, company: e.target.value })
+            setFormDataAction({ ...formData, company: e.target.value })
           }
           required
         >
@@ -210,8 +240,10 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
         <select
           className="input-field appearance-none"
           value={formData.logo}
-          onChange={(e) => setFormData({ ...formData, logo: e.target.value })}
-          disabled={formData.company && logoOptionsMap[formData.company]?.length === 1}
+          onChange={(e) =>
+            setFormDataAction({ ...formData, logo: e.target.value })
+          }
+          disabled={Boolean(formData.company && logoOptionsMap[formData.company]?.length === 1)}
           required
         >
           <option value=""></option>
@@ -231,7 +263,7 @@ export default function PersonalInformation({ formData, setFormData }: Props) {
           value={formData.website}
           onChange={(e) => {
             const value = e.target.value.replace(/\/$/, "");
-            setFormData({ ...formData, website: value });
+            setFormDataAction({ ...formData, website: value });
           }}
         />
       </div>

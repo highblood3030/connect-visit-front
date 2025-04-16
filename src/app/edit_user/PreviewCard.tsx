@@ -1,11 +1,37 @@
 "use client";
 
-import { FaPhone, FaGlobe, FaEnvelope, FaUserPlus } from "react-icons/fa";
+
+
+import Image from 'next/image';
+
+interface FormData {
+  honorificprefix: string;
+  firstname: string;
+  lastname: string;
+  honorificsuffix: string;
+  jobtitle: string;
+  street?: string;
+  city?: string;
+  state?: string;
+  postalCode?: string;
+  country?: string;
+  cellphone?: string;
+  workphone?: string;
+  workemail?: string;
+  personalemail?: string;
+  whatsapp?: string;
+  viber?: string;
+  wechat?: string;
+  linkedin?: string;
+  website?: string;
+  profileImage?: string;
+}
+
 
 type Props = {
   title: string;
   profileImage: string;
-  formData: any;
+  formData: FormData;
 };
 
 export default function PreviewCard({ title, formData }: Props) {
@@ -31,24 +57,30 @@ export default function PreviewCard({ title, formData }: Props) {
         className={`relative w-full max-w-[360px] ${title === "Business Card" ? "min-h-[216px]" : "min-h-[210px]"
           } rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-105 duration-300 mt-0`}
       >
-        <img
+        <Image
           src="/Background-ESign.png"
           alt={`${title} background`}
           className="absolute inset-0 w-full h-full object-cover rounded-inherit"
+          width={360}
+          height={216}
         />
 
         {/* EMAIL SIGNATURE */}
         {title === "Email Signature" && (
-          <div className="relative w-full max-w-[360px] mx-auto flex flex-col items-center justify-start px-4 py-3 space-y-3">
-            <img
+          <div className="relative w-full min-h-[220px] max-w-[360px] mx-auto flex flex-col justify-start px-4 py-3">
+            <Image
               src="/qr.png"
               alt="QR Code"
               className="absolute top-3 left-3 w-12 h-12 object-contain"
+              width={48}
+              height={48}
             />
-            <img
+            <Image
               src="/DNL-BC.png"
               alt="D&L Logo"
               className="absolute bottom-3 right-5 w-12 h-6 object-contain"
+              width={48}
+              height={24}
             />
 
             <div className="absolute top-4 right-5 text-right leading-tight">
@@ -65,10 +97,12 @@ export default function PreviewCard({ title, formData }: Props) {
             <div className="absolute top-[5rem] left-3 text-left leading-tight space-y-1">
               {(formData.street || formData.city || formData.state || formData.postalCode || formData.country) && (
                 <div className="text-xs flex items-center">
-                  <img
+                  <Image
                     src="/Location.png"
                     alt="Location Icon"
                     className="w-10 h-6 mr-1"
+                    width={40}
+                    height={24}
                   />
                   <div className="text-xs text-gray-600 mt-1">
                     {formData.street && <p>{formData.street}</p>}
@@ -84,10 +118,12 @@ export default function PreviewCard({ title, formData }: Props) {
 
               {formData.cellphone && (
                 <div className="italic text-xs text-gray-600 flex items-center">
-                  <img
+                  <Image
                     src="/Cellphone.png"
                     alt="Cellphone Icon"
                     className="w-10 h-6 mr-1"
+                    width={40}
+                    height={24}
                   />
                   {formData.cellphone}
                 </div>
@@ -95,10 +131,12 @@ export default function PreviewCard({ title, formData }: Props) {
 
               {formData.workphone && (
                 <div className="italic text-xs text-gray-600 flex items-center">
-                  <img
+                  <Image
                     src="/Workphone.png"
                     alt="Workphone Icon"
                     className="w-10 h-6 mr-1"
+                    width={40}
+                    height={24}
                   />
                   {formData.workphone}
                 </div>
@@ -106,10 +144,12 @@ export default function PreviewCard({ title, formData }: Props) {
 
               {formData.workemail && (
                 <div className="text-xs flex items-center">
-                  <img
+                  <Image
                     src="/Email.png"
                     alt="Email Icon"
                     className="w-10 h-6 mr-1"
+                    width={40}
+                    height={24}
                   />
                   {formData.workemail}
                 </div>
@@ -117,10 +157,12 @@ export default function PreviewCard({ title, formData }: Props) {
 
               {formData.personalemail && (
                 <div className="text-xs flex items-center">
-                  <img
+                  <Image
                     src="/Email.png"
                     alt="Personal Email Icon"
                     className="w-10 h-6 mr-1"
+                    width={40}
+                    height={24}
                   />
                   {formData.personalemail}
                 </div>
@@ -133,9 +175,12 @@ export default function PreviewCard({ title, formData }: Props) {
         {title === "Business Card" && (
           <div className="relative w-full max-w-[360px] mx-auto flex flex-col items-center justify-start px-4 py-3 space-y-2">
             <div className="w-24 h-24 rounded-full border-4 border-[#145C5B] overflow-hidden">
-              <img
+              <Image
                 src={formData.profileImage || "/profile-placeholder.jpeg"}
                 className="object-cover w-full h-full rounded-full"
+                width={96}
+                height={96}
+                alt="Profile"
               />
             </div>
             <p className="font-bold text-md text-center Black">{fullName}</p>
@@ -146,10 +191,12 @@ export default function PreviewCard({ title, formData }: Props) {
             <div className="flex flex-col items-start w-full mt-1 space-y-1 px-4">
               {(formData.street || formData.city || formData.state || formData.postalCode || formData.country) && (
                 <div className="text-xs flex items-center">
-                  <img
+                  <Image
                     src="/Location.png"
                     alt="Location Icon"
                     className="w-10 h-6 mr-1"
+                    width={40}
+                    height={24}
                   />
                   <div className="text-xs text-gray-600 mt-1">
                     {formData.street && <p>{formData.street}</p>}
@@ -165,10 +212,12 @@ export default function PreviewCard({ title, formData }: Props) {
 
               {formData.workemail && (
                 <div className="text-xs flex items-center">
-                  <img
+                  <Image
                     src="/Email.png"
                     alt="Email Icon"
                     className="w-10 h-6 mr-1"
+                    width={40}
+                    height={24}
                   />
                   {formData.workemail}
                 </div>
@@ -176,92 +225,104 @@ export default function PreviewCard({ title, formData }: Props) {
 
               {formData.personalemail && (
                 <div className="text-xs flex items-center">
-                  <img
+                  <Image
                     src="/Email.png"
                     alt="Email Icon"
                     className="w-10 h-6 mr-1"
+                    width={40}
+                    height={24}
                   />
                   {formData.personalemail}
                 </div>
               )}
 
-              {(formData.cellphone || formData.whatsapp || formData.viber || formData.wechat) && (
-                <>
-                  {formData.cellphone && (
-                    <div className="text-xs flex items-center">
-                      <img
-                        src="/Cellphone.png"
-                        alt="Cellphone Icon"
-                        className="w-10 h-6 mr-1"
-                      />
-                      {formData.cellphone}
-                      <div className="flex items-center gap-[1px] ml-1">
-                        {formData.whatsapp === formData.cellphone && (
-                          <img
-                            src="/Whatsapp-Duplicate.png"
-                            alt="Whatsapp Icon"
-                            className="w-4 h-4"
-                          />
-                        )}
-                        {formData.viber === formData.cellphone && (
-                          <img
-                            src="/Viber-Duplicate.png"
-                            alt="Viber Icon"
-                            className="w-4 h-4"
-                          />
-                        )}
-                        {formData.wechat === formData.cellphone && (
-                          <img
-                            src="/Wechat-Duplicate.png"
-                            alt="Wechat Icon"
-                            className="w-4 h-4"
-                          />
-                        )}
-                      </div>
-                    </div>
-                  )}
+              {(formData.cellphone || formData.whatsapp || formData.viber || formData.wechat) && (() => {
+                const numbers: { label: string; value: string; icon: string; dupIcon?: string }[] = [];
 
-                  {formData.whatsapp && formData.whatsapp !== formData.cellphone && (
-                    <div className="text-xs flex items-center">
-                      <img
-                        src="/Whatsapp.png"
-                        alt="Whatsapp Icon"
-                        className="w-10 h-6 mr-1"
-                      />
-                      {formData.whatsapp}
-                    </div>
-                  )}
+                if (formData.cellphone) {
+                  numbers.push({ label: "cellphone", value: formData.cellphone, icon: "/Cellphone.png" });
+                }
 
-                  {formData.viber && formData.viber !== formData.cellphone && (
-                    <div className="text-xs flex items-center">
-                      <img
-                        src="/Viber.png"
-                        alt="Viber Icon"
-                        className="w-10 h-6 mr-1"
-                      />
-                      {formData.viber}
-                    </div>
-                  )}
+                if (formData.whatsapp) {
+                  numbers.push({
+                    label: "whatsapp",
+                    value: formData.whatsapp,
+                    icon: "/Whatsapp.png",
+                    dupIcon: "/Whatsapp-Duplicate.png",
+                  });
+                }
 
-                  {formData.wechat && formData.wechat !== formData.cellphone && (
-                    <div className="text-xs flex items-center">
-                      <img
-                        src="/Wechat.png"
-                        alt="Wechat Icon"
-                        className="w-10 h-6 mr-1"
-                      />
-                      {formData.wechat}
-                    </div>
-                  )}
-                </>
-              )}
+                if (formData.viber) {
+                  numbers.push({
+                    label: "viber",
+                    value: formData.viber,
+                    icon: "/Viber.png",
+                    dupIcon: "/Viber-Duplicate.png",
+                  });
+                }
+
+                if (formData.wechat) {
+                  numbers.push({
+                    label: "wechat",
+                    value: formData.wechat,
+                    icon: "/Wechat.png",
+                    dupIcon: "/Wechat-Duplicate.png",
+                  });
+                }
+
+                // Group by value
+                const grouped: { [value: string]: typeof numbers } = {};
+                numbers.forEach((num) => {
+                  if (!grouped[num.value]) grouped[num.value] = [];
+                  grouped[num.value].push(num);
+                });
+
+                return (
+                  <>
+                    {Object.entries(grouped).map(([value, items]) => {
+                      const main = items[0];
+                      const duplicates = items.slice(1);
+
+                      return (
+                        <div key={value} className="text-xs flex items-center">
+                          <Image 
+                            src={main.icon} 
+                            alt={`${main.label} Icon`} 
+                            className="w-10 h-6 mr-1" 
+                            width={40}
+                            height={24}
+                          />
+                          {value}
+                          {duplicates.length > 0 && (
+                            <div className="flex items-center gap-[1px] ml-1">
+                              {duplicates.map((dup) => (
+                                <Image
+                                  key={dup.label}
+                                  src={dup.dupIcon!}
+                                  alt={`${dup.label} Duplicate Icon`}
+                                  className="w-4 h-4"
+                                  width={16}
+                                  height={16}
+                                />
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </>
+                );
+              })()}
+
 
               {formData.workphone && (
                 <div className="text-xs flex items-center">
-                  <img
+                  <Image
                     src="/Workphone.png"
                     alt="Workphone Icon"
                     className="w-10 h-6 mr-1"
+                    width={40}
+                    height={24}
                   />
                   {formData.workphone}
                 </div>
@@ -269,10 +330,12 @@ export default function PreviewCard({ title, formData }: Props) {
 
               {formData.linkedin && (
                 <div className="text-xs flex items-center">
-                  <img
+                  <Image
                     src="/LinkedIn.png"
                     alt="LinkedIn Icon"
                     className="w-10 h-6 mr-1"
+                    width={40}
+                    height={24}
                   />
                   {formData.linkedin}
                 </div>
@@ -280,34 +343,25 @@ export default function PreviewCard({ title, formData }: Props) {
 
               {formData.website && (
                 <div className="text-xs flex items-center">
-                  <img
+                  <Image
                     src="/Website.png"
                     alt="Website Icon"
                     className="w-10 h-6 mr-1"
+                    width={40}
+                    height={24}
                   />
                   {formData.website}
                 </div>
               )}
             </div>
 
-            <p className="text-xs text-center text-gray-600 mt-1">
-              {formData.street}, {formData.city}, {formData.state},{" "}
-              {formData.postalCode}, {formData.country}
-            </p>
 
-            {/* Save Contact button ABOVE the logo */}
-            <button
-                onClick={() => alert("Contact saved!")}
-                className="mt-1 mb-1 px-3 py-1 text-xs font-semibold text-white bg-[#23927a] rounded hover:bg-[#1c7861] transition-colors flex items-center justify-center gap-2"
-              >
-                <FaUserPlus className="w-4 h-4 text-white" />
-                Save Contact
-              </button>
-
-            <img
+            <Image
               src="/DNL-BC.png"
               alt="D&L Logo"
-              className="w-16 h-8 object-contain"
+              className="w-16 h-8 object-contain mt-1"
+              width={64}
+              height={32}
             />
           </div>
         )}

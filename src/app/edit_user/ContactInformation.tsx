@@ -65,8 +65,18 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           name="cellphone"
           value={formData?.cellphone || ""}
           onChange={formatPhoneNumber}
+          pattern="\+63\d{3}-\d{3}-\d{4}"
+          onInvalid={(e) =>
+            (e.target as HTMLInputElement).setCustomValidity(
+              "Please enter a valid 10-digit number (e.g. +63912-345-6789)"
+            )
+          }
+          onInput={(e) =>
+            (e.target as HTMLInputElement).setCustomValidity("")
+          }
           className="w-full border px-3 py-2 rounded-md"
         />
+
       </div>
 
       <div className="relative w-full">
@@ -77,8 +87,18 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           name="whatsapp"
           value={formData?.whatsapp || ""}
           onChange={formatPhoneNumber}
+          pattern="\+63\d{3}-\d{3}-\d{4}"
+          onInvalid={(e) =>
+            (e.target as HTMLInputElement).setCustomValidity(
+              "Please enter a valid 10-digit number (e.g. +63912-345-6789)"
+            )
+          }
+          onInput={(e) =>
+            (e.target as HTMLInputElement).setCustomValidity("")
+          }
           className="w-full border px-3 py-2 rounded-md"
         />
+
       </div>
 
       <div className="relative w-full">
@@ -89,8 +109,18 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           name="viber"
           value={formData?.viber || ""}
           onChange={formatPhoneNumber}
+          pattern="\+63\d{3}-\d{3}-\d{4}"
+          onInvalid={(e) =>
+            (e.target as HTMLInputElement).setCustomValidity(
+              "Please enter a valid 10-digit number (e.g. +63912-345-6789)"
+            )
+          }
+          onInput={(e) =>
+            (e.target as HTMLInputElement).setCustomValidity("")
+          }
           className="w-full border px-3 py-2 rounded-md"
         />
+
       </div>
 
       <div className="relative w-full">
@@ -101,8 +131,18 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           name="wechat"
           value={formData?.wechat || ""}
           onChange={formatPhoneNumber}
+          pattern="\+63\d{3}-\d{3}-\d{4}"
+          onInvalid={(e) =>
+            (e.target as HTMLInputElement).setCustomValidity(
+              "Please enter a valid 10-digit number (e.g. +63912-345-6789)"
+            )
+          }
+          onInput={(e) =>
+            (e.target as HTMLInputElement).setCustomValidity("")
+          }
           className="w-full border px-3 py-2 rounded-md"
         />
+
       </div>
 
       <div className="relative w-full">
