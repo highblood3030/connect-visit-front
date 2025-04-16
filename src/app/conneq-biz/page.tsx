@@ -14,10 +14,23 @@ import {
 import html2canvas from "html2canvas";
 import QRCode from "qrcode";
 
+interface UserData {
+  firstname: string;
+  lastname: string;
+  jobtitle: string;
+  company: string;
+  workemail: string;
+  address: string;
+  cellphone: string;
+  logo?: string;
+  honorificprefix?: string;
+  honorificsuffix?: string;
+}
+
 export default function ConneqBizCards() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [businessModalOpen, setBusinessModalOpen] = useState(false);
-  const [userData, setUserData] = useState<any>(null);
+  const [userData, setUserData] = useState<UserData | null>(null); // Use the UserData type
   const router = useRouter();
 
   useEffect(() => {
@@ -33,6 +46,7 @@ export default function ConneqBizCards() {
     setErrorMessage("❌ Error: Failed to send email.");
 
   const handleCopySignature = () => {
+    if (!userData) return;
     const signatureText = `
 ${userData.firstname} ${userData.lastname} - ${userData.jobtitle}
 ${userData.company}
@@ -46,7 +60,7 @@ ${userData.cellphone}
   };
 
   const handleDownloadSignature = async () => {
-    const signatureElement = document.getElementById("");
+    const signatureElement = document.getElementById("email-signature-card");
     if (!signatureElement) {
       alert("❌ Error: Could not find the email signature section.");
       return;
@@ -89,6 +103,7 @@ ${userData.cellphone}
   };
 
   const handleDownloadQR = () => {
+    if (!userData) return;
     const qrData = JSON.stringify({
       name: `${userData.firstname} ${userData.lastname}`,
       jobTitle: userData.jobtitle,
@@ -119,11 +134,9 @@ ${userData.cellphone}
       }, 100);
       return () => clearTimeout(timer);
     }
-  }, [userData]);
-
+  }, [userData, router]); // Add router to dependency array
 
   if (!userData) return null;
-
 
   return (
     <Layout>
@@ -132,7 +145,7 @@ ${userData.cellphone}
           <h1 className="text-2xl break-words font-bold">MY CARDS</h1>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 mb-6 cursor-pointer">
-          {[
+          {[ 
             {
               onClick: handleEdit,
               icon: <FiEdit className="text-sm" />,
@@ -195,6 +208,15 @@ ${userData.cellphone}
               />
             </div>
           </div>
+        </div>
+
+        <div className="flex justify-center mt-6">
+          <button
+            onClick={handleCopySignature}
+            className="bg-primary text-white px-4 py-2 rounded-md hover:bg-[#104745] transition cursor-pointer"
+          >
+            Copy Signature
+          </button>
         </div>
       </div>
 

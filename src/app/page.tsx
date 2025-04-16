@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -12,7 +13,7 @@ export default function Home() {
   useEffect(() => {
     const delayTimeout = setTimeout(() => {
       setIsLoading(false);
-    }, 1300); // Slightly more than fade-out
+    }, 1300);
 
     return () => clearTimeout(delayTimeout);
   }, []);
@@ -40,12 +41,14 @@ const SplashScreen = () => {
     <div
       className={`fixed inset-0 z-50 flex items-center justify-center bg-[#188E9B] transition-all duration-500 ease-out ${
         fadeOut ? "opacity-0 scale-95 -translate-y-4" : "opacity-100 scale-105"
-      }`}
+      } relative`}
     >
-      <img
+      <Image
         src="/splash.png"
         alt="Splash Screen"
-        className="w-full h-full object-cover"
+        fill
+        className="object-cover"
+        priority
       />
     </div>
   );
@@ -82,7 +85,15 @@ const LandingPage = () => {
   return (
     <div className="relative h-screen w-screen overflow-hidden">
       {/* Static Background */}
-      <div className="absolute inset-0 z-0 bg-[url('/Background.png')] bg-cover bg-center bg-no-repeat" />
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/Background.png"
+          alt="Background"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+      </div>
 
       {/* Slider Over Background */}
       <Slider {...sliderSettings} className="relative z-10 h-full w-full">
@@ -92,12 +103,15 @@ const LandingPage = () => {
             className="flex h-screen w-screen flex-col px-4 pt-16 pb-12"
           >
             <div className="flex flex-col items-center text-center mt-[15vh]">
-              <img
+              <Image
                 src={frame}
                 alt={`Frame ${idx + 1}`}
+                width={350}
+                height={350}
                 className="w-[80vw] max-w-[90%] h-auto object-contain mx-auto mb-6 
-                      md:w-[300px] md:max-w-none 
-                      lg:w-[350px]"
+                  md:w-[300px] md:max-w-none 
+                  lg:w-[350px]"
+                priority={idx === 0}
               />
 
               <button
@@ -110,25 +124,24 @@ const LandingPage = () => {
           </div>
         ))}
       </Slider>
-      {/* Hand image pinned even further bottom-right */}
+
+      {/* Hand image pinned bottom-right */}
       <div
         className="
-    absolute 
-    bottom-[-10px] sm:bottom-[-20px] 
-    right-[-10px] sm:right-[-20px] 
-    z-20 
-    pointer-events-none
-  "
+          absolute 
+          bottom-[-10px] sm:bottom-[-20px] 
+          right-[-10px] sm:right-[-20px] 
+          z-20 
+          pointer-events-none
+        "
       >
-
-        <img
+        <Image
           src="/hand1.png"
           alt="Hand Graphic"
-          className="
-      h-[20rem] sm:h-[26rem] md:h-[32rem] lg:h-[36rem]
-      object-contain
-      transition-transform duration-300 ease-in-out
-    "
+          width={400}
+          height={400}
+          className="h-[20rem] sm:h-[26rem] md:h-[32rem] lg:h-[36rem] object-contain transition-transform duration-300 ease-in-out"
+          priority
         />
       </div>
     </div>

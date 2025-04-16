@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { UserFormData } from "./page"; // Import your UserFormData type
 
 interface OfficeAddressProps {
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: UserFormData;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  setFormData: React.Dispatch<React.SetStateAction<UserFormData>>;
 }
 
 const OfficeAddress: React.FC<OfficeAddressProps> = ({
   formData,
-  handleInputChange,
   setFormData,
 }) => {
   const isPlaceholderSelected = (value: string) => value === "";
@@ -26,15 +26,13 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
     "CTI Davao Branch",
   ];
 
-  const addressDetails: {
-    [key: string]: {
-      street: string;
-      city: string;
-      state: string;
-      postalCode: string;
-      country: string;
-    };
-  } = {
+  const addressDetails: { [key: string]: { 
+    street: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    country: string;
+  } } = {
     "Mercury Office": {
       street: "#5 Mercury Avenue, Bagumbayan",
       city: "Quezon City",
@@ -64,8 +62,7 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
       country: "Philippines",
     },
     "Laguna Plant": {
-      street:
-        "122 Progress Ave., Carmelray Industrial Park 1, Special Economic Zone, Canlubang",
+      street: "122 Progress Ave., Carmelray Industrial Park 1, Special Economic Zone, Canlubang",
       city: "Calamba City",
       state: "Laguna",
       postalCode: "4027",
@@ -78,32 +75,29 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
       postalCode: "1009",
       country: "Philippines",
     },
-    FIT: {
-      street:
-        "Administration Building, First Industrial Township-sez, Brgy. Pagaspas",
+    "FIT": {
+      street: "Administration Building, First Industrial Township-sez, Brgy. Pagaspas",
       city: "Tanauan",
       state: "Batangas",
       postalCode: "4232",
       country: "Philippines",
     },
-    BauanOffice: {
+    "Bauan Office": {
       street: "Barangay Balayong",
       city: "Bauan",
       state: "Batangas",
       postalCode: "4201",
       country: "Philippines",
     },
-    CCPIOffice: {
-      street:
-        "Consumer Care Bldg. Manggahan Light Industrial Park A Rodriguez Avenue Santolan",
+    "CCPI Office": {
+      street: "Consumer Care Bldg. Manggahan Light Industrial Park A Rodriguez Avenue Santolan",
       city: "Pasig City",
       state: "Metro Manila",
       postalCode: "1610",
       country: "Philippines",
     },
-    CTIDavaoBranch: {
-      street:
-        "Door 2C & 2D, Main Building, Amina Way Business Park, Diversion Road, Sasa",
+    "CTI Davao Branch": {
+      street: "Door 2C & 2D, Main Building, Amina Way Business Park, Diversion Road, Sasa",
       city: "Davao City",
       state: "Davao Del Sur",
       postalCode: "8000",
@@ -136,25 +130,35 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
             Office Location <span className="text-red-500">*</span>
           </label>
           <select
-            className={`input-field appearance-none w-full pr-6 ${isPlaceholderSelected(
-              formData.location,
-            )}`}
+            name="location"
+            className={`input-field appearance-none w-full pr-6 ${
+              isPlaceholderSelected(formData.location) ? "" : ""
+            }`}
             value={formData.location}
             onChange={(e) => {
               const selected = e.target.value;
-              setFormData({
-                ...formData,
-                location: selected,
-                ...(selected
-                  ? addressDetails[selected]
-                  : {
-                      street: "",
-                      city: "",
-                      state: "",
-                      postalCode: "",
-                      country: "",
-                    }),
-              });
+              if (selected) {
+                const address = addressDetails[selected];
+                setFormData((prev) => ({
+                  ...prev,
+                  location: selected,
+                  street: address.street,
+                  city: address.city,
+                  state: address.state,
+                  postalCode: address.postalCode,
+                  country: address.country,
+                }));
+              } else {
+                setFormData((prev) => ({
+                  ...prev,
+                  location: "",
+                  street: "",
+                  city: "",
+                  state: "",
+                  postalCode: "",
+                  country: "",
+                }));
+              }
             }}
             required
           >
@@ -173,6 +177,7 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
             <label className="block mb-1">Street</label>
             <input
               type="text"
+              name="street"
               className="input-field"
               value={formData.street || ""}
               readOnly
@@ -182,6 +187,7 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
             <label className="block mb-1">City</label>
             <input
               type="text"
+              name="city"
               className="input-field"
               value={formData.city || ""}
               readOnly
@@ -191,6 +197,7 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
             <label className="block mb-1">State/Province</label>
             <input
               type="text"
+              name="state"
               className="input-field"
               value={formData.state || ""}
               readOnly
@@ -200,6 +207,7 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
             <label className="block mb-1">Postal Code</label>
             <input
               type="text"
+              name="postalCode"
               className="input-field"
               value={formData.postalCode || ""}
               readOnly
@@ -209,6 +217,7 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
             <label className="block mb-1">Country</label>
             <input
               type="text"
+              name="country"
               className="input-field"
               value={formData.country || ""}
               readOnly
@@ -222,32 +231,36 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
         <h2 className="text-lg font-bold mt-6 mb-2">Factory Address</h2>
         <div className="relative">
           <label htmlFor="factoryLocation" className="block mb-1">
-            Factory Location <span className="text-red-500">*</span>
+            Factory Location
           </label>
           <select
+            name="factoryLocation"
             className="input-field appearance-none w-full pr-6"
             value={formData.factoryLocation || ""}
             onChange={(e) => {
               const selected = e.target.value;
-              setFormData({
-                ...formData,
-                factoryLocation: selected,
-                ...(selected
-                  ? {
-                      factoryStreet: addressDetails[selected].street,
-                      factoryCity: addressDetails[selected].city,
-                      factoryState: addressDetails[selected].state,
-                      factoryPostalCode: addressDetails[selected].postalCode,
-                      factoryCountry: addressDetails[selected].country,
-                    }
-                  : {
-                      factoryStreet: "",
-                      factoryCity: "",
-                      factoryState: "",
-                      factoryPostalCode: "",
-                      factoryCountry: "",
-                    }),
-              });
+              if (selected) {
+                const address = addressDetails[selected];
+                setFormData((prev) => ({
+                  ...prev,
+                  factoryLocation: selected,
+                  factoryStreet: address.street,
+                  factoryCity: address.city,
+                  factoryState: address.state,
+                  factoryPostalCode: address.postalCode,
+                  factoryCountry: address.country,
+                }));
+              } else {
+                setFormData((prev) => ({
+                  ...prev,
+                  factoryLocation: "",
+                  factoryStreet: "",
+                  factoryCity: "",
+                  factoryState: "",
+                  factoryPostalCode: "",
+                  factoryCountry: "",
+                }));
+              }
             }}
           >
             <option value=""></option>
@@ -265,6 +278,7 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
             <label className="block mb-1">Street</label>
             <input
               type="text"
+              name="factoryStreet"
               className="input-field"
               value={formData.factoryStreet || ""}
               readOnly
@@ -274,6 +288,7 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
             <label className="block mb-1">City</label>
             <input
               type="text"
+              name="factoryCity"
               className="input-field"
               value={formData.factoryCity || ""}
               readOnly
@@ -283,6 +298,7 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
             <label className="block mb-1">State/Province</label>
             <input
               type="text"
+              name="factoryState"
               className="input-field"
               value={formData.factoryState || ""}
               readOnly
@@ -292,6 +308,7 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
             <label className="block mb-1">Postal Code</label>
             <input
               type="text"
+              name="factoryPostalCode"
               className="input-field"
               value={formData.factoryPostalCode || ""}
               readOnly
@@ -301,6 +318,7 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
             <label className="block mb-1">Country</label>
             <input
               type="text"
+              name="factoryCountry"
               className="input-field"
               value={formData.factoryCountry || ""}
               readOnly

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -42,11 +43,15 @@ const SplashScreen = () => {
         fadeOut ? "opacity-0 scale-95 -translate-y-4" : "opacity-100 scale-105"
       }`}
     >
-      <img
-        src="/splash.png"
-        alt="Splash Screen"
-        className="w-full h-full object-cover"
-      />
+      <div className="relative w-full h-full">
+        <Image
+          src="/splash.png"
+          alt="Splash Screen"
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
     </div>
   );
 };
@@ -82,7 +87,14 @@ const LandingPage = () => {
   return (
     <div className="relative h-screen w-screen overflow-hidden">
       {/* Static Background */}
-      <div className="absolute inset-0 z-0 bg-[url('/Background.png')] bg-cover bg-center bg-no-repeat" />
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/Background.png"
+          alt="Background"
+          fill
+          className="object-cover object-center"
+        />
+      </div>
 
       {/* Slider Over Background */}
       <Slider {...sliderSettings} className="relative z-10 h-full w-full">
@@ -92,13 +104,16 @@ const LandingPage = () => {
             className="flex h-screen w-screen flex-col px-4 pt-16 pb-12"
           >
             <div className="flex flex-col items-center text-center mt-[15vh]">
-              <img
-                src={frame}
-                alt={`Frame ${idx + 1}`}
-                className="w-[80vw] max-w-[90%] h-auto object-contain mx-auto mb-6 
-                      md:w-[300px] md:max-w-none 
-                      lg:w-[350px]"
-              />
+              <div className="relative w-[80vw] max-w-[90%] md:w-[300px] lg:w-[350px] h-auto mx-auto mb-6">
+                <Image
+                  src={frame}
+                  alt={`Frame ${idx + 1}`}
+                  width={350}
+                  height={350}
+                  className="w-full h-auto object-contain"
+                  priority={idx === 0}
+                />
+              </div>
 
               <button
                 onClick={handleButtonClick}
@@ -110,25 +125,19 @@ const LandingPage = () => {
           </div>
         ))}
       </Slider>
+
       {/* Hand image pinned even further bottom-right */}
       <div
-        className="
-    absolute 
-    bottom-[-10px] sm:bottom-[-20px] 
-    right-[-10px] sm:right-[-20px] 
-    z-20 
-    pointer-events-none
-  "
+        className="absolute bottom-[-10px] sm:bottom-[-20px] right-[-10px] sm:right-[-20px] z-20 pointer-events-none"
       >
-        <img
-          src="/hand1.png"
-          alt="Hand Graphic"
-          className="
-      h-[20rem] sm:h-[26rem] md:h-[32rem] lg:h-[36rem]
-      object-contain
-      transition-transform duration-300 ease-in-out
-    "
-        />
+        <div className="relative h-[20rem] sm:h-[26rem] md:h-[32rem] lg:h-[36rem] w-auto">
+          <Image
+            src="/hand1.png"
+            alt="Hand Graphic"
+            fill
+            className="object-contain transition-transform duration-300 ease-in-out"
+          />
+        </div>
       </div>
     </div>
   );

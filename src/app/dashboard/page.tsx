@@ -2,6 +2,7 @@
 
 import Layout from "../../components/Layout";
 import { useRouter } from "next/navigation";
+import Image from "next/image"; // Import Image from next/image
 
 export default function Dashboard() {
   const router = useRouter();
@@ -15,7 +16,6 @@ export default function Dashboard() {
 
   return (
     <Layout>
-
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-xl tracking-wide mt-0 lg:mt-16">
           <p>Welcome back Lakers Fan ✌🏾</p>
@@ -28,16 +28,18 @@ export default function Dashboard() {
               onClick={() => router.push(card.path)}
               className="w-full h-52 bg-cardBg hover:bg-cardHover flex flex-col items-center justify-center rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.2)] transition-all duration-300 cursor-pointer hover:scale-105 group"
             >
-              <img
-                src={card.image}
-                alt={card.label}
-                className="w-32 h-32 object-contain mb-3"
-              />
+              <div className="relative w-32 h-32 mb-3">
+                <Image
+                  src={card.image}
+                  alt={card.label}
+                  layout="fill"
+                  objectFit="contain"
+                />
+              </div>
               <h2 className="text-xl tracking-wide uppercase">{card.label}</h2>
             </div>
           ))}
         </div>
-
       </div>
     </Layout>
   );

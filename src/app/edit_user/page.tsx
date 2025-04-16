@@ -13,27 +13,39 @@ import PreviewCard from "./PreviewCard";
 
 export interface UserFormData {
   firstname: string;
-  middlename: string; // Ensure this is not optional
+  middlename?: string;
   lastname: string;
-  honorificprefix: string; // Ensure this is not optional
-  honorificsuffix: string; // Ensure this is not optional
+  honorificprefix?: string;
+  honorificsuffix?: string;
   jobtitle: string;
   company: string;
   logo: string;
-  website: string; // Ensure this is not optional
-  cellphone: string; // Ensure this is not optional
-  whatsapp: string; // Ensure this is not optional
-  viber: string; // Ensure this is not optional
-  wechat: string; // Ensure this is not optional
-  workphone: string; // Ensure this is not optional
+  website?: string;
+  cellphone?: string;
+  whatsapp?: string;
+  viber?: string;
+  wechat?: string;
+  workphone?: string;
   workemail: string;
-  workfax: string; // Ensure this is not optional
+  workfax?: string;
   address: string;
   location: string;
-  linkedin: string; // Ensure this is not optional
-  facebook: string; // Ensure this is not optional
-  note: string; // Ensure this is not optional
-  profileImage: string;
+  linkedin?: string;
+  facebook?: string;
+  note?: string;
+  profileImage?: string;
+
+  street: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  country: string;
+  factoryLocation?: string;
+  factoryStreet?: string;
+  factoryCity?: string;
+  factoryState?: string;
+  factoryPostalCode?: string;
+  factoryCountry?: string;
 }
 
 export default function EditUser() {
@@ -47,27 +59,38 @@ export default function EditUser() {
 
   const defaultFormData: UserFormData = {
     firstname: "",
-    middlename: "", // Default value
+    middlename: "",
     lastname: "",
-    honorificprefix: "", // Default value
-    honorificsuffix: "", // Default value
+    honorificprefix: "",
+    honorificsuffix: "",
     jobtitle: "",
     company: "",
     logo: "",
-    website: "", // Default value
-    cellphone: "", // Default value
-    whatsapp: "", // Default value
-    viber: "", // Default value
-    wechat: "", // Default value
-    workphone: "", // Default value
+    website: "",
+    cellphone: "",
+    whatsapp: "",
+    viber: "",
+    wechat: "",
+    workphone: "",
     workemail: "",
-    workfax: "", // Default value
+    workfax: "",
     address: "",
     location: "",
-    linkedin: "", // Default value
-    facebook: "", // Default value
-    note: "", // Default value
+    linkedin: "",
+    facebook: "",
+    note: "",
     profileImage: "/profile-placeholder.jpeg",
+    street: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    country: "",
+    factoryLocation: "",
+    factoryStreet: "",
+    factoryCity: "",
+    factoryState: "",
+    factoryPostalCode: "",
+    factoryCountry: "",
   };
 
   useEffect(() => {
@@ -86,9 +109,7 @@ export default function EditUser() {
   ];
 
   const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev: UserFormData) => {
@@ -171,7 +192,7 @@ export default function EditUser() {
                 <OfficeAddress
                   formData={formData}
                   handleInputChange={handleInputChange}
-                  setFormData={setFormData}
+                  setFormData={setFormData} 
                 />
               )}
               {activeTab === 3 && (

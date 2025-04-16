@@ -5,10 +5,10 @@
 import Image from 'next/image';
 
 interface FormData {
-  honorificprefix: string;
+  honorificprefix?: string;
   firstname: string;
   lastname: string;
-  honorificsuffix: string;
+  honorificsuffix?: string;
   jobtitle: string;
   street?: string;
   city?: string;

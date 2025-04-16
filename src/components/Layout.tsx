@@ -7,6 +7,15 @@ import { MdSpaceDashboard, MdOutlineSell } from "react-icons/md";
 import { HiOutlineCreditCard } from "react-icons/hi";
 import { RiFileSearchLine } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
+import Image from "next/image";
+
+// Define a type for the user data
+interface UserData {
+  profileImage?: string;
+  firstname?: string;
+  lastname?: string;
+  workemail?: string;
+}
 
 interface LayoutProps {
   children: ReactNode;
@@ -17,7 +26,7 @@ export default function Layout({ children }: LayoutProps) {
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [bizDropdownOpen, setBizDropdownOpen] = useState(false);
-  const [userData, setUserData] = useState<any>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -51,9 +60,11 @@ export default function Layout({ children }: LayoutProps) {
       >
         {/* Sidebar Header */}
         <div className="flex flex-col justify-center items-center px-6 py-6 text-center">
-          <img
+          <Image
             src={userData?.profileImage || "/profile-placeholder.jpeg"}
             alt="Profile"
+            width={96}
+            height={96}
             className="w-24 h-24 rounded-full border-4 border-primary shadow-md object-cover"
           />
           <h2 className="text-lg text-primary">
@@ -145,9 +156,11 @@ export default function Layout({ children }: LayoutProps) {
             <FiMenu />
           </button>
           <div className="ml-auto sm:mr-4">
-            <img
+            <Image
               src="/QR-Logo.png"
               alt="QR-Logo Logo"
+              width={64}
+              height={48}
               className="w-16 h-12 object-contain"
             />
           </div>
