@@ -2,7 +2,7 @@
 
 import Layout from "../../components/Layout";
 import { useRouter } from "next/navigation";
-import Image from "next/image"; // Import Image from next/image
+import Image from "next/image";
 
 export default function Dashboard() {
   const router = useRouter();

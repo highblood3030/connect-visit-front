@@ -1,13 +1,11 @@
 "use client";
 
-
-
 import Image from 'next/image';
 
 interface FormData {
-  honorificprefix?: string;
   firstname: string;
   lastname: string;
+  honorificprefix?: string;
   honorificsuffix?: string;
   jobtitle: string;
   street?: string;
@@ -26,7 +24,6 @@ interface FormData {
   website?: string;
   profileImage?: string;
 }
-
 
 type Props = {
   title: string;
@@ -93,7 +90,6 @@ export default function PreviewCard({ title, formData }: Props) {
               </p>
             </div>
 
-            {/* Adjusted vertical spacing here */}
             <div className="absolute top-[5rem] left-3 text-left leading-tight space-y-1">
               {(formData.street || formData.city || formData.state || formData.postalCode || formData.country) && (
                 <div className="text-xs flex items-center">
@@ -301,8 +297,8 @@ export default function PreviewCard({ title, formData }: Props) {
                                   src={dup.dupIcon!}
                                   alt={`${dup.label} Duplicate Icon`}
                                   className="w-4 h-4"
-                                  width={16}
-                                  height={16}
+                                  width={50}
+                                  height={45}
                                 />
                               ))}
                             </div>
@@ -354,7 +350,6 @@ export default function PreviewCard({ title, formData }: Props) {
                 </div>
               )}
             </div>
-
 
             <Image
               src="/DNL-BC.png"

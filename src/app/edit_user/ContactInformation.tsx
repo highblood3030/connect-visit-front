@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import type { UserFormData } from "./edituserdashboard";
+import { UserFormData } from "./page";
 
 interface ContactInformationProps {
   formData: UserFormData;

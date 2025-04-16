@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect } from "react";
 import Image from "next/image";
-import { UserFormData } from "./page"; // Import UserFormData from EditUser
+import { UserFormData } from "./page";
 
 type Props = {
   profileImage: string;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  formData: UserFormData; // Use UserFormData here
-  setFormDataAction: React.Dispatch<React.SetStateAction<UserFormData>>; // Update type
+  formData: UserFormData;
+  setFormDataAction: React.Dispatch<React.SetStateAction<UserFormData>>;
 };
 
 const logoOptionsMap: Record<string, string[]> = {

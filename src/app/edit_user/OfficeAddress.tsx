@@ -1,5 +1,5 @@
 import React from "react";
-import { UserFormData } from "./page"; // Import your UserFormData type
+import { UserFormData } from "./page";
 
 interface OfficeAddressProps {
   formData: UserFormData;

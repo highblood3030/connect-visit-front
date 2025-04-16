@@ -30,7 +30,7 @@ interface UserData {
 export default function ConneqBizCards() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [businessModalOpen, setBusinessModalOpen] = useState(false);
-  const [userData, setUserData] = useState<UserData | null>(null); // Use the UserData type
+  const [userData, setUserData] = useState<UserData | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -44,20 +44,6 @@ export default function ConneqBizCards() {
 
   const handleSendEmail = () =>
     setErrorMessage("❌ Error: Failed to send email.");
-
-  const handleCopySignature = () => {
-    if (!userData) return;
-    const signatureText = `
-${userData.firstname} ${userData.lastname} - ${userData.jobtitle}
-${userData.company}
-${userData.workemail}
-${userData.address}
-${userData.cellphone}
-    `;
-    navigator.clipboard.writeText(signatureText).then(() => {
-      alert("✔️ Copy Success!\nSignature copied to clipboard.");
-    });
-  };
 
   const handleDownloadSignature = async () => {
     const signatureElement = document.getElementById("email-signature-card");
@@ -134,7 +120,7 @@ ${userData.cellphone}
       }, 100);
       return () => clearTimeout(timer);
     }
-  }, [userData, router]); // Add router to dependency array
+  }, [userData, router]);
 
   if (!userData) return null;
 
@@ -210,14 +196,6 @@ ${userData.cellphone}
           </div>
         </div>
 
-        <div className="flex justify-center mt-6">
-          <button
-            onClick={handleCopySignature}
-            className="bg-primary text-white px-4 py-2 rounded-md hover:bg-[#104745] transition cursor-pointer"
-          >
-            Copy Signature
-          </button>
-        </div>
       </div>
 
       {businessModalOpen && (
