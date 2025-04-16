@@ -42,7 +42,7 @@ export default function Layout({ children }: LayoutProps) {
   }, [sidebarOpen]);
 
   return (
-    <div className="h-screen flex bg-gradient-to-br from-[#FAE7C9] to-[#b4f6ff]">
+    <div className="h-screen flex bg-gradient-to-br from-[#ece0cd] to-[#d8f8fd]">
       <div
         ref={sidebarRef}
         className={`fixed top-0 left-0 h-screen w-64 sm:w-80 bg-[#D7F0ED] opacity-100 shadow-xl overflow-y-auto transform transition-transform duration-500 z-50 ${
