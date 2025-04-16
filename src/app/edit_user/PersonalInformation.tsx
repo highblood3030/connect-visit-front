@@ -1,26 +1,13 @@
 "use client";
 import React, { useEffect } from "react";
 import Image from "next/image";
-
-// Define proper types for form data
-interface FormData {
-  profileImage: string;
-  firstname: string;
-  middlename: string;
-  lastname: string;
-  honorificprefix: string;
-  honorificsuffix: string;
-  jobtitle: string;
-  company: string;
-  logo: string;
-  website: string;
-}
+import { UserFormData } from "./page"; // Import UserFormData from EditUser
 
 type Props = {
   profileImage: string;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  formData: FormData;
-  setFormDataAction: (data: FormData | ((prevData: FormData) => FormData)) => void;
+  formData: UserFormData; // Use UserFormData here
+  setFormDataAction: React.Dispatch<React.SetStateAction<UserFormData>>; // Update type
 };
 
 const logoOptionsMap: Record<string, string[]> = {
@@ -76,7 +63,7 @@ export default function PersonalInformation({
 
       const reader = new FileReader();
       reader.onload = () => {
-        if (typeof reader.result === 'string') {
+        if (typeof reader.result === "string") {
           setFormDataAction((prevData) => ({
             ...prevData,
             profileImage: reader.result as string,
@@ -87,7 +74,7 @@ export default function PersonalInformation({
     }
   };
 
-  const handleInputChange = (field: keyof FormData, value: string) => {
+  const handleInputChange = (field: keyof UserFormData, value: string) => {
     if (
       (field === "jobtitle" && isValidJobtitle(value)) ||
       (field === "honorificprefix" && isValidHonorific(value)) ||
@@ -243,7 +230,9 @@ export default function PersonalInformation({
           onChange={(e) =>
             setFormDataAction({ ...formData, logo: e.target.value })
           }
-          disabled={Boolean(formData.company && logoOptionsMap[formData.company]?.length === 1)}
+          disabled={Boolean(
+            formData.company && logoOptionsMap[formData.company]?.length === 1
+          )}
           required
         >
           <option value=""></option>

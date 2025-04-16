@@ -13,26 +13,27 @@ import PreviewCard from "./PreviewCard";
 
 export interface UserFormData {
   firstname: string;
-  middlename?: string;
+  middlename: string; // Ensure this is not optional
   lastname: string;
-  honorificprefix?: string;
-  honorificsuffix?: string;
+  honorificprefix: string; // Ensure this is not optional
+  honorificsuffix: string; // Ensure this is not optional
   jobtitle: string;
   company: string;
   logo: string;
-  website?: string;
-  cellphone?: string;
-  whatsapp?: string;
-  viber?: string;
-  wechat?: string;
-  workphone?: string;
+  website: string; // Ensure this is not optional
+  cellphone: string; // Ensure this is not optional
+  whatsapp: string; // Ensure this is not optional
+  viber: string; // Ensure this is not optional
+  wechat: string; // Ensure this is not optional
+  workphone: string; // Ensure this is not optional
   workemail: string;
-  workfax?: string;
+  workfax: string; // Ensure this is not optional
   address: string;
   location: string;
-  linkedin?: string;
-  facebook?: string;
-  note?: string;
+  linkedin: string; // Ensure this is not optional
+  facebook: string; // Ensure this is not optional
+  note: string; // Ensure this is not optional
+  profileImage: string;
 }
 
 export default function EditUser() {
@@ -46,26 +47,27 @@ export default function EditUser() {
 
   const defaultFormData: UserFormData = {
     firstname: "",
-    middlename: "",
+    middlename: "", // Default value
     lastname: "",
-    honorificprefix: "",
-    honorificsuffix: "",
+    honorificprefix: "", // Default value
+    honorificsuffix: "", // Default value
     jobtitle: "",
     company: "",
     logo: "",
-    website: "",
-    cellphone: "",
-    whatsapp: "",
-    viber: "",
-    wechat: "",
-    workphone: "",
+    website: "", // Default value
+    cellphone: "", // Default value
+    whatsapp: "", // Default value
+    viber: "", // Default value
+    wechat: "", // Default value
+    workphone: "", // Default value
     workemail: "",
-    workfax: "",
+    workfax: "", // Default value
     address: "",
     location: "",
-    linkedin: "",
-    facebook: "",
-    note: "",
+    linkedin: "", // Default value
+    facebook: "", // Default value
+    note: "", // Default value
+    profileImage: "/profile-placeholder.jpeg",
   };
 
   useEffect(() => {
@@ -156,7 +158,7 @@ export default function EditUser() {
                   profileImage={profileImage}
                   handleImageChange={handleImageChange}
                   formData={formData}
-                  setFormDataAction={setFormData} // ✅ Fixed here
+                  setFormDataAction={setFormData} 
                 />
               )}
               {activeTab === 1 && (
