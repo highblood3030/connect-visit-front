@@ -23,10 +23,8 @@ const logoOptionsMap: Record<string, string[]> = {
 };
 
 const isValidName = (value: string) => /^[A-Za-z\s-]{0,20}$/.test(value);
-const isValidJobtitle = (value: string) =>
-  /^[A-Za-z\s().-]{0,40}$/.test(value);
-const isValidHonorific = (value: string) =>
-  /^[A-Za-z\s.,-]{0,20}$/.test(value);
+const isValidJobtitle = (value: string) => /^[A-Za-z\s().-]{0,40}$/.test(value);
+const isValidHonorific = (value: string) => /^[A-Za-z\s.,-]{0,20}$/.test(value);
 
 export default function PersonalInformation({
   formData,
@@ -231,7 +229,7 @@ export default function PersonalInformation({
             setFormDataAction({ ...formData, logo: e.target.value })
           }
           disabled={Boolean(
-            formData.company && logoOptionsMap[formData.company]?.length === 1
+            formData.company && logoOptionsMap[formData.company]?.length === 1,
           )}
           required
         >

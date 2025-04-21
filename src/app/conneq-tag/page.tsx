@@ -11,6 +11,7 @@ import {
 } from "react-icons/fi";
 import { BsPrinter } from "react-icons/bs";
 import QRCode from "react-qr-code";
+import { globalClassNames } from "@/utils/classnames";
 
 interface DataItem {
   id: number;
@@ -143,7 +144,7 @@ export default function ConneqTag() {
         {/* Actions Section */}
         <div className="flex flex-wrap gap-4 mt-2">
           <button
-            className="bg-[#145C5B] text-white px-6 py-2 rounded-lg shadow-md hover:bg-[#0e4b4b] transition cursor-pointer"
+            className={globalClassNames.primaryButton}
             onClick={() => setModalOpen(true)}
           >
             + Create
@@ -205,7 +206,7 @@ export default function ConneqTag() {
               placeholder="Search"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="flex-1 min-w-[150px] outline-none bg-transparent text-gray-700 placeholder-gray-400"
+              className={globalClassNames.inputField}
             />
             <FiSearch className="text-xl text-gray-500 cursor-pointer hover:bg-blue-50" />
           </div>
@@ -217,7 +218,7 @@ export default function ConneqTag() {
             <p className="text-center text-gray-500">No data available</p>
           ) : (
             dataList.map((item) => (
-              <div key={item.id} className="bg-white shadow-md rounded-md p-4">
+              <div key={item.id} className={globalClassNames.card}>
                 <div className="flex justify-between items-center mb-2">
                   <p className="font-bold text-[#145C5B]">#{item.id}</p>
                   <span className="text-sm text-gray-600">
@@ -237,7 +238,7 @@ export default function ConneqTag() {
                   <strong>Status:</strong> {item.status}
                 </p>
                 <button
-                  className="mt-3 bg-[#145C5B] text-white px-4 py-1 rounded-md hover:bg-[#0e4b4b] transition cursor-pointer"
+                  className={globalClassNames.primaryButton}
                   onClick={() => handleViewDetails(item)}
                 >
                   View Details
@@ -250,18 +251,18 @@ export default function ConneqTag() {
         {/* Table View (Desktop) */}
         <div className="hidden sm:block overflow-x-auto mt-2">
           <table className="min-w-full border-collapse text-sm sm:text-base">
-            <thead className="bg-gray-200 text-gray-700">
+            <thead className={globalClassNames.tableHeader}>
               <tr>
-                <th className="py-3 px-4 text-left">
+                <th className={globalClassNames.tableCell}>
                   <input type="checkbox" />
                 </th>
-                <th className="py-3 px-4 text-left">ID</th>
-                <th className="py-3 px-4 text-left">Name</th>
-                <th className="py-3 px-4 text-left">Text Tag</th>
-                <th className="py-3 px-4 text-left">Description</th>
-                <th className="py-3 px-4 text-left">Status</th>
-                <th className="py-3 px-4 text-left">Date Created</th>
-                <th className="py-3 px-4 text-left">Actions</th>
+                <th className={globalClassNames.tableCell}>ID</th>
+                <th className={globalClassNames.tableCell}>Name</th>
+                <th className={globalClassNames.tableCell}>Text Tag</th>
+                <th className={globalClassNames.tableCell}>Description</th>
+                <th className={globalClassNames.tableCell}>Status</th>
+                <th className={globalClassNames.tableCell}>Date Created</th>
+                <th className={globalClassNames.tableCell}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -301,7 +302,7 @@ export default function ConneqTag() {
                       <td className="py-3 px-4">{item.dateCreated}</td>
                       <td className="py-3 px-4">
                         <button
-                          className="bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition cursor-pointer"
+                          className={globalClassNames.primaryButton}
                           onClick={() => handleViewDetails(item)}
                         >
                           View Details
@@ -314,27 +315,27 @@ export default function ConneqTag() {
           </table>
         </div>
         {/* Pagination */}
-        <div className="flex flex-col sm:flex-row justify-center sm:justify-between items-center p-3 bg-gray-100 gap-2">
-          <button className="px-4 py-2 border rounded bg-gray-200 text-gray-500 cursor-pointer hover:bg-green-100">
+        <div className={globalClassNames.pagination}>
+          <button className={globalClassNames.paginationButton}>
             ◀
           </button>
           <span className="text-gray-600">Page 1 of 1</span>
-          <button className="px-4 py-2 border rounded bg-gray-200 text-gray-500 cursor-pointer hover:bg-green-100">
+          <button className={globalClassNames.paginationButton}>
             ▶
           </button>
         </div>
       </div>
       {/* Create Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-blur bg-opacity-50 backdrop-blur-sm z-50 overflow-auto">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+        <div className={globalClassNames.modal}>
+          <div className={globalClassNames.modalContent}>
             {/* Modal Header */}
             <div className="flex justify-between items-center border-b pb-2">
               <h2 className="text-xl font-bold text-[#145C5B]">
                 CONNEQ TAG FORM
               </h2>
               <FiX
-                className="text-xl cursor-pointer text-gray-600 hover:text-gray-800 cursor-pointer"
+                className={globalClassNames.XButton}
                 onClick={() => setModalOpen(false)}
               />
             </div>
@@ -416,8 +417,8 @@ export default function ConneqTag() {
 
       {/* View Details Modal */}
       {viewModalOpen && selectedItem && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+        <div className={globalClassNames.modal}>
+          <div className={globalClassNames.modalContent}>
             {/* Modal Header */}
             <div className="flex justify-between items-center border-b pb-2">
               <h2 className="text-xl font-bold text-[#145C5B]">CONNEQ TAG</h2>
@@ -436,7 +437,7 @@ export default function ConneqTag() {
 
               {/* Download QR Button */}
               <button
-                className="flex items-center bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition cursor-pointer"
+                className={globalClassNames.Downloadbutton}
                 onClick={handleDownloadQR}
               >
                 <FiDownload className="mr-2" />
@@ -464,8 +465,8 @@ export default function ConneqTag() {
 
       {/* Success Modal (Details Successfully Saved) */}
       {successModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm flex flex-col items-center">
+        <div className={globalClassNames.modal}>
+          <div className="bg-blur p-6 rounded-lg shadow-lg w-full max-w-sm flex flex-col items-center">
             {/* Icon in a green circle */}
             <div className="mx-auto mb-4 flex items-center justify-center w-20 h-20 rounded-full bg-green-100">
               <FiCheckCircle className="text-green-600 text-4xl" />
@@ -478,13 +479,13 @@ export default function ConneqTag() {
             <div className="flex flex-wrap gap-2 mb-4">
               <button
                 onClick={handleDownloadPDF}
-                className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition cursor-pointer"
+                className={globalClassNames.Downloadbutton}
               >
                 Download PDF
               </button>
               <button
                 onClick={() => setSuccessModalOpen(false)}
-                className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition cursor-pointer"
+                className={globalClassNames.closeBUtton}
               >
                 Close
               </button>

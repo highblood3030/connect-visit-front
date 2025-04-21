@@ -6,6 +6,7 @@ import Image from "next/image";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { globalClassNames } from "@/utils/classnames";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -117,7 +118,7 @@ const LandingPage = () => {
 
               <button
                 onClick={handleButtonClick}
-                className="bg-green-700 text-white px-6 py-3 rounded-full font-semibold shadow-md transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                className={globalClassNames.LogIn}
               >
                 Login using Corporate Email
               </button>
@@ -127,9 +128,7 @@ const LandingPage = () => {
       </Slider>
 
       {/* Hand image pinned even further bottom-right */}
-      <div
-        className="absolute bottom-[-10px] sm:bottom-[-20px] right-[-10px] sm:right-[-20px] z-20 pointer-events-none"
-      >
+      <div className="absolute bottom-[-10px] sm:bottom-[-20px] right-[-10px] sm:right-[-20px] z-20 pointer-events-none">
         <div className="relative h-[20rem] sm:h-[26rem] md:h-[32rem] lg:h-[36rem] w-auto">
           <Image
             src="/hand1.png"

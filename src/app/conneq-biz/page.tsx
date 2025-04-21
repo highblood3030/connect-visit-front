@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Layout from "../../components/Layout";
 import PreviewCard from "../edit_user/PreviewCard";
+import { globalClassNames } from "@/utils/classnames";
 import {
   FiEdit,
   FiMail,
@@ -130,8 +131,8 @@ export default function ConneqBizCards() {
         <div className="mb-4 text-center md:text-left mt-8 md:mt-16">
           <h1 className="text-2xl break-words font-bold">MY CARDS</h1>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 mb-6 cursor-pointer">
-          {[ 
+        <div className={globalClassNames.button}>
+          {[
             {
               onClick: handleEdit,
               icon: <FiEdit className="text-sm" />,
@@ -158,14 +159,8 @@ export default function ConneqBizCards() {
               label: "Download My QR",
             },
           ].map(({ onClick, icon, label }, i) => (
-            <div
-              key={i}
-              className="bg-white/90 border border-cardHover rounded-md shadow p-1.5 hover:shadow transition cursor-pointer"
-            >
-              <button
-                onClick={onClick}
-                className="flex items-center gap-0.5 text-primary hover:text-darkTeal font-bold text-xs cursor-pointer"
-              >
+            <div key={i} className={globalClassNames.card}>
+              <button onClick={onClick} className={globalClassNames.iconButton}>
                 {icon}
                 {label}
               </button>
@@ -173,7 +168,7 @@ export default function ConneqBizCards() {
           ))}
         </div>
 
-        <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start w-full min-h-[500px] px-4 py-6 rounded-lg overflow-hidden mt-0">
+        <div className={globalClassNames.bizPreview}>
           <div className="flex flex-col items-center w-full max-w-lg mt-4">
             <PreviewCard
               title="Business Card"
@@ -195,16 +190,15 @@ export default function ConneqBizCards() {
             </div>
           </div>
         </div>
-
       </div>
 
       {businessModalOpen && (
         <div
-          className="fixed inset-0 flex items-center justify-center backdrop-blur-sm z-50 p-4"
+          className={globalClassNames.modal}
           onClick={() => setBusinessModalOpen(false)}
         >
           <div
-            className="bg-white text-primary p-6 rounded-lg shadow-xl w-full max-w-lg md:max-w-2xl border border-cardHover"
+            className={globalClassNames.modalContent}
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-xl text-center mb-6">Send Business Card</h2>
@@ -228,7 +222,7 @@ export default function ConneqBizCards() {
             />
             <div className="flex justify-center mt-6">
               <button
-                className="bg-primary text-white px-4 py-2 rounded-md hover:bg-[#104745] transition cursor-pointer"
+                className={globalClassNames.primaryButton}
                 onClick={handleSendEmail}
               >
                 Send Email
@@ -239,12 +233,12 @@ export default function ConneqBizCards() {
       )}
 
       {errorMessage && (
-        <div className="fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-md text-center py-3 px-4 z-50">
-          <div className="bg-white text-primary p-6 rounded-lg shadow-lg text-center max-w-sm">
+        <div className={globalClassNames.errorContainer}>
+          <div className={globalClassNames.errorContent}>
             <p className="text-lg">{errorMessage}</p>
             <button
               onClick={() => setErrorMessage(null)}
-              className="mt-4 bg-primary px-4 py-2 rounded-md hover:bg-[#104745] transition cursor-pointer text-white"
+              className={globalClassNames.primaryButton}
             >
               OK
             </button>

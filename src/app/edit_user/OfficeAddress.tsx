@@ -3,7 +3,11 @@ import { UserFormData } from "./page";
 
 interface OfficeAddressProps {
   formData: UserFormData;
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  handleInputChange: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => void;
   setFormData: React.Dispatch<React.SetStateAction<UserFormData>>;
 }
 
@@ -26,13 +30,15 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
     "CTI Davao Branch",
   ];
 
-  const addressDetails: { [key: string]: { 
-    street: string;
-    city: string;
-    state: string;
-    postalCode: string;
-    country: string;
-  } } = {
+  const addressDetails: {
+    [key: string]: {
+      street: string;
+      city: string;
+      state: string;
+      postalCode: string;
+      country: string;
+    };
+  } = {
     "Mercury Office": {
       street: "#5 Mercury Avenue, Bagumbayan",
       city: "Quezon City",
@@ -62,7 +68,8 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
       country: "Philippines",
     },
     "Laguna Plant": {
-      street: "122 Progress Ave., Carmelray Industrial Park 1, Special Economic Zone, Canlubang",
+      street:
+        "122 Progress Ave., Carmelray Industrial Park 1, Special Economic Zone, Canlubang",
       city: "Calamba City",
       state: "Laguna",
       postalCode: "4027",
@@ -75,8 +82,9 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
       postalCode: "1009",
       country: "Philippines",
     },
-    "FIT": {
-      street: "Administration Building, First Industrial Township-sez, Brgy. Pagaspas",
+    FIT: {
+      street:
+        "Administration Building, First Industrial Township-sez, Brgy. Pagaspas",
       city: "Tanauan",
       state: "Batangas",
       postalCode: "4232",
@@ -90,14 +98,16 @@ const OfficeAddress: React.FC<OfficeAddressProps> = ({
       country: "Philippines",
     },
     "CCPI Office": {
-      street: "Consumer Care Bldg. Manggahan Light Industrial Park A Rodriguez Avenue Santolan",
+      street:
+        "Consumer Care Bldg. Manggahan Light Industrial Park A Rodriguez Avenue Santolan",
       city: "Pasig City",
       state: "Metro Manila",
       postalCode: "1610",
       country: "Philippines",
     },
     "CTI Davao Branch": {
-      street: "Door 2C & 2D, Main Building, Amina Way Business Park, Diversion Road, Sasa",
+      street:
+        "Door 2C & 2D, Main Building, Amina Way Business Park, Diversion Road, Sasa",
       city: "Davao City",
       state: "Davao Del Sur",
       postalCode: "8000",
