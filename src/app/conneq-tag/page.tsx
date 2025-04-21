@@ -53,7 +53,7 @@ export default function ConneqTag() {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+    >
   ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -137,7 +137,7 @@ export default function ConneqTag() {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 h-[calc(100vh-4rem)] overflow-auto">
-        <h1 className="text-lg md:text-xl lg:text-xl font-bold text-primary mt-8 md:mt-16 font-montserrat">
+        <h1 className={globalClassNames.conneqPageHeader}>
           CONNEQ TAG
         </h1>
 
@@ -151,7 +151,7 @@ export default function ConneqTag() {
           </button>
 
           <button
-            className="bg-green-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-green-600 transition flex items-center cursor-pointer"
+            className={globalClassNames.tagGreenButton}
             onClick={() => alert("Upload Tags File Clicked")}
           >
             <FiUpload className="mr-2" />
@@ -159,7 +159,7 @@ export default function ConneqTag() {
           </button>
 
           <button
-            className="bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition flex items-center cursor-pointer"
+            className={globalClassNames.tagBlueButton}
             onClick={() => alert("Batch Print Clicked")}
           >
             <BsPrinter className="mr-2" />
@@ -168,39 +168,39 @@ export default function ConneqTag() {
         </div>
 
         {/* Filters & Search */}
-        <div className="bg-white p-2 rounded-lg shadow-md grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-2 mt-2">
-          <div className="flex items-center bg-white border border-gray-300 rounded-lg px-3 py-2">
+        <div className={globalClassNames.conneqbizbars}>
+          <div className={globalClassNames.bizbars}>
             <input
               type="text"
               placeholder="Name filter"
-              className="flex-1 min-w-[150px] outline-none bg-transparent text-gray-700 placeholder-gray-400"
+              className={globalClassNames.bizinput}
             />
           </div>
 
-          <div className="flex items-center bg-white border border-gray-300 rounded-lg px-3 py-2">
+          <div className={globalClassNames.bizbars}>
             <input
               type="text"
               placeholder="Tag filter"
-              className="flex-1 min-w-[150px] outline-none bg-transparent text-gray-700 placeholder-gray-400"
+              className={globalClassNames.bizinput}
             />
           </div>
 
-          <div className="flex items-center bg-white border border-gray-300 rounded-lg px-3 py-2">
+          <div className={globalClassNames.bizbars}>
             <input
               type="text"
               placeholder="Description filter"
-              className="flex-1 min-w-[150px] outline-none bg-transparent text-gray-700 placeholder-gray-400"
+              className={globalClassNames.bizinput}
             />
           </div>
 
-          <div className="flex items-center bg-white border border-gray-300 rounded-lg px-3 py-2">
+          <div className={globalClassNames.bizbars}>
             <input
               type="text"
               placeholder="Date filter"
-              className="flex-1 min-w-[150px] outline-none bg-transparent text-gray-700 placeholder-gray-400"
+              className={globalClassNames.bizinput}
             />
           </div>
-          <div className="flex items-center bg-white border border-gray-300 rounded-lg px-3 py-2">
+          <div className={globalClassNames.bizbars}>
             <input
               type="text"
               placeholder="Search"
@@ -287,7 +287,7 @@ export default function ConneqTag() {
                         .includes(searchTerm.toLowerCase()) ||
                       item.dateCreated
                         .toLowerCase()
-                        .includes(searchTerm.toLowerCase()),
+                        .includes(searchTerm.toLowerCase())
                   )
                   .map((item) => (
                     <tr key={item.id}>
@@ -316,13 +316,9 @@ export default function ConneqTag() {
         </div>
         {/* Pagination */}
         <div className={globalClassNames.pagination}>
-          <button className={globalClassNames.paginationButton}>
-            ◀
-          </button>
+          <button className={globalClassNames.paginationButton}>◀</button>
           <span className="text-gray-600">Page 1 of 1</span>
-          <button className={globalClassNames.paginationButton}>
-            ▶
-          </button>
+          <button className={globalClassNames.paginationButton}>▶</button>
         </div>
       </div>
       {/* Create Modal */}
@@ -349,7 +345,7 @@ export default function ConneqTag() {
                 </label>
                 <textarea
                   name="textTag"
-                  className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B]"
+                  className={globalClassNames.ConneqTag}
                   placeholder="Text Tag"
                   rows={2}
                   maxLength={50}
@@ -368,7 +364,7 @@ export default function ConneqTag() {
                   type="text"
                   name="name"
                   maxLength={30}
-                  className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B]"
+                  className={globalClassNames.ConneqTag}
                   placeholder="Item Name"
                   required
                   value={formData.name}
@@ -383,7 +379,7 @@ export default function ConneqTag() {
                 </label>
                 <textarea
                   name="description"
-                  className="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B]"
+                  className={globalClassNames.ConneqTag}
                   placeholder="Description"
                   rows={3}
                   maxLength={50}
@@ -406,7 +402,7 @@ export default function ConneqTag() {
               {/* Save Button */}
               <button
                 type="submit"
-                className="bg-[#145C5B] text-white px-6 py-2 rounded-md w-full mt-2 hover:bg-[#0e4b4b] transition-all cursor-pointer"
+                className={globalClassNames.tagSaveButton}
               >
                 Save
               </button>
@@ -423,7 +419,7 @@ export default function ConneqTag() {
             <div className="flex justify-between items-center border-b pb-2">
               <h2 className="text-xl font-bold text-[#145C5B]">CONNEQ TAG</h2>
               <FiX
-                className="text-xl cursor-pointer text-gray-600 hover:text-gray-800"
+                className={globalClassNames.XButton}
                 onClick={() => setViewModalOpen(false)}
               />
             </div>

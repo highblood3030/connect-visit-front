@@ -367,7 +367,7 @@ export default function ConneqPage() {
               {/* Save Button */}
               <button
                 type="submit"
-                className="w-full bg-[#145C5B] text-white py-2 rounded-md mt-2 cursor-pointer"
+                className={globalClassNames.tagSaveButton}
               >
                 Save
               </button>
@@ -383,7 +383,7 @@ export default function ConneqPage() {
             {/* Close Icon */}
             <div className="flex justify-end">
               <FiX
-                className="text-xl cursor-pointer text-gray-600 hover:text-gray-800 cursor-pointer"
+                className={globalClassNames.XButton}
                 onClick={() => setViewModalOpen(false)}
               />
             </div>
