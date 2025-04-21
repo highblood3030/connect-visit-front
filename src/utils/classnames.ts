@@ -1,3 +1,4 @@
+import ConneqTag from "@/app/conneq-tag/page";
 
 export const globalClassNames = {
   button:
@@ -29,7 +30,10 @@ export const globalClassNames = {
     "flex items-center bg-[#145C5B] text-white px-3 py-1 rounded-md hover:bg-[#0e4b4b] transition cursor-pointer",
   closeBUtton:
     "bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition cursor-pointer",
-  XButton:"text-xl cursor-pointer text-black hover:text-black cursor-pointer",
+  XButton: "text-xl cursor-pointer text-black hover:text-black cursor-pointer",
+  tagSaveButton:"bg-[#145C5B] text-white px-6 py-2 rounded-md w-full mt-2 hover:bg-[#0e4b4b] transition-all cursor-pointer",
+  tagGreenButton:"bg-green-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-green-600 transition flex items-center cursor-pointer",
+  tagBlueButton:"bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition flex items-center cursor-pointer",
 
   // Inputs
   inputField: "w-full border p-2 rounded-md text-black",
@@ -51,6 +55,14 @@ export const globalClassNames = {
     "flex flex-col sm:flex-row justify-center sm:justify-between items-center p-3 bg-gray-100 gap-2",
   pagenationButton:
     "px-4 py-2 border rounded bg-gray-200 text-gray-500 cursor-pointer hover:bg-green-100",
+  conneqbizbars:
+    "bg-white p-2 rounded-lg shadow-md grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-2 mt-2",
+  bizbars:
+    "flex items-center bg-white border border-gray-300 rounded-lg px-3 py-2",
+  bizinput:
+    "flex-1 min-w-[150px] outline-none bg-transparent text-gray-700 placeholder-gray-400",
+  ConneqTag:
+    "w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B]",
 
   // previews
   businessPreview:
@@ -69,7 +81,6 @@ export const globalClassNames = {
     "appearance-none w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-teal-500",
   bizPreview:
     "flex flex-col md:flex-row gap-6 justify-center md:justify-start w-full min-h-[500px] px-4 py-6 rounded-lg overflow-hidden mt-0",
-
 };
 
 export const combineClassNames = (...classes: string[]) => {
