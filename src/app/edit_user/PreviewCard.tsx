@@ -1,6 +1,7 @@
 "use client";
 
-import Image from 'next/image';
+import { globalClassNames } from "@/utils/classnames";
+import Image from "next/image";
 
 interface FormData {
   firstname: string;
@@ -39,7 +40,7 @@ export default function PreviewCard({ title, formData }: Props) {
     .split(" ")
     .map(
       (word: string) =>
-        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
     )
     .join(" ");
 
@@ -51,8 +52,9 @@ export default function PreviewCard({ title, formData }: Props) {
 
       {/* Card */}
       <div
-        className={`relative w-full max-w-[360px] ${title === "Business Card" ? "min-h-[216px]" : "min-h-[210px]"
-          } rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-105 duration-300 mt-0`}
+        className={`relative w-full max-w-[360px] ${
+          title === "Business Card" ? "min-h-[216px]" : "min-h-[210px]"
+        } rounded-xl shadow-xl overflow-hidden transition-transform hover:scale-105 duration-300 mt-0`}
       >
         <Image
           src="/Background-ESign.png"
@@ -64,7 +66,7 @@ export default function PreviewCard({ title, formData }: Props) {
 
         {/* EMAIL SIGNATURE */}
         {title === "Email Signature" && (
-          <div className="relative w-full min-h-[220px] max-w-[360px] mx-auto flex flex-col justify-start px-4 py-3">
+          <div className={globalClassNames.emailPreview}>
             <Image
               src="/qr.png"
               alt="QR Code"
@@ -85,13 +87,15 @@ export default function PreviewCard({ title, formData }: Props) {
               <p className="font-bold text-[#23927a] text-sm capitalize">
                 {jobTitleCapitalized}
               </p>
-              <p className="italic text-gray-500 text-sm">
-                {formData.website}
-              </p>
+              <p className="italic text-gray-500 text-sm">{formData.website}</p>
             </div>
 
             <div className="absolute top-[5rem] left-3 text-left leading-tight space-y-1">
-              {(formData.street || formData.city || formData.state || formData.postalCode || formData.country) && (
+              {(formData.street ||
+                formData.city ||
+                formData.state ||
+                formData.postalCode ||
+                formData.country) && (
                 <div className="text-xs flex items-center">
                   <Image
                     src="/Location.png"
@@ -103,10 +107,18 @@ export default function PreviewCard({ title, formData }: Props) {
                   <div className="text-xs text-gray-600 mt-1">
                     {formData.street && <p>{formData.street}</p>}
                     {(formData.city || formData.state) && (
-                      <p>{formData.city}{formData.city && formData.state ? ', ' : ''}{formData.state}</p>
+                      <p>
+                        {formData.city}
+                        {formData.city && formData.state ? ", " : ""}
+                        {formData.state}
+                      </p>
                     )}
                     {(formData.postalCode || formData.country) && (
-                      <p>{formData.postalCode}{formData.postalCode && formData.country ? ', ' : ''}{formData.country}</p>
+                      <p>
+                        {formData.postalCode}
+                        {formData.postalCode && formData.country ? ", " : ""}
+                        {formData.country}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -167,10 +179,10 @@ export default function PreviewCard({ title, formData }: Props) {
           </div>
         )}
 
-       {/* BUSINESS CARD */}
+        {/* BUSINESS CARD */}
         {title === "Business Card" && (
-          <div className="relative w-full max-w-[360px] mx-auto flex flex-col items-center justify-start px-4 py-3 space-y-2">
-            <div className="w-24 h-24 rounded-full border-4 border-[#145C5B] overflow-hidden">
+          <div className={globalClassNames.businessPreview}>
+            <div className={globalClassNames.previewBusiness}>
               <Image
                 src={formData.profileImage || "/profile-placeholder.jpeg"}
                 className="object-cover w-full h-full rounded-full"
@@ -185,7 +197,11 @@ export default function PreviewCard({ title, formData }: Props) {
             </p>
 
             <div className="flex flex-col items-start w-full mt-1 space-y-1 px-4">
-              {(formData.street || formData.city || formData.state || formData.postalCode || formData.country) && (
+              {(formData.street ||
+                formData.city ||
+                formData.state ||
+                formData.postalCode ||
+                formData.country) && (
                 <div className="text-xs flex items-center">
                   <Image
                     src="/Location.png"
@@ -197,10 +213,18 @@ export default function PreviewCard({ title, formData }: Props) {
                   <div className="text-xs text-gray-600 mt-1">
                     {formData.street && <p>{formData.street}</p>}
                     {(formData.city || formData.state) && (
-                      <p>{formData.city}{formData.city && formData.state ? ', ' : ''}{formData.state}</p>
+                      <p>
+                        {formData.city}
+                        {formData.city && formData.state ? ", " : ""}
+                        {formData.state}
+                      </p>
                     )}
                     {(formData.postalCode || formData.country) && (
-                      <p>{formData.postalCode}{formData.postalCode && formData.country ? ', ' : ''}{formData.country}</p>
+                      <p>
+                        {formData.postalCode}
+                        {formData.postalCode && formData.country ? ", " : ""}
+                        {formData.country}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -232,84 +256,99 @@ export default function PreviewCard({ title, formData }: Props) {
                 </div>
               )}
 
-              {(formData.cellphone || formData.whatsapp || formData.viber || formData.wechat) && (() => {
-                const numbers: { label: string; value: string; icon: string; dupIcon?: string }[] = [];
+              {(formData.cellphone ||
+                formData.whatsapp ||
+                formData.viber ||
+                formData.wechat) &&
+                (() => {
+                  const numbers: {
+                    label: string;
+                    value: string;
+                    icon: string;
+                    dupIcon?: string;
+                  }[] = [];
 
-                if (formData.cellphone) {
-                  numbers.push({ label: "cellphone", value: formData.cellphone, icon: "/Cellphone.png" });
-                }
+                  if (formData.cellphone) {
+                    numbers.push({
+                      label: "cellphone",
+                      value: formData.cellphone,
+                      icon: "/Cellphone.png",
+                    });
+                  }
 
-                if (formData.whatsapp) {
-                  numbers.push({
-                    label: "whatsapp",
-                    value: formData.whatsapp,
-                    icon: "/Whatsapp.png",
-                    dupIcon: "/Whatsapp-Duplicate.png",
+                  if (formData.whatsapp) {
+                    numbers.push({
+                      label: "whatsapp",
+                      value: formData.whatsapp,
+                      icon: "/Whatsapp.png",
+                      dupIcon: "/Whatsapp-Duplicate.png",
+                    });
+                  }
+
+                  if (formData.viber) {
+                    numbers.push({
+                      label: "viber",
+                      value: formData.viber,
+                      icon: "/Viber.png",
+                      dupIcon: "/Viber-Duplicate.png",
+                    });
+                  }
+
+                  if (formData.wechat) {
+                    numbers.push({
+                      label: "wechat",
+                      value: formData.wechat,
+                      icon: "/Wechat.png",
+                      dupIcon: "/Wechat-Duplicate.png",
+                    });
+                  }
+
+                  // Group by value
+                  const grouped: { [value: string]: typeof numbers } = {};
+                  numbers.forEach((num) => {
+                    if (!grouped[num.value]) grouped[num.value] = [];
+                    grouped[num.value].push(num);
                   });
-                }
 
-                if (formData.viber) {
-                  numbers.push({
-                    label: "viber",
-                    value: formData.viber,
-                    icon: "/Viber.png",
-                    dupIcon: "/Viber-Duplicate.png",
-                  });
-                }
+                  return (
+                    <>
+                      {Object.entries(grouped).map(([value, items]) => {
+                        const main = items[0];
+                        const duplicates = items.slice(1);
 
-                if (formData.wechat) {
-                  numbers.push({
-                    label: "wechat",
-                    value: formData.wechat,
-                    icon: "/Wechat.png",
-                    dupIcon: "/Wechat-Duplicate.png",
-                  });
-                }
-
-                // Group by value
-                const grouped: { [value: string]: typeof numbers } = {};
-                numbers.forEach((num) => {
-                  if (!grouped[num.value]) grouped[num.value] = [];
-                  grouped[num.value].push(num);
-                });
-
-                return (
-                  <>
-                    {Object.entries(grouped).map(([value, items]) => {
-                      const main = items[0];
-                      const duplicates = items.slice(1);
-
-                      return (
-                        <div key={value} className="text-xs flex items-center">
-                          <Image 
-                            src={main.icon} 
-                            alt={`${main.label} Icon`} 
-                            className="w-10 h-6 mr-1" 
-                            width={40}
-                            height={24}
-                          />
-                          {value}
-                          {duplicates.length > 0 && (
-                            <div className="flex items-center gap-[1px] ml-1">
-                              {duplicates.map((dup) => (
-                                <Image
-                                  key={dup.label}
-                                  src={dup.dupIcon!}
-                                  alt={`${dup.label} Duplicate Icon`}
-                                  className="w-4 h-4"
-                                  width={50}
-                                  height={45}
-                                />
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </>
-                );
-              })()}
-
+                        return (
+                          <div
+                            key={value}
+                            className="text-xs flex items-center"
+                          >
+                            <Image
+                              src={main.icon}
+                              alt={`${main.label} Icon`}
+                              className="w-10 h-6 mr-1"
+                              width={40}
+                              height={24}
+                            />
+                            {value}
+                            {duplicates.length > 0 && (
+                              <div className="flex items-center gap-[1px] ml-1">
+                                {duplicates.map((dup) => (
+                                  <Image
+                                    key={dup.label}
+                                    src={dup.dupIcon!}
+                                    alt={`${dup.label} Duplicate Icon`}
+                                    className="w-4 h-4"
+                                    width={50}
+                                    height={45}
+                                  />
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </>
+                  );
+                })()}
 
               {formData.workphone && (
                 <div className="text-xs flex items-center">

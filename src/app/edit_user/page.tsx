@@ -109,7 +109,9 @@ export default function EditUser() {
   ];
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData((prev: UserFormData) => {
@@ -158,7 +160,11 @@ export default function EditUser() {
                     key={idx}
                     onClick={() => {
                       if (idx > activeTab) {
-                        if (formRef.current && !formRef.current.reportValidity()) return;
+                        if (
+                          formRef.current &&
+                          !formRef.current.reportValidity()
+                        )
+                          return;
                       }
                       setActiveTab(idx);
                     }}
@@ -179,7 +185,7 @@ export default function EditUser() {
                   profileImage={profileImage}
                   handleImageChange={handleImageChange}
                   formData={formData}
-                  setFormDataAction={setFormData} 
+                  setFormDataAction={setFormData}
                 />
               )}
               {activeTab === 1 && (
@@ -192,7 +198,7 @@ export default function EditUser() {
                 <OfficeAddress
                   formData={formData}
                   handleInputChange={handleInputChange}
-                  setFormData={setFormData} 
+                  setFormData={setFormData}
                 />
               )}
               {activeTab === 3 && (
@@ -262,7 +268,8 @@ export default function EditUser() {
                 <button
                   type="button"
                   onClick={() => {
-                    if (formRef.current && !formRef.current.reportValidity()) return;
+                    if (formRef.current && !formRef.current.reportValidity())
+                      return;
                     setActiveTab((prev) => prev + 1);
                   }}
                   disabled={activeTab === tabs.length - 1}

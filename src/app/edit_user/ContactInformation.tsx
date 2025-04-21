@@ -68,15 +68,12 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           pattern="\+63\d{3}-\d{3}-\d{4}"
           onInvalid={(e) =>
             (e.target as HTMLInputElement).setCustomValidity(
-              "Please enter a valid 10-digit number (e.g. +63912-345-6789)"
+              "Please enter a valid 10-digit number (e.g. +63912-345-6789)",
             )
           }
-          onInput={(e) =>
-            (e.target as HTMLInputElement).setCustomValidity("")
-          }
+          onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
           className="w-full border px-3 py-2 rounded-md"
         />
-
       </div>
 
       <div className="relative w-full">
@@ -90,15 +87,12 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           pattern="\+63\d{3}-\d{3}-\d{4}"
           onInvalid={(e) =>
             (e.target as HTMLInputElement).setCustomValidity(
-              "Please enter a valid 10-digit number (e.g. +63912-345-6789)"
+              "Please enter a valid 10-digit number (e.g. +63912-345-6789)",
             )
           }
-          onInput={(e) =>
-            (e.target as HTMLInputElement).setCustomValidity("")
-          }
+          onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
           className="w-full border px-3 py-2 rounded-md"
         />
-
       </div>
 
       <div className="relative w-full">
@@ -112,15 +106,12 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           pattern="\+63\d{3}-\d{3}-\d{4}"
           onInvalid={(e) =>
             (e.target as HTMLInputElement).setCustomValidity(
-              "Please enter a valid 10-digit number (e.g. +63912-345-6789)"
+              "Please enter a valid 10-digit number (e.g. +63912-345-6789)",
             )
           }
-          onInput={(e) =>
-            (e.target as HTMLInputElement).setCustomValidity("")
-          }
+          onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
           className="w-full border px-3 py-2 rounded-md"
         />
-
       </div>
 
       <div className="relative w-full">
@@ -134,15 +125,12 @@ const ContactInformation: React.FC<ContactInformationProps> = ({
           pattern="\+63\d{3}-\d{3}-\d{4}"
           onInvalid={(e) =>
             (e.target as HTMLInputElement).setCustomValidity(
-              "Please enter a valid 10-digit number (e.g. +63912-345-6789)"
+              "Please enter a valid 10-digit number (e.g. +63912-345-6789)",
             )
           }
-          onInput={(e) =>
-            (e.target as HTMLInputElement).setCustomValidity("")
-          }
+          onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
           className="w-full border px-3 py-2 rounded-md"
         />
-
       </div>
 
       <div className="relative w-full">
