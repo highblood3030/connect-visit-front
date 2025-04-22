@@ -255,7 +255,7 @@ export default function ConneqPage() {
             <form onSubmit={handleSubmit} className="grid gap-4">
               {/* Name */}
               <div>
-                <label className="block text-black font-semibold mb-1">
+                <label className={globalClassNames.block}>
                   Name<span className="ml-1 text-red-500">*</span>
                 </label>
                 <input
@@ -266,13 +266,13 @@ export default function ConneqPage() {
                   onChange={handleChange}
                   placeholder="Item Name"
                   required
-                  className="w-full border p-2 rounded-md text-black"
+                  className={globalClassNames.description}
                 />
               </div>
 
               {/* Description */}
               <div>
-                <label className="block text-black font-semibold mb-1">
+                <label className={globalClassNames.block}>
                   Description
                 </label>
                 <textarea
@@ -281,20 +281,20 @@ export default function ConneqPage() {
                   value={formData.description}
                   onChange={handleChange}
                   placeholder="Description"
-                  className="w-full border p-2 rounded-md text-black"
+                  className={globalClassNames.description}
                 ></textarea>
               </div>
 
               {/* Status */}
               <div>
-                <label className="block text-black font-semibold mb-1">
+                <label className={globalClassNames.block}>
                   Status<span className="ml-1 text-red-500">*</span>
                 </label>
                 <select
                   name="status"
                   value={formData.status}
                   onChange={handleChange}
-                  className="w-full border p-2 rounded-md text-black"
+                  className={globalClassNames.description}
                 >
                   <option value="Active">Active</option>
                   <option value="Inactive">Inactive</option>
@@ -303,7 +303,7 @@ export default function ConneqPage() {
 
               {/* File Upload */}
               <div>
-                <label className="block text-black font-semibold mb-1">
+                <label className={globalClassNames.block}>
                   Upload File(s)<span className="ml-1 text-red-500">*</span>
                 </label>
                 <p className="text-sm text-gray-600 mb-2">
@@ -339,7 +339,7 @@ export default function ConneqPage() {
                     handleFileChange(e);
                   }}
                   required
-                  className="w-full border p-2 rounded-md text-black"
+                  className={globalClassNames.description}
                 />
 
                 {formData.file && (
@@ -352,14 +352,14 @@ export default function ConneqPage() {
               {/* Category (Read-Only) */}
               {formData.file && (
                 <div>
-                  <label className="block text-black font-semibold mb-1">
+                  <label className={globalClassNames.block}>
                     Category
                   </label>
                   <input
                     type="text"
                     value={formData.category}
                     readOnly
-                    className="w-full border p-2 rounded-md bg-gray-100 text-black"
+                    className={globalClassNames.readOnlyField}
                   />
                 </div>
               )}

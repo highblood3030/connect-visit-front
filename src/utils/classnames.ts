@@ -1,4 +1,5 @@
 import ConneqTag from "@/app/conneq-tag/page";
+import { MdDescription } from "react-icons/md";
 
 export const globalClassNames = {
   button:
@@ -31,9 +32,12 @@ export const globalClassNames = {
   closeBUtton:
     "bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition cursor-pointer",
   XButton: "text-xl cursor-pointer text-black hover:text-black cursor-pointer",
-  tagSaveButton:"bg-[#145C5B] text-white px-6 py-2 rounded-md w-full mt-2 hover:bg-[#0e4b4b] transition-all cursor-pointer",
-  tagGreenButton:"bg-green-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-green-600 transition flex items-center cursor-pointer",
-  tagBlueButton:"bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition flex items-center cursor-pointer",
+  tagSaveButton:
+    "bg-[#145C5B] text-white px-6 py-2 rounded-md w-full mt-2 hover:bg-[#0e4b4b] transition-all cursor-pointer",
+  tagGreenButton:
+    "bg-green-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-green-600 transition flex items-center cursor-pointer",
+  tagBlueButton:
+    "bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition flex items-center cursor-pointer",
 
   // Inputs
   inputField: "w-full border p-2 rounded-md text-black",
@@ -63,6 +67,10 @@ export const globalClassNames = {
     "flex-1 min-w-[150px] outline-none bg-transparent text-gray-700 placeholder-gray-400",
   ConneqTag:
     "w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-[#145C5B]",
+  block: "block text-black font-semibold mb-1",
+  description: "w-full border p-2 rounded-md text-black",
+  tagModal: "flex justify-between items-center border-b pb-2",
+  tagLabel: "text-gray-700 font-semibold block mb-1",
 
   // previews
   businessPreview:

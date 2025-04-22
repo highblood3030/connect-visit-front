@@ -208,7 +208,7 @@ export default function ConneqTag() {
               onChange={(e) => setSearchTerm(e.target.value)}
               className={globalClassNames.inputField}
             />
-            <FiSearch className="text-xl text-gray-500 cursor-pointer hover:bg-blue-50" />
+            <FiSearch className="text-xl text-gray-500 cursor-pointer hover:bg-blue-50"/>
           </div>
         </div>
 
@@ -326,7 +326,7 @@ export default function ConneqTag() {
         <div className={globalClassNames.modal}>
           <div className={globalClassNames.modalContent}>
             {/* Modal Header */}
-            <div className="flex justify-between items-center border-b pb-2">
+            <div className={globalClassNames.tagModal}>
               <h2 className="text-xl font-bold text-[#145C5B]">
                 CONNEQ TAG FORM
               </h2>
@@ -340,7 +340,7 @@ export default function ConneqTag() {
             <form onSubmit={handleSubmit} className="mt-4 space-y-4">
               {/* Text Tag */}
               <div>
-                <label className="text-gray-700 font-semibold block mb-1">
+                <label className={globalClassNames.tagLabel}>
                   Text Tag<span className="ml-1 text-red-500">*</span>
                 </label>
                 <textarea
@@ -357,7 +357,7 @@ export default function ConneqTag() {
 
               {/* Name Input */}
               <div>
-                <label className="text-gray-700 font-semibold block mb-1">
+                <label className={globalClassNames.tagLabel}>
                   Name<span className="ml-1 text-red-500">*</span>
                 </label>
                 <input
@@ -374,7 +374,7 @@ export default function ConneqTag() {
 
               {/* Description */}
               <div>
-                <label className="text-gray-700 font-semibold block mb-1">
+                <label className={globalClassNames.tagLabel}>
                   Description
                 </label>
                 <textarea
@@ -390,7 +390,7 @@ export default function ConneqTag() {
 
               {/* Status */}
               <div>
-                <label className="text-gray-700 font-semibold block mb-1">
+                <label className={globalClassNames.tagLabel}>
                   Status
                 </label>
                 {/* Currently fixed as Active, but you can turn this into a select if needed */}
@@ -416,7 +416,7 @@ export default function ConneqTag() {
         <div className={globalClassNames.modal}>
           <div className={globalClassNames.modalContent}>
             {/* Modal Header */}
-            <div className="flex justify-between items-center border-b pb-2">
+            <div className={globalClassNames.tagModal}>
               <h2 className="text-xl font-bold text-[#145C5B]">CONNEQ TAG</h2>
               <FiX
                 className={globalClassNames.XButton}
