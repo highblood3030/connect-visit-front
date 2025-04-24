@@ -1,6 +1,3 @@
-import ConneqTag from "@/app/conneq-tag/page";
-import { MdDescription } from "react-icons/md";
-
 export const globalClassNames = {
   button:
     "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 mb-6 cursor-pointer",

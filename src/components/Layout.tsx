@@ -1,15 +1,22 @@
-"use client";
+"use client"; // Enables Next.js Client Component mode
 
 import { ReactNode, useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { FiUsers, FiMenu, FiLogOut } from "react-icons/fi";
-import { MdSpaceDashboard, MdOutlineSell } from "react-icons/md";
+import {
+  FiUsers,
+  FiMenu,
+  FiLogOut,
+} from "react-icons/fi"; // Icons for UI from Feather Icons
+import {
+  MdSpaceDashboard,
+  MdOutlineSell,
+} from "react-icons/md"; // Material Design Icons
 import { HiOutlineCreditCard } from "react-icons/hi";
 import { RiFileSearchLine } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
 import Image from "next/image";
 
-// Define a type for the user data
+// Type definition for expected user data stored in localStorage
 interface UserData {
   profileImage?: string;
   firstname?: string;
@@ -17,6 +24,7 @@ interface UserData {
   workemail?: string;
 }
 
+// Props type for layout component
 interface LayoutProps {
   children: ReactNode;
 }
@@ -24,11 +32,14 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const router = useRouter();
   const pathname = usePathname();
+
+  // Sidebar state
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [bizDropdownOpen, setBizDropdownOpen] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
-  const sidebarRef = useRef<HTMLDivElement>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null); // Used for click-outside detection
 
+  // On route change or initial load, try to read user data from localStorage
   useEffect(() => {
     const savedData = localStorage.getItem("userFormData");
     if (savedData) {
@@ -36,6 +47,7 @@ export default function Layout({ children }: LayoutProps) {
     }
   }, [pathname]);
 
+  // Close sidebar when clicking outside it
   useEffect(() => {
     if (!sidebarOpen) return;
     const handleClickOutside = (event: MouseEvent) => {
@@ -50,15 +62,22 @@ export default function Layout({ children }: LayoutProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [sidebarOpen]);
 
+  // Apply different background gradient depending on current route
+  const isDashboard = pathname === "/dashboard";
+  const wrapperBackground = isDashboard
+    ? "bg-gradient-to-br from-[#ece0cd] to-[#d8f8fd]"
+    : "bg-gradient-to-br from-white to-gray-100";
+
   return (
-    <div className="h-screen flex bg-gradient-to-br from-[#ece0cd] to-[#d8f8fd]">
+    <div className={`h-screen flex ${wrapperBackground}`}>
+      {/* Sidebar Container */}
       <div
         ref={sidebarRef}
-        className={`fixed top-0 left-0 h-screen w-64 sm:w-80 bg-[#D7F0ED] opacity-100 shadow-xl overflow-y-auto transform transition-transform duration-500 z-50 ${
+        className={`fixed top-0 left-0 h-screen w-64 sm:w-80 bg-[#D7F0ED] shadow-xl overflow-y-auto transform transition-transform duration-500 z-50 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* Sidebar Header */}
+        {/* Sidebar Header - User Info Section */}
         <div className="flex flex-col justify-center items-center px-6 py-6 text-center">
           <Image
             src={userData?.profileImage || "/profile-placeholder.jpeg"}
@@ -75,7 +94,7 @@ export default function Layout({ children }: LayoutProps) {
           </p>
         </div>
 
-        {/* Sidebar Items */}
+        {/* Sidebar Navigation Items */}
         <div className="flex-grow mt-4 space-y-1 sm:space-y-2 text-primary px-6">
           {[
             { label: "DASHBOARD", icon: MdSpaceDashboard, path: "/dashboard" },
@@ -112,7 +131,7 @@ export default function Layout({ children }: LayoutProps) {
                 {item.dropdown && <IoIosArrowDown />}
               </div>
 
-              {/* Dropdown for Conneq-Biz */}
+              {/* Dropdown Menu for "Conneq-Biz" */}
               {item.dropdown && bizDropdownOpen && (
                 <div className="pl-10 space-y-1">
                   {item.dropdown.map((subItem, subIdx) => (
@@ -145,10 +164,10 @@ export default function Layout({ children }: LayoutProps) {
         </div>
       </div>
 
-      {/* Main Content Wrapper */}
+      {/* Main App Container */}
       <div className="flex flex-col flex-grow h-screen overflow-auto">
-        {/* Navbar */}
-        <nav className="bg-[#78bfbd] text-white flex items-center h-16 px-6 fixed top-0 left-0 w-full z-40">
+        {/* Top Navbar */}
+        <nav className="bg-[#00ada7] text-white flex items-center h-16 px-6 fixed top-0 left-0 w-full z-40">
           <button
             onClick={() => setSidebarOpen(true)}
             className="text-3xl text-white focus:outline-none cursor-pointer hover:bg-[#D7F0ED]"
@@ -166,7 +185,7 @@ export default function Layout({ children }: LayoutProps) {
           </div>
         </nav>
 
-        {/* Content */}
+        {/* Children Content */}
         <main className="flex-grow p-4 sm:p-8 mt-16 sm:mt-0">{children}</main>
       </div>
     </div>

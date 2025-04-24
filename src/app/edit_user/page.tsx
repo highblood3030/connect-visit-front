@@ -11,42 +11,8 @@ import SocialMediaAccount from "./SocialMediaAccounts";
 import Others from "./Others";
 import PreviewCard from "./PreviewCard";
 
-export interface UserFormData {
-  firstname: string;
-  middlename?: string;
-  lastname: string;
-  honorificprefix?: string;
-  honorificsuffix?: string;
-  jobtitle: string;
-  company: string;
-  logo: string;
-  website?: string;
-  cellphone?: string;
-  whatsapp?: string;
-  viber?: string;
-  wechat?: string;
-  workphone?: string;
-  workemail: string;
-  workfax?: string;
-  address: string;
-  location: string;
-  linkedin?: string;
-  facebook?: string;
-  note?: string;
-  profileImage?: string;
-
-  street: string;
-  city: string;
-  state: string;
-  postalCode: string;
-  country: string;
-  factoryLocation?: string;
-  factoryStreet?: string;
-  factoryCity?: string;
-  factoryState?: string;
-  factoryPostalCode?: string;
-  factoryCountry?: string;
-}
+import { UserFormData } from "./types";
+import { defaultFormData, tabs } from "./constants";
 
 export default function EditUser() {
   const router = useRouter();
@@ -56,62 +22,17 @@ export default function EditUser() {
   const [profileImage, setProfileImage] = useState("/profile-placeholder.jpeg");
   const [isChecked, setIsChecked] = useState(false);
   const [showError, setShowError] = useState(false);
-
-  const defaultFormData: UserFormData = {
-    firstname: "",
-    middlename: "",
-    lastname: "",
-    honorificprefix: "",
-    honorificsuffix: "",
-    jobtitle: "",
-    company: "",
-    logo: "",
-    website: "",
-    cellphone: "",
-    whatsapp: "",
-    viber: "",
-    wechat: "",
-    workphone: "",
-    workemail: "",
-    workfax: "",
-    address: "",
-    location: "",
-    linkedin: "",
-    facebook: "",
-    note: "",
-    profileImage: "/profile-placeholder.jpeg",
-    street: "",
-    city: "",
-    state: "",
-    postalCode: "",
-    country: "",
-    factoryLocation: "",
-    factoryStreet: "",
-    factoryCity: "",
-    factoryState: "",
-    factoryPostalCode: "",
-    factoryCountry: "",
-  };
+  const [formData, setFormData] = useState<UserFormData>(defaultFormData);
 
   useEffect(() => {
     const storedData = localStorage.getItem("userFormData");
     if (storedData) setFormData(JSON.parse(storedData));
   }, []);
 
-  const [formData, setFormData] = useState<UserFormData>(defaultFormData);
-
-  const tabs = [
-    "PERSONAL INFORMATION",
-    "CONTACT INFORMATION",
-    "OFFICE ADDRESS",
-    "SOCIAL MEDIA ACCOUNTS",
-    "OTHERS",
-  ];
-
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+    >
   ) => {
     const { name, value } = e.target;
     setFormData((prev: UserFormData) => {
@@ -160,10 +81,7 @@ export default function EditUser() {
                     key={idx}
                     onClick={() => {
                       if (idx > activeTab) {
-                        if (
-                          formRef.current &&
-                          !formRef.current.reportValidity()
-                        )
+                        if (formRef.current && !formRef.current.reportValidity())
                           return;
                       }
                       setActiveTab(idx);
@@ -255,7 +173,7 @@ export default function EditUser() {
                 )}
               </div>
 
-              {/* Buttons */}
+              {/* Navigation Buttons */}
               <div className="flex justify-end space-x-4 mt-6">
                 <button
                   type="button"
