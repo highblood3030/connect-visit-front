@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 
 import Layout from "../../components/Layout";
 import PersonalInformation from "./PersonalInformation";
@@ -10,8 +10,11 @@ import OfficeAddress from "./OfficeAddress";
 import SocialMediaAccount from "./SocialMediaAccounts";
 import Others from "./Others";
 import PreviewCard from "./PreviewCard";
+import { saveUserData } from "../conneq-biz/userApi";
+import { v4 as uuidv4 } from "uuid"; // Ensure uuid is installed
 
 export interface UserFormData {
+  userId?: string; // Add userId to the form data
   firstname: string;
   middlename?: string;
   lastname: string;
@@ -57,7 +60,19 @@ export default function EditUser() {
   const [isChecked, setIsChecked] = useState(false);
   const [showError, setShowError] = useState(false);
 
+  
+  
+
+  const tabs = [
+    "PERSONAL INFORMATION",
+    "CONTACT INFORMATION",
+    "OFFICE ADDRESS",
+    "SOCIAL MEDIA ACCOUNTS",
+    "OTHERS",
+  ];
+
   const defaultFormData: UserFormData = {
+    userId: undefined, // Initialize userId as undefined
     firstname: "",
     middlename: "",
     lastname: "",
@@ -93,33 +108,18 @@ export default function EditUser() {
     factoryCountry: "",
   };
 
-  useEffect(() => {
-    const storedData = localStorage.getItem("userFormData");
-    if (storedData) setFormData(JSON.parse(storedData));
-  }, []);
-
   const [formData, setFormData] = useState<UserFormData>(defaultFormData);
 
-  const tabs = [
-    "PERSONAL INFORMATION",
-    "CONTACT INFORMATION",
-    "OFFICE ADDRESS",
-    "SOCIAL MEDIA ACCOUNTS",
-    "OTHERS",
-  ];
-
-  const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev: UserFormData) => {
-      const updatedFormData = { ...prev, [name]: value };
-      localStorage.setItem("userFormData", JSON.stringify(updatedFormData));
-      return updatedFormData;
-    });
-  };
+  useEffect(() => {
+    const storedData = localStorage.getItem("userFormData");
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+      setFormData(parsedData);
+      if (parsedData.profileImage) {
+        setProfileImage(parsedData.profileImage);
+      }
+    }
+  }, []);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -129,7 +129,16 @@ export default function EditUser() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!isChecked) {
@@ -138,8 +147,58 @@ export default function EditUser() {
     }
 
     setShowError(false);
-    localStorage.setItem("userFormData", JSON.stringify(formData));
-    router.push("/conneq-biz");
+
+    try {
+      // Check if userId exists, if not, generate a new one
+      const updatedFormData = {
+        ...formData,
+        userId: formData.userId || uuidv4(),
+      };
+
+
+      // Save data to the backend
+      const result = await saveUserData(updatedFormData);
+      console.log("✔️ Data saved successfully:", result);
+
+      alert("✔️ Data saved successfully!");
+      router.push("/conneq-biz"); // Redirect to the Conneq Biz page
+    } catch (error) {
+      console.error("❌ Error saving user data:", error);
+      alert("❌ Error: Failed to save user data.");
+    }
+    
+    const handleUpdate = async () => {
+      if (!formData || !formData.userId) {
+        alert("❌ User ID is missing. Cannot update user.");
+        return;
+      }
+      
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+      try {
+        const response = await fetch(
+          `${apiUrl}/users/update-user/${formData.userId}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.message || "Failed to update user.");
+        }
+
+        alert("✔️ User updated successfully!");
+        router.push("/conneq-biz");
+      } catch (error) {
+        console.error("Update error:", error);
+        alert("❌ Failed to update user.");
+      }
+    }
   };
 
   return (
@@ -283,6 +342,7 @@ export default function EditUser() {
                 >
                   Save
                 </button>
+
               </div>
             </form>
           </div>

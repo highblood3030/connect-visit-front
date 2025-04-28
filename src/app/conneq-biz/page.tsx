@@ -17,15 +17,38 @@ import QRCode from "qrcode";
 
 interface UserData {
   firstname: string;
+  middlename?: string;
   lastname: string;
-  jobtitle: string;
-  company: string;
-  workemail: string;
-  address: string;
-  cellphone: string;
-  logo?: string;
   honorificprefix?: string;
   honorificsuffix?: string;
+  jobtitle: string;
+  company: string;
+  logo: string;
+  website?: string;
+  cellphone?: string;
+  whatsapp?: string;
+  viber?: string;
+  wechat?: string;
+  workphone?: string;
+  workemail: string;
+  workfax?: string;
+  address: string;
+  location: string;
+  linkedin?: string;
+  facebook?: string;
+  note?: string;
+  profileImage?: string;
+  street: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  country: string;
+  factoryLocation?: string;
+  factoryStreet?: string;
+  factoryCity?: string;
+  factoryState?: string;
+  factoryPostalCode?: string;
+  factoryCountry?: string;
 }
 
 export default function ConneqBizCards() {
@@ -35,11 +58,24 @@ export default function ConneqBizCards() {
   const router = useRouter();
 
   useEffect(() => {
-    const savedData = localStorage.getItem("userFormData");
-    if (savedData) {
-      setUserData(JSON.parse(savedData));
-    }
-  }, []);
+    const fetchUserData = async () => {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+      try {
+        const response = await fetch(`${apiUrl}/users`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
+        }
+        const data = await response.json();
+        setUserData(data.data[data.data.length - 1]);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        router.push("/edit_user");
+      }
+    };
+  
+    fetchUserData();
+  }, [router]);
+  
 
   const handleEdit = () => router.push("/edit_user");
 
