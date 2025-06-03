@@ -11,7 +11,6 @@ import {
 } from "react-icons/fi";
 import { BsPrinter } from "react-icons/bs";
 import QRCode from "react-qr-code";
-import { globalClassNames } from "@/utils/classnames";
 
 interface DataItem {
   id: number;
@@ -137,21 +136,21 @@ export default function ConneqTag() {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 h-[calc(100vh-4rem)] overflow-auto">
-        <h1 className={globalClassNames.conneqPageHeader}>
+        <h1 className="pageheader">
           CONNEQ TAG
         </h1>
 
         {/* Actions Section */}
         <div className="flex flex-wrap gap-4 mt-2">
           <button
-            className={globalClassNames.primaryButton}
+            className="primaryButton"
             onClick={() => setModalOpen(true)}
           >
             + Create
           </button>
 
           <button
-            className={globalClassNames.tagGreenButton}
+            className="tagbuttongreen"
             onClick={() => alert("Upload Tags File Clicked")}
           >
             <FiUpload className="mr-2" />
@@ -159,7 +158,7 @@ export default function ConneqTag() {
           </button>
 
           <button
-            className={globalClassNames.tagBlueButton}
+            className="tagBluebutton"
             onClick={() => alert("Batch Print Clicked")}
           >
             <BsPrinter className="mr-2" />
@@ -168,57 +167,57 @@ export default function ConneqTag() {
         </div>
 
         {/* Filters & Search */}
-        <div className={globalClassNames.conneqbizbars}>
-          <div className={globalClassNames.bizbars}>
+        <div className="conneqbizbars">
+          <div className="bizbars">
             <input
               type="text"
               placeholder="Name filter"
-              className={globalClassNames.bizinput}
+              className="bizinput"
             />
           </div>
 
-          <div className={globalClassNames.bizbars}>
+          <div className="bizbars">
             <input
               type="text"
               placeholder="Tag filter"
-              className={globalClassNames.bizinput}
+              className="bizinput"
             />
           </div>
 
-          <div className={globalClassNames.bizbars}>
+          <div className="bizbars">
             <input
               type="text"
               placeholder="Description filter"
-              className={globalClassNames.bizinput}
+              className="bizinput"
             />
           </div>
 
-          <div className={globalClassNames.bizbars}>
+          <div className="bizbars">
             <input
               type="text"
               placeholder="Date filter"
-              className={globalClassNames.bizinput}
+              className="bizinput"
             />
           </div>
-          <div className={globalClassNames.bizbars}>
+          <div className="bizbars">
             <input
               type="text"
               placeholder="Search"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className={globalClassNames.inputField}
+              className="bizinput"
             />
             <FiSearch className="text-xl text-gray-500 cursor-pointer hover:bg-blue-50"/>
           </div>
         </div>
 
-        {/* Responsive Card View (Mobile) */}
+        {/* Responsive Card View (Mobile)
         <div className="block sm:hidden space-y-4">
           {dataList.length === 0 ? (
             <p className="text-center text-gray-500">No data available</p>
           ) : (
             dataList.map((item) => (
-              <div key={item.id} className={globalClassNames.card}>
+              <div key={item.id} className="card">
                 <div className="flex justify-between items-center mb-2">
                   <p className="font-bold text-[#145C5B]">#{item.id}</p>
                   <span className="text-sm text-gray-600">
@@ -238,7 +237,7 @@ export default function ConneqTag() {
                   <strong>Status:</strong> {item.status}
                 </p>
                 <button
-                  className={globalClassNames.primaryButton}
+                  className="primaryButton"
                   onClick={() => handleViewDetails(item)}
                 >
                   View Details
@@ -246,23 +245,23 @@ export default function ConneqTag() {
               </div>
             ))
           )}
-        </div>
+        </div> */}
 
         {/* Table View (Desktop) */}
         <div className="hidden sm:block overflow-x-auto mt-2">
           <table className="min-w-full border-collapse text-sm sm:text-base">
-            <thead className={globalClassNames.tableHeader}>
+            <thead className="tablehead">
               <tr>
-                <th className={globalClassNames.tableCell}>
+                <th className="cell">
                   <input type="checkbox" />
                 </th>
-                <th className={globalClassNames.tableCell}>ID</th>
-                <th className={globalClassNames.tableCell}>Name</th>
-                <th className={globalClassNames.tableCell}>Text Tag</th>
-                <th className={globalClassNames.tableCell}>Description</th>
-                <th className={globalClassNames.tableCell}>Status</th>
-                <th className={globalClassNames.tableCell}>Date Created</th>
-                <th className={globalClassNames.tableCell}>Actions</th>
+                <th className="cell">ID</th>
+                <th className="cell">Name</th>
+                <th className="cell">Text Tag</th>
+                <th className="cell">Description</th>
+                <th className="cell">Status</th>
+                <th className="cell">Date Created</th>
+                <th className="cell">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -302,7 +301,7 @@ export default function ConneqTag() {
                       <td className="py-3 px-4">{item.dateCreated}</td>
                       <td className="py-3 px-4">
                         <button
-                          className={globalClassNames.primaryButton}
+                          className="primaryButton"
                           onClick={() => handleViewDetails(item)}
                         >
                           View Details
@@ -315,23 +314,23 @@ export default function ConneqTag() {
           </table>
         </div>
         {/* Pagination */}
-        <div className={globalClassNames.pagination}>
-          <button className={globalClassNames.paginationButton}>◀</button>
+        <div className="pagination">
+          <button className="paginationButton">◀</button>
           <span className="text-gray-600">Page 1 of 1</span>
-          <button className={globalClassNames.paginationButton}>▶</button>
+          <button className="paginationButton">▶</button>
         </div>
       </div>
       {/* Create Modal */}
       {modalOpen && (
-        <div className={globalClassNames.modal}>
-          <div className={globalClassNames.modalContent}>
+        <div className="modal">
+          <div className="modalcontent">
             {/* Modal Header */}
-            <div className={globalClassNames.tagModal}>
+            <div className="tagModal">
               <h2 className="text-xl font-bold text-[#145C5B]">
                 CONNEQ TAG FORM
               </h2>
               <FiX
-                className={globalClassNames.XButton}
+                className="close"
                 onClick={() => setModalOpen(false)}
               />
             </div>
@@ -340,12 +339,12 @@ export default function ConneqTag() {
             <form onSubmit={handleSubmit} className="mt-4 space-y-4">
               {/* Text Tag */}
               <div>
-                <label className={globalClassNames.tagLabel}>
+                <label className="taglabel">
                   Text Tag<span className="ml-1 text-red-500">*</span>
                 </label>
                 <textarea
                   name="textTag"
-                  className={globalClassNames.ConneqTag}
+                  className="conneqTag"
                   placeholder="Text Tag"
                   rows={2}
                   maxLength={50}
@@ -357,14 +356,14 @@ export default function ConneqTag() {
 
               {/* Name Input */}
               <div>
-                <label className={globalClassNames.tagLabel}>
+                <label className="taglabel">
                   Name<span className="ml-1 text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   name="name"
                   maxLength={30}
-                  className={globalClassNames.ConneqTag}
+                  className="conneqTag"
                   placeholder="Item Name"
                   required
                   value={formData.name}
@@ -374,12 +373,12 @@ export default function ConneqTag() {
 
               {/* Description */}
               <div>
-                <label className={globalClassNames.tagLabel}>
+                <label className="taglabel">
                   Description
                 </label>
                 <textarea
                   name="description"
-                  className={globalClassNames.ConneqTag}
+                  className="conneqTag"
                   placeholder="Description"
                   rows={3}
                   maxLength={50}
@@ -390,7 +389,7 @@ export default function ConneqTag() {
 
               {/* Status */}
               <div>
-                <label className={globalClassNames.tagLabel}>
+                <label className="taglabel">
                   Status
                 </label>
                 {/* Currently fixed as Active, but you can turn this into a select if needed */}
@@ -402,7 +401,7 @@ export default function ConneqTag() {
               {/* Save Button */}
               <button
                 type="submit"
-                className={globalClassNames.tagSaveButton}
+                className="tagsave"
               >
                 Save
               </button>
@@ -413,13 +412,13 @@ export default function ConneqTag() {
 
       {/* View Details Modal */}
       {viewModalOpen && selectedItem && (
-        <div className={globalClassNames.modal}>
-          <div className={globalClassNames.modalContent}>
+        <div className="modal">
+          <div className="modalcontent">
             {/* Modal Header */}
-            <div className={globalClassNames.tagModal}>
+            <div className="tagModal">
               <h2 className="text-xl font-bold text-[#145C5B]">CONNEQ TAG</h2>
               <FiX
-                className={globalClassNames.XButton}
+                className="close"
                 onClick={() => setViewModalOpen(false)}
               />
             </div>
@@ -433,7 +432,7 @@ export default function ConneqTag() {
 
               {/* Download QR Button */}
               <button
-                className={globalClassNames.Downloadbutton}
+                className="tagdownload"
                 onClick={handleDownloadQR}
               >
                 <FiDownload className="mr-2" />
@@ -461,7 +460,7 @@ export default function ConneqTag() {
 
       {/* Success Modal (Details Successfully Saved) */}
       {successModalOpen && (
-        <div className={globalClassNames.modal}>
+        <div className="modal">
           <div className="bg-blur p-6 rounded-lg shadow-lg w-full max-w-sm flex flex-col items-center">
             {/* Icon in a green circle */}
             <div className="mx-auto mb-4 flex items-center justify-center w-20 h-20 rounded-full bg-green-100">
@@ -475,13 +474,13 @@ export default function ConneqTag() {
             <div className="flex flex-wrap gap-2 mb-4">
               <button
                 onClick={handleDownloadPDF}
-                className={globalClassNames.Downloadbutton}
+                className="tagdownload"
               >
                 Download PDF
               </button>
               <button
                 onClick={() => setSuccessModalOpen(false)}
-                className={globalClassNames.closeBUtton}
+                className="tagclose"
               >
                 Close
               </button>

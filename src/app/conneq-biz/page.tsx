@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Layout from "../../components/Layout";
 import PreviewCard from "../edit_user/PreviewCard";
-import { globalClassNames } from "@/utils/classnames";
 import {
   FiEdit,
   FiMail,
@@ -14,6 +13,7 @@ import {
 } from "react-icons/fi";
 import html2canvas from "html2canvas";
 import QRCode from "qrcode";
+import "../../app/global.scss";
 
 interface UserData {
   firstname: string;
@@ -131,7 +131,7 @@ export default function ConneqBizCards() {
         <div className="mb-4 text-center md:text-left mt-8 md:mt-16">
           <h1 className="text-2xl break-words font-bold">MY CARDS</h1>
         </div>
-        <div className={globalClassNames.button}>
+        <div className="button" >
           {[
             {
               onClick: handleEdit,
@@ -159,8 +159,10 @@ export default function ConneqBizCards() {
               label: "Download My QR",
             },
           ].map(({ onClick, icon, label }, i) => (
-            <div key={i} className={globalClassNames.card}>
-              <button onClick={onClick} className={globalClassNames.iconButton}>
+            <div key={i} className="card"
+            >
+              <button onClick={onClick} className="iconButton"
+              >
                 {icon}
                 {label}
               </button>
@@ -168,7 +170,7 @@ export default function ConneqBizCards() {
           ))}
         </div>
 
-        <div className={globalClassNames.bizPreview}>
+        <div className= "bizpreview">
           <div className="flex flex-col items-center w-full max-w-lg mt-4">
             <PreviewCard
               title="Business Card"
@@ -177,7 +179,7 @@ export default function ConneqBizCards() {
             />
           </div>
 
-          <div className="flex flex-col items-center w-full max-w-lg m-auto mt-10">
+          <div className="flex flex-col items-center w-full max-w-lg mt-4">
             <div
               id="email-signature-card"
               className="w-full overflow-hidden p-4 rounded-lg"
@@ -194,11 +196,11 @@ export default function ConneqBizCards() {
 
       {businessModalOpen && (
         <div
-          className={globalClassNames.modal}
+          className="modal"
           onClick={() => setBusinessModalOpen(false)}
         >
           <div
-            className={globalClassNames.modalContent}
+            className="modalcontent"
             onClick={(e) => e.stopPropagation()}
           >
             <h2 className="text-xl text-center mb-6">Send Business Card</h2>
@@ -222,7 +224,7 @@ export default function ConneqBizCards() {
             />
             <div className="flex justify-center mt-6">
               <button
-                className={globalClassNames.primaryButton}
+                className="primaryButton"
                 onClick={handleSendEmail}
               >
                 Send Email
@@ -233,12 +235,12 @@ export default function ConneqBizCards() {
       )}
 
       {errorMessage && (
-        <div className={globalClassNames.errorContainer}>
-          <div className={globalClassNames.errorContent}>
+        <div className="errorcontainer">
+          <div className="errorcontent">
             <p className="text-lg">{errorMessage}</p>
             <button
               onClick={() => setErrorMessage(null)}
-              className={globalClassNames.primaryButton}
+              className="primaryButton"
             >
               OK
             </button>

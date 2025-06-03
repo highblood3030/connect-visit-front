@@ -3,7 +3,6 @@
 import Layout from "../../components/Layout";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { globalClassNames } from "@/utils/classnames";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -22,12 +21,12 @@ export default function Dashboard() {
           <p>Welcome back Lakers Fan ✌🏾</p>
         </div>
 
-        <div className={globalClassNames.sideBar}>
+        <div className="sidebar">
           {sidebarItems.map((card, idx) => (
             <div
               key={idx}
               onClick={() => router.push(card.path)}
-              className={globalClassNames.Dashboard}
+              className="dashboard"
             >
               <div className="relative w-32 h-32 mb-3">
                 <Image

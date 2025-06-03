@@ -1,6 +1,5 @@
 "use client";
 
-import { globalClassNames } from "@/utils/classnames";
 import Image from "next/image";
 
 interface FormData {
@@ -66,7 +65,7 @@ export default function PreviewCard({ title, formData }: Props) {
 
         {/* EMAIL SIGNATURE */}
         {title === "Email Signature" && (
-          <div className={globalClassNames.emailPreview}>
+          <div className="mailpreview">
             <Image
               src="/qr.png"
               alt="QR Code"
@@ -181,8 +180,8 @@ export default function PreviewCard({ title, formData }: Props) {
 
         {/* BUSINESS CARD */}
         {title === "Business Card" && (
-          <div className={globalClassNames.businessPreview}>
-            <div className={globalClassNames.previewBusiness}>
+          <div className="businessPreview">
+            <div className="previewbusiness">
               <Image
                 src={formData.profileImage || "/profile-placeholder.jpeg"}
                 className="object-cover w-full h-full rounded-full"

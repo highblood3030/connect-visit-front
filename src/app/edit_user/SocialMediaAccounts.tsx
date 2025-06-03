@@ -1,4 +1,4 @@
-import { globalClassNames } from "@/utils/classnames";
+
 import React from "react";
 
 interface SocialMediaProps {
@@ -28,7 +28,7 @@ const SocialMediaAccount: React.FC<SocialMediaProps> = ({
             name="facebook"
             value={formData.facebook}
             onChange={handleInputChange}
-            className={globalClassNames.socialmedia}
+            className="socials"
           >
             <option value=""></option>
           </select>
@@ -42,7 +42,7 @@ const SocialMediaAccount: React.FC<SocialMediaProps> = ({
             name="linkedin"
             value={formData.linkedin}
             onChange={handleInputChange}
-            className={globalClassNames.socialmedia}
+            className="socials"
           >
             <option value=""></option>
             <option value="linkedin.com/company/d&l-industries-inc.">

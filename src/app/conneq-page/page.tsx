@@ -4,7 +4,6 @@ import Layout from "../../components/Layout"; // ✅ Ensure Layout is used
 import { useState } from "react";
 import { FiSearch, FiX, FiDownload, FiEdit, FiInfo } from "react-icons/fi";
 import QRCode from "react-qr-code";
-import { globalClassNames } from "@/utils/classnames";
 
 // Define the data item interface for list items
 interface DataItem {
@@ -132,12 +131,12 @@ export default function ConneqPage() {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 h-[calc(100vh-4rem)] overflow-auto">
-        <h1 className={globalClassNames.conneqPageHeader}>CONNEQ PAGE</h1>
+        <h1 className="pageheader">CONNEQ PAGE</h1>
 
         {/* Create & Search Section */}
-        <div className={globalClassNames.conneqPageCreate}>
+        <div className="pagecreate">
           <button
-            className={globalClassNames.primaryButton}
+            className="primaryButton"
             onClick={() => {
               setFormData({
                 name: "",
@@ -152,13 +151,13 @@ export default function ConneqPage() {
           >
             + Create
           </button>
-          <div className={globalClassNames.conneqPageSearch}>
+          <div className="pagesearch">
             <input
               type="text"
               placeholder="Search"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className={globalClassNames.inputField}
+              className="input-field"
             />
             <FiSearch className="text-xl text-gray-500 cursor-pointer" />
           </div>
@@ -168,14 +167,14 @@ export default function ConneqPage() {
         <div className="hidden md:block"></div>
         <div className="bg-white shadow-lg rounded-lg w-full overflow-x-auto">
           <table className="w-full border-collapse">
-            <thead className={globalClassNames.tableHeader}>
+            <thead className="tablehead">
               <tr>
-                <th className={globalClassNames.tableCell}>ID</th>
-                <th className={globalClassNames.tableCell}>Name</th>
-                <th className={globalClassNames.tableCell}>Category</th>
-                <th className={globalClassNames.tableCell}>Description</th>
-                <th className={globalClassNames.tableCell}>Status</th>
-                <th className={globalClassNames.tableCell}>Actions</th>
+                <th className="cell">ID</th>
+                 <th className="cell">Name</th>
+                 <th className="cell">Category</th>
+                 <th className="cell">Description</th>
+                 <th className="cell">Status</th>
+                 <th className="cell">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -212,13 +211,13 @@ export default function ConneqPage() {
                       </td>
                       <td className="py-3 px-4 flex space-x-2">
                         <button
-                          className={globalClassNames.editButton}
+                          className="edit"
                           onClick={() => handleEdit(item)}
                         >
                           Edit
                         </button>
                         <button
-                          className={globalClassNames.primaryButton}
+                          className="primaryButton"
                           onClick={() => handleViewDetails(item)}
                         >
                           View Details
@@ -231,23 +230,23 @@ export default function ConneqPage() {
           </table>
         </div>
         {/* Pagination */}
-        <div className={globalClassNames.pagination}>
-          <button className={globalClassNames.pagenationButton}>◀</button>
+        <div className="pagination">
+          <button className="paginationButton">◀</button>
           <span className="text-gray-600">Page 1 of 1</span>
-          <button className={globalClassNames.paginationButton}>▶</button>
+          <button className="paginationButton">▶</button>
         </div>
       </div>
 
       {/* Create & Edit Modal */}
       {modalOpen && (
-        <div className={globalClassNames.modal}>
-          <div className={globalClassNames.modalContent}>
+        <div className="modal">
+          <div className="modalcontent">
             <div className="flex justify-between items-center border-b pb-2">
               <h2 className="text-xl font-bold text-black">
                 {editMode ? "Edit CONNEQ Page" : "CONNEQ PAGE FORM"}
               </h2>
               <FiX
-                className={globalClassNames.XButton}
+                className="close"
                 onClick={() => setModalOpen(false)}
               />
             </div>
@@ -255,7 +254,7 @@ export default function ConneqPage() {
             <form onSubmit={handleSubmit} className="grid gap-4">
               {/* Name */}
               <div>
-                <label className={globalClassNames.block}>
+                <label className="block">
                   Name<span className="ml-1 text-red-500">*</span>
                 </label>
                 <input
@@ -266,13 +265,13 @@ export default function ConneqPage() {
                   onChange={handleChange}
                   placeholder="Item Name"
                   required
-                  className={globalClassNames.description}
+                  className="description"
                 />
               </div>
 
               {/* Description */}
               <div>
-                <label className={globalClassNames.block}>
+                <label className="block">
                   Description
                 </label>
                 <textarea
@@ -281,20 +280,20 @@ export default function ConneqPage() {
                   value={formData.description}
                   onChange={handleChange}
                   placeholder="Description"
-                  className={globalClassNames.description}
+                  className="description"
                 ></textarea>
               </div>
 
               {/* Status */}
               <div>
-                <label className={globalClassNames.block}>
+                <label className="block">
                   Status<span className="ml-1 text-red-500">*</span>
                 </label>
                 <select
                   name="status"
                   value={formData.status}
                   onChange={handleChange}
-                  className={globalClassNames.description}
+                  className="description"
                 >
                   <option value="Active">Active</option>
                   <option value="Inactive">Inactive</option>
@@ -303,7 +302,7 @@ export default function ConneqPage() {
 
               {/* File Upload */}
               <div>
-                <label className={globalClassNames.block}>
+                <label className="block">
                   Upload File(s)<span className="ml-1 text-red-500">*</span>
                 </label>
                 <p className="text-sm text-gray-600 mb-2">
@@ -311,7 +310,7 @@ export default function ConneqPage() {
                 </p>
                 <input
                   type="file"
-                  accept=".jpg,.jpeg,.gif,.png,.heif,.pdf,image/jpeg,image/jpg,image/gif,image/png,image/heif,application/pdf"
+                  accept=".jpg,.jpeg,.gif,.png,.heif,.pdf"
                   onChange={(e) => {
                     const files = e.target.files;
                     if (!files || files.length === 0) {
@@ -325,7 +324,6 @@ export default function ConneqPage() {
                       "image/png",
                       "image/gif",
                       "image/heif",
-                      "application/pdf",
                     ];
 
                     if (!allowedTypes.includes(file.type)) {
@@ -339,7 +337,7 @@ export default function ConneqPage() {
                     handleFileChange(e);
                   }}
                   required
-                  className={globalClassNames.description}
+                  className="description"
                 />
 
                 {formData.file && (
@@ -352,14 +350,14 @@ export default function ConneqPage() {
               {/* Category (Read-Only) */}
               {formData.file && (
                 <div>
-                  <label className={globalClassNames.block}>
+                  <label className="block">
                     Category
                   </label>
                   <input
                     type="text"
                     value={formData.category}
                     readOnly
-                    className={globalClassNames.readOnlyField}
+                    className="input-field:focus"
                   />
                 </div>
               )}
@@ -367,7 +365,7 @@ export default function ConneqPage() {
               {/* Save Button */}
               <button
                 type="submit"
-                className={globalClassNames.tagSaveButton}
+                className="save"
               >
                 Save
               </button>
@@ -378,12 +376,12 @@ export default function ConneqPage() {
 
       {/* View Details Modal */}
       {viewModalOpen && selectedItem && (
-        <div className={globalClassNames.modal}>
-          <div className={globalClassNames.modalContent}>
+        <div className="modal">
+          <div className="modalcontent">
             {/* Close Icon */}
             <div className="flex justify-end">
               <FiX
-                className={globalClassNames.XButton}
+                className="close"
                 onClick={() => setViewModalOpen(false)}
               />
             </div>
@@ -451,7 +449,7 @@ export default function ConneqPage() {
               {/* Download Button */}
               <button
                 onClick={handleDownloadFile}
-                className={globalClassNames.Downloadbutton}
+                className="download"
               >
                 <FiDownload className="mr-2" />
                 Download
@@ -462,7 +460,7 @@ export default function ConneqPage() {
                   setViewModalOpen(false);
                   handleEdit(selectedItem);
                 }}
-                className={globalClassNames.editButton}
+                className="edit"
               >
                 <FiEdit className="mr-2" />
                 Edit
